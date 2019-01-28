@@ -7,7 +7,7 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">aapl
+        http://www.springframework.org/schema/context/spring-context.xsd">
 
 
     <!-- Prend en compte la configuration des injections (@Inject...) -->
@@ -15,7 +15,5 @@
 
     <!-- Scanne les packages pour trouver les beans qui se déclarent (@Named...) -->
     <context:component-scan base-package="com.berthoud.ocp6"/>
-
-
 
 </beans>
