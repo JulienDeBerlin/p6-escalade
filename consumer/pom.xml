@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>consumer</artifactId>
-    <packaging>war</packaging>
 
 
     <name>consumer</name>
@@ -50,6 +49,10 @@
             <artifactId>spring-webmvc</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
 
     </dependencies>
 

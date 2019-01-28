@@ -24,15 +24,14 @@
 
     <dependencies>
 
-
         <dependency>
             <groupId>com.berthoud.ocp6</groupId>
             <artifactId>model</artifactId>
         </dependency>
 
         <dependency>
-             <groupId>com.berthoud.ocp6</groupId>
-             <artifactId>consumer</artifactId>
+            <groupId>com.berthoud.ocp6</groupId>
+            <artifactId>consumer</artifactId>
         </dependency>
 
         <dependency>
@@ -47,13 +46,9 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
+
 
     </dependencies>
 
