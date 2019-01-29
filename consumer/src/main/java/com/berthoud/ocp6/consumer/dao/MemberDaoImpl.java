@@ -1,6 +1,6 @@
 //package com.berthoud.ocp6.dao;
 //
-//import com.berthoud.ocp6.beans.Member;
+//import Member;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.jdbc.core.BeanPropertyRowMapper;
 //import org.springframework.jdbc.core.JdbcTemplate;

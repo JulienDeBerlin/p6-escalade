@@ -1,6 +1,6 @@
-package com.berthoud.ocp6.dao;
+package com.berthoud.ocp6.consumer.dao;
 
-import com.berthoud.ocp6.beans.Member;
+import com.berthoud.ocp6.model.bean.Member;
 
 import java.util.List;
 

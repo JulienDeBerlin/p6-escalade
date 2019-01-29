@@ -1,4 +1,4 @@
-package com.berthoud.ocp6.beans;
+package com.berthoud.ocp6.model.bean;
 
 import java.util.Date;
 

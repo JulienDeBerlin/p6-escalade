@@ -3,12 +3,40 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-  <!-- ... -->
+
+  <display-name>High, la plateforme collaborative pour les passionnés d'escalade</display-name>
+
+
+  <!--Le listener indique à tomcat de charger le contexte d'application Spring, selon-->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+
+  <!--La configuration du contexte d'application-->
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>classpath:applicationContext.xml</param-value>
+    <param-value>classpath:appconfig-root.xml</param-value>
   </context-param>
+
+<!--On déclare ici le front controller de Spring MVC (dispatcher servlet) qui va recevoir toutes les requêtes du browser
+et les redispatcher -->
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>
+      org.springframework.web.servlet.DispatcherServlet
+    </servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value></param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/spring-mvc/*</url-pattern>
+  </servlet-mapping>
+
+
+
 </web-app>
