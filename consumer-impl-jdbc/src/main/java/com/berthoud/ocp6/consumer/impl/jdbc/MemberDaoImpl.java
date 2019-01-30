@@ -1,4 +1,4 @@
-package com.berthoud.ocp6.consumer.dao.impl;
+package com.berthoud.ocp6.consumer.impl.jdbc;
 
 import com.berthoud.ocp6.consumer.dao.contract.MemberDao;
 import com.berthoud.ocp6.model.bean.Member;

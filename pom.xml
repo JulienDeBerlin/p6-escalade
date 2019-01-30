@@ -18,9 +18,10 @@
   <modules>
       <module>webapp</module>
       <module>business</module>
-      <module>consumer</module>
+      <module>consumer-contract</module>
+      <module>consumer-impl-jdbc</module>
       <module>model</module>
-    </modules>
+  </modules>
 
   <!-- ===== General information ===== -->
   <name>application-escalade</name>
@@ -64,9 +65,15 @@
 
       <dependency>
         <groupId>com.berthoud.ocp6</groupId>
-        <artifactId>consumer</artifactId>
+        <artifactId>consumer-contract</artifactId>
         <version>1.0-SNAPSHOT</version>
       </dependency>
+
+       <dependency>
+         <groupId>com.berthoud.ocp6</groupId>
+         <artifactId>consumer-impl-jdbc</artifactId>
+         <version>1.0-SNAPSHOT</version>
+       </dependency>
 
       <!-- ===== Other dependencies ===== -->
 
