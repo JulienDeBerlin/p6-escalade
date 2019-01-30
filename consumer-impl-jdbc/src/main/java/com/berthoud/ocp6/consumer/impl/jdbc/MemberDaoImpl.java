@@ -5,18 +5,19 @@ import com.berthoud.ocp6.model.bean.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
+@Component
 public class MemberDaoImpl extends AbstractDaoImpl implements MemberDao {
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
 
     @Override
     public List<Member> findAll() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         return jdbcTemplate.query("select * from member", new BeanPropertyRowMapper(Member.class));
     }
 }
