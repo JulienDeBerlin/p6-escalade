@@ -31,7 +31,7 @@
 
         <dependency>
             <groupId>com.berthoud.ocp6</groupId>
-            <artifactId>consumer</artifactId>
+            <artifactId>business</artifactId>
         </dependency>
 
         <dependency>
