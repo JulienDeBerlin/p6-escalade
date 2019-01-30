@@ -203,11 +203,5 @@ buildNumber.properties
 
 # End of https://www.gitignore.io/api/test,macos,maven,intellij
 
-.name
-compiler.xml
-consumer.iml
-encodings.xml
-misc.xml
-vcs.xml
-Application.iml
+
 

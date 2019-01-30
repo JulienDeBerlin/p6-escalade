@@ -7,12 +7,12 @@
   <display-name>High, la plateforme collaborative pour les passionnés d'escalade</display-name>
 
 
-  <!--Le listener indique à tomcat de charger le contexte d'application Spring, selon-->
+  <!--Le listener indique à tomcat de charger le contexte d'application Spring, selon...-->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
 
-  <!--La configuration du contexte d'application-->
+  <!--... la configuration du contexte d'application-->
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath:appconfig-root.xml</param-value>
@@ -37,6 +37,10 @@ et les redispatcher -->
     <url-pattern>/spring-mvc/*</url-pattern>
   </servlet-mapping>
 
-
+    <resource-ref>
+        <res-ref-name>jdbc/PostGre_Escalade</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 
 </web-app>
