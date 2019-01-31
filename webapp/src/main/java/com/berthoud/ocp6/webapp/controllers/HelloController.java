@@ -21,7 +21,7 @@ public class HelloController {
         // use the viewresolver (in appconfig-mvc.xml) to find the jsp:
         logger.info("This Is An Info Log Entry ......!");
         logger.error("This Is An Error Log Entry ......!");
-        logger.info("All user --> {}", memberDao.findAll());
+//        logger.info("All user --> {}", memberDao.findAll());
         return "hello";
     }
 }
