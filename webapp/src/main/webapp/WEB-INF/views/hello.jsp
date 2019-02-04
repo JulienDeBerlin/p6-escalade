@@ -19,7 +19,7 @@
 <p>Hello guys</p>
 <%--<img src="${pageContext.request.contextPath}/resources/img/pictureHome.jpg" alt="montagnes">--%>
 <%--<img src="/resources/img/pictureHome.jpg" alt="montagnes"/>--%>
-<img src="<c:url value="/resources/img/pictureHome.jpg" />" alt="montagnes"/>
+<img src="<c:url value="/resources/img/hauteMontage.jpg" />" alt="montagnes"/>
 
 
 <script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
