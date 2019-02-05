@@ -66,31 +66,26 @@
 
     <p>RECHERCHER UN SITE</p>
 
+    <form method="post" action="/escalade/spots">
 
-    <form method="post" action="/spots">
+        <div class="form-group">
+            <label for="lieu">Localisation</label>
+            <input name="lieu" type="text" class="form-control" id="lieu" placeholder="Région, département, commune, site...">
+        </div>
 
-        <div class="row">
-
-            <div class="form-group">
-                <label for="lieu">Localisation</label>
-                <input type="text" class="form-control" id="lieu" placeholder="Région, département, commune, site...">
-            </div>
-
-            <div class="form-group">
-                <label for="level">Cotation minimum</label>
-                <select class="form-control" id="level">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                </select>
-            </div>
-
+        <div class="form-group">
+            <label for="level">Cotation minimum</label>
+            <select class="form-control" id="level">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+            </select>
         </div>
 
         <div class="form-check">
