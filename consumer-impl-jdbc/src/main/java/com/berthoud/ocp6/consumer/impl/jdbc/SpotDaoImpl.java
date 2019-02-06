@@ -12,8 +12,13 @@ import java.util.List;
 public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
 
     @Override
-    public List<Spot> findAll(String location) {
+    public List<Spot> findSpotByLocation(String location) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        return jdbcTemplate.query("select * from spot", new BeanPropertyRowMapper(Spot.class));
+        String mySqlRequest =   "select * from spot " +
+                                "where spot.location_id in " +
+                                        "(select location.id from location "+
+                                        "where location.city_name = ? )";
+
+        return jdbcTemplate.query (mySqlRequest, new Object[]{location}, new BeanPropertyRowMapper(Spot.class));
     }
 }

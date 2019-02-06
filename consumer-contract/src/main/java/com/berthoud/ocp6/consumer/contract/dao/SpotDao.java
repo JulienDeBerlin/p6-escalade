@@ -4,5 +4,5 @@ import java.util.List;
 
 
 public interface SpotDao {
-    public List<Spot> findAll (String location);
+    public List<Spot> findSpotByLocation(String location);
 }
