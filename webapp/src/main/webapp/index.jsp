@@ -12,7 +12,8 @@
 
 <head>
     <title>High</title>
-    <link href="/webjars/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/css/bootstrap.min.css"
+          rel="stylesheet"/>
 
     <style type="text/css">
         .jumbotron-fluid {
@@ -56,6 +57,7 @@
                 und weshalb man die Lust anklagt und den Schmerz lobet, so will ich
                 Euch Alles eröffnen und auseinander setzen, was jener Begründer der Wahrheit
         </section>
+        <img src="/resources/img/paysageCantal.jpg" alt="Italian Trulli">
 
         <section id="block2" class="col-lg-6">
             <p>Damit Ihr indess erkennt, woher dieser ganze Irrthum gekommen ist,
@@ -66,7 +68,7 @@
 
     <p>RECHERCHER UN SITE</p>
 
-    <form method="post" action="/escalade/spots">
+    <form method="post" action="${pageContext.request.contextPath}/escalade/spots">
 
         <div class="form-group">
             <label for="lieu">Localisation</label>
@@ -103,8 +105,8 @@
 
 </div>
 
-<script src="/webjars/jquery/3.0.0/jquery.min.js"></script>
-<script src="/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 </body>
 
