@@ -57,7 +57,6 @@
                 und weshalb man die Lust anklagt und den Schmerz lobet, so will ich
                 Euch Alles eröffnen und auseinander setzen, was jener Begründer der Wahrheit
         </section>
-        <img src="/resources/img/paysageCantal.jpg" alt="Italian Trulli">
 
         <section id="block2" class="col-lg-6">
             <p>Damit Ihr indess erkennt, woher dieser ganze Irrthum gekommen ist,

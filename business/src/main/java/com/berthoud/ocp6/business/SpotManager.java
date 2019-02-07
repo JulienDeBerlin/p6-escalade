@@ -8,4 +8,7 @@ import java.util.List;
 public interface SpotManager {
 
     List<Spot> lookForSpotsBasedOnLocation(String location);
+
+    List<Spot> lookForDetailledSpotsBasedOnLocation(String location);
+
 }

@@ -1,5 +1,7 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.util.List;
+
 public class Location {
 
     private int id;
@@ -8,15 +10,17 @@ public class Location {
     private int departementId;
     private String cityName;
     private String zipCode;
+    private List<Spot> spots;
 
 
-    public Location(int id, String region, String departementName, int departementId, String cityName, String zipCode) {
+    public Location(int id, String region, String departementName, int departementId, String cityName, String zipCode, List<Spot> spots) {
         this.id = id;
         this.region = region;
         this.departementName = departementName;
         this.departementId = departementId;
         this.cityName = cityName;
         this.zipCode = zipCode;
+        this.spots = spots;
     }
 
     public Location() {
@@ -70,6 +74,14 @@ public class Location {
         this.zipCode = zipCode;
     }
 
+    public List<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(List<Spot> spots) {
+        this.spots = spots;
+    }
+
     @Override
     public String toString() {
         return "Location{" +
@@ -79,6 +91,7 @@ public class Location {
                 ", departementId=" + departementId +
                 ", cityName='" + cityName + '\'' +
                 ", zipCode='" + zipCode + '\'' +
+                ", spots=" + spots +
                 '}';
     }
 }

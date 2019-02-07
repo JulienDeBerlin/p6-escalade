@@ -18,10 +18,17 @@
 
 <ul>
     <c:forEach items="${ listSpots }" var="spot">
-        <li><c:out value="${ spot.id }" />
+        <li>
             <c:out value="${ spot.nameSpot } " />
             <c:out value="${ spot.nameArea }" />
-            <c:out value="${ spot.locationId }" />
+
+            <c:forEach items="${ spot.routes }" var="route">
+            <li>
+             <p>Nom de la voie: <c:out value="${ route.name }" /> </p>
+             <p>Cotation: <c:out value="${ route.rating }" /> </p>
+            </li>
+            </c:forEach>
+
         </li>
     </c:forEach>
 </ul>

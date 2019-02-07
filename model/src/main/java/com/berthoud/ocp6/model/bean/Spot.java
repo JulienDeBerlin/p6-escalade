@@ -1,17 +1,21 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.util.List;
+
 public class Spot {
 
     private int id;
     private String nameSpot;
     private String nameArea;
-    private int locationId;
+    private Location location;
+    private List<Route> routes;
 
-    public Spot(int id, String nameSpot, String nameArea, int locationId) {
+    public Spot(int id, String nameSpot, String nameArea, Location location, List<Route> myRoutes ) {
         this.id = id;
         this.nameSpot = nameSpot;
         this.nameArea = nameArea;
-        this.locationId = locationId;
+        this.location = location;
+        this.routes = myRoutes;
     }
 
     public Spot() {
@@ -41,12 +45,20 @@ public class Spot {
         this.nameArea = nameArea;
     }
 
-    public int getLocationId() {
-        return locationId;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
     }
 
     @Override
@@ -55,7 +67,8 @@ public class Spot {
                 "id=" + id +
                 ", nameSpot='" + nameSpot + '\'' +
                 ", nameArea='" + nameArea + '\'' +
-                ", locationId=" + locationId +
+                ", location=" + location +
+                ", routes=" + routes +
                 '}';
     }
 }

@@ -30,7 +30,7 @@ public class ControllerSpots {
 
     @RequestMapping(value = "/spots", method = RequestMethod.POST)
     public String getResultSpots(@RequestParam (value = "lieu") String lieu, ModelMap model) {
-        model.put("listSpots", spotManager.lookForSpotsBasedOnLocation(lieu));
+        model.put("listSpots", spotManager.lookForDetailledSpotsBasedOnLocation(lieu));
         return "spots";
     }
 

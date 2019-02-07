@@ -8,18 +8,18 @@ public class Route {
     private byte indexPitch;
     private String rating;
     private boolean bolted;
-    private int spotId;
+    private Spot spot;
 
 
     public Route(int id, String name, byte nbPitch, byte indexPitch,
-                 String rating, boolean bolted, int spotId) {
+                 String rating, boolean bolted, Spot spot) {
         this.id = id;
         this.name = name;
         this.nbPitch = nbPitch;
         this.indexPitch = indexPitch;
         this.rating = rating;
         this.bolted = bolted;
-        this.spotId = spotId;
+        this.spot = spot;
     }
 
     public Route() {
@@ -73,12 +73,12 @@ public class Route {
         this.bolted = bolted;
     }
 
-    public int getSpotId() {
-        return spotId;
+    public Spot getSpot() {
+        return spot;
     }
 
-    public void setSpotId(int spotId) {
-        this.spotId = spotId;
+    public void setSpot(Spot spot) {
+        this.spot = spot;
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Route {
                 ", indexPitch=" + indexPitch +
                 ", rating='" + rating + '\'' +
                 ", bolted=" + bolted +
-                ", spotId=" + spotId +
+                ", spot=" + spot +
                 '}';
     }
 }
