@@ -13,13 +13,17 @@ import java.util.List;
 public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
 
 
-
+    /**
+     * Finds all the routes based on a spot
+     * @param spotId primary key of table "Spot"
+     * @return
+     */
     @Override
     public List<Route> findRoutesBasedOnSpot(int spotId) {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         String mySqlRequest =   "select * from route where route.spot_id = ?";
 
-        return jdbcTemplate.query (mySqlRequest, new Object[]{spotId}, new BeanPropertyRowMapper(Route.class));
+        return jdbcTemplate.query (mySqlRequest, new Object[]{spotId}, new BeanPropertyRowMapper<> (Route.class));
     }
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Location {
 
-    private int id;
+    private String id;
     private String region;
     private String departementName;
     private int departementId;
@@ -13,7 +13,7 @@ public class Location {
     private List<Spot> spots;
 
 
-    public Location(int id, String region, String departementName, int departementId, String cityName, String zipCode, List<Spot> spots) {
+    public Location(String id, String region, String departementName, int departementId, String cityName, String zipCode, List<Spot> spots) {
         this.id = id;
         this.region = region;
         this.departementName = departementName;
@@ -26,11 +26,11 @@ public class Location {
     public Location() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

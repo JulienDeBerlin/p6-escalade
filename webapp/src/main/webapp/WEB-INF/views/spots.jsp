@@ -16,22 +16,27 @@
 <p>VOICI LA LISTE DE TOUS LES SPOTS</p>
 
 
-<ul>
-    <c:forEach items="${ listSpots }" var="spot">
+<div>
+    <c:forEach items="${ resultLocations }" var="location">
         <li>
-            <c:out value="${ spot.nameSpot } " />
-            <c:out value="${ spot.nameArea }" />
+            <c:out value="${ location.region } " />
+            <c:out value="${ location.departementId }" />
+            <c:out value="${ location.departementName }" />
+            <c:out value="${ location.cityName }" />
+            <c:out value="${ location.zipCode }" />
 
-            <c:forEach items="${ spot.routes }" var="route">
-            <li>
+        <c:forEach items="${ resultLocation.spots }" var="spot">
+            <c:out value="${ spot.nameSpot } " />
+            <c:out value="${ spot.nameArea } " />
+
+            <c:forEach items="${resultLocation.spots.routes }" var="route">
              <p>Nom de la voie: <c:out value="${ route.name }" /> </p>
              <p>Cotation: <c:out value="${ route.rating }" /> </p>
-            </li>
             </c:forEach>
 
         </li>
     </c:forEach>
-</ul>
+</div>
 
 
 

@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$/business" />
-    <file type="web" url="file://$PROJECT_DIR$/consumer-contract" />
-    <file type="web" url="file://$PROJECT_DIR$/model" />
     <file type="web" url="file://$PROJECT_DIR$/webapp" />
   </component>
   <component name="MavenProjectsManager">
