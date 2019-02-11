@@ -13,7 +13,6 @@ import java.util.List;
 @Component
 public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
 
-    private JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
     private Location myResult;
     private List<Location> myResults;
 
@@ -28,6 +27,7 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
      */
     @Override
     public Location findLocationById(String locationInput) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         myResult = jdbcTemplate.queryForObject (sqlQueryBuilder("id"), new Object[]{locationInput}, new BeanPropertyRowMapper<>(Location.class));
         myResult.setSpots(spotDao.findSpotsByLocationId(myResult.getId()));
         return myResult;
@@ -42,10 +42,11 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
      */
     @Override
     public List<Location> findLocationsByTableColomn(String locationInput, String tableColomn) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         myResults = jdbcTemplate.query(sqlQueryBuilder(tableColomn), new Object[]{locationInput}, new BeanPropertyRowMapper<>(Location.class));
         for (Iterator<Location> i = myResults.iterator(); i.hasNext(); ) {
             Location location = i.next();
-            location.setSpots(spotDao.findSpotsByLocationId(myResult.getId()));
+            location.setSpots(spotDao.findSpotsByLocationId(location.getId()));
         }
 
         return myResults;

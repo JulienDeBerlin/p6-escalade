@@ -29,7 +29,7 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
         List<Spot> myResults;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
-        String mySqlRequest =   "select * from spot where spot.location_id = ? )";
+        String mySqlRequest =   "select * from spot where spot.location_id = ?";
         myResults= jdbcTemplate.query (mySqlRequest, new Object[]{locationId}, new BeanPropertyRowMapper(Spot.class));
 
         for (Iterator<Spot> i = myResults.iterator(); i.hasNext(); ) {

@@ -8,4 +8,5 @@
     <property name="jndiName" value="java:comp/env/jdbc/P6_DB"/>
 </bean>
 
+
 </beans>

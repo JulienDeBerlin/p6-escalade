@@ -17,26 +17,57 @@
 
 
 <div>
-    <c:forEach items="${ resultLocations }" var="location">
-        <li>
-            <c:out value="${ location.region } " />
-            <c:out value="${ location.departementId }" />
-            <c:out value="${ location.departementName }" />
-            <c:out value="${ location.cityName }" />
-            <c:out value="${ location.zipCode }" />
+    <ul>
 
-        <c:forEach items="${ resultLocation.spots }" var="spot">
-            <c:out value="${ spot.nameSpot } " />
-            <c:out value="${ spot.nameArea } " />
+        <c:forEach items="${ resultLocations }" var="location">
+        <p> <mark> ${ location.region} </mark> </p>
 
-            <c:forEach items="${resultLocation.spots.routes }" var="route">
-             <p>Nom de la voie: <c:out value="${ route.name }" /> </p>
-             <p>Cotation: <c:out value="${ route.rating }" /> </p>
-            </c:forEach>
+            <p> <c:out value="${ location.departementName }" /> (<c:out value="${ location.departementId }" />) </p>
+            <p> <c:out value="${ location.zipCode }" />   <c:out value="${ location.cityName }" /> </p>
 
-        </li>
-    </c:forEach>
+                <c:forEach items="${ location.spots }" var="spot">
+                <p>  <c:out value="${ spot.nameSpot } " /> <c:out value="${ spot.nameArea } " /></p>
+
+                        <ul>
+                        <c:forEach items="${spot.routes }" var="route">
+                        <li>Nom de la voie: <c:out value="${ route.name }" /> Cotation: <c:out value="${ route.rating }" /> Voie équipée: <c:out value="${ route.bolted }" /></li>
+                        </c:forEach>
+                        </ul>
+                 </c:forEach>
+
+            <br/>
+            <br/>
+        </c:forEach>
+
+    </ul>
 </div>
+
+
+
+<%--<ul>--%>
+    <%--<c:forEach items="${ listSpots }" var="spot">--%>
+        <%--<li>--%>
+        <%--<c:out value="${ spot.nameSpot } " />--%>
+        <%--<c:out value="${ spot.nameArea }" />--%>
+
+        <%--<c:forEach items="${ spot.routes }" var="route">--%>
+            <%--<li>--%>
+                <%--<p>Nom de la voie: <c:out value="${ route.name }" /> </p>--%>
+                <%--<p>Cotation: <c:out value="${ route.rating }" /> </p>--%>
+            <%--</li>--%>
+        <%--</c:forEach>--%>
+
+        <%--</li>--%>
+    <%--</c:forEach>--%>
+<%--</ul>--%>
+
+
+
+
+
+
+
+
 
 
 

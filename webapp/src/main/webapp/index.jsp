@@ -71,13 +71,13 @@
     <form method="post" action="${pageContext.request.contextPath}/escalade/spots">
 
         <div class="form-group">
-            <label for="lieu">Localisation</label>
-            <input name="lieu" type="text" class="form-control" id="lieu" placeholder="Région, département, commune, site...">
+            <label for="locationInput">Localisation</label>
+            <input type="text" name="locationInput" class="form-control" id="locationInput" placeholder="Région, département, commune, site...">
         </div>
 
         <div class="form-group">
             <label for="level">Cotation minimum</label>
-            <select class="form-control" id="level">
+            <select class="form-control" id="level" name="rating">
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -91,8 +91,8 @@
         </div>
 
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-            <label class="form-check-label" for="defaultCheck1">
+            <input type="checkbox" name= "onlySpotsWithBoltedRoutes" id="onlySpotsWithBoltedRoutes" class="form-check-input" >
+            <label class="form-check-label" for="onlySpotsWithBoltedRoutes">
                 Uniquement les sites avec des voies équipées
             </label>
         </div>
