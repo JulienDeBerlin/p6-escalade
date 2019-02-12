@@ -34,10 +34,10 @@
             <artifactId>consumer-contract</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.berthoud.ocp6</groupId>
-            <artifactId>consumer-impl-jdbc</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.berthoud.ocp6</groupId>-->
+            <!--<artifactId>consumer-impl-jdbc</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>junit</groupId>
