@@ -9,13 +9,15 @@ public class Spot {
     private String nameArea;
     private Location location;
     private List<Route> routes;
+    private List<Guidebook> guidebooks;
 
-    public Spot(int id, String nameSpot, String nameArea, Location location, List<Route> myRoutes ) {
+    public Spot(int id, String nameSpot, String nameArea, Location location, List<Route> myRoutes, List<Guidebook> myGuidebooks ) {
         this.id = id;
         this.nameSpot = nameSpot;
         this.nameArea = nameArea;
         this.location = location;
         this.routes = myRoutes;
+        this.guidebooks = myGuidebooks;
     }
 
     public Spot() {
@@ -61,6 +63,14 @@ public class Spot {
         this.routes = routes;
     }
 
+    public List<Guidebook> getGuidebooks() {
+        return guidebooks;
+    }
+
+    public void setGuidebooks(List<Guidebook> guidebooks) {
+        this.guidebooks = guidebooks;
+    }
+
     @Override
     public String toString() {
         return "Spot{" +
@@ -69,6 +79,7 @@ public class Spot {
                 ", nameArea='" + nameArea + '\'' +
                 ", location=" + location +
                 ", routes=" + routes +
+                ", guidebooks=" + guidebooks +
                 '}';
     }
 }

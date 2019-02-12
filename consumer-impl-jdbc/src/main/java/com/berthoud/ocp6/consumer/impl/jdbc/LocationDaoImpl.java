@@ -18,6 +18,7 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
 
 
     @Autowired
+    // OR INSTANTIATE HERE????
     SpotDaoImpl spotDao;
 
     /**

@@ -1,0 +1,32 @@
+package com.berthoud.ocp6.business;
+
+
+import com.berthoud.ocp6.model.bean.Guidebook;
+import org.springframework.stereotype.Component;
+
+import java.util.Iterator;
+import java.util.List;
+
+
+@Component
+public class ServiceGuidebook {
+
+    /**
+     * This method takes a list of guidebooks and - if loan is required -  removes the one that do not fulfil this condition.
+     * @param guidebooks
+     * @param loanRequired
+     * @return
+     */
+    List<Guidebook> filterGuidebooksByLoanAvailable(List<Guidebook> guidebooks, boolean loanRequired) {
+
+        if(loanRequired) {
+            for (Iterator<Guidebook> i = guidebooks.iterator(); i.hasNext(); ) {
+                Guidebook guidebook = i.next();
+                if (guidebook.getMemberLibrairies().isEmpty()) {
+                    i.remove();
+                }
+            }
+        }
+        return guidebooks;
+    }
+}

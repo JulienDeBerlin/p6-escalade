@@ -13,7 +13,7 @@
     <title>High</title>
 </head>
 <body>
-<p>VOICI LA LISTE DE TOUS LES SPOTS</p>
+<p>VOICI LA LISTE DES SITES CORRESPONDANT À LA RECHERCHE</p>
 
 
 <div>

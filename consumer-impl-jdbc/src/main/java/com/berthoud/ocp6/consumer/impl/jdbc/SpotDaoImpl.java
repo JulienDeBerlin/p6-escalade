@@ -16,6 +16,8 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
 
     @Autowired
     RouteDaoImpl routeDao;
+    @Autowired
+    GuidebookDaoImpl guidebookDao;
 
 
     /**
@@ -35,6 +37,7 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
         for (Iterator<Spot> i = myResults.iterator(); i.hasNext(); ) {
             Spot spot = i.next();
             spot.setRoutes(routeDao.findRoutesBasedOnSpot(spot.getId()));
+            spot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spot.getId()));
         }
 
         return myResults;

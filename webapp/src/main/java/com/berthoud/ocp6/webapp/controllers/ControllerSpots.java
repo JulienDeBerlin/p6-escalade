@@ -27,11 +27,12 @@ public class ControllerSpots {
     @RequestMapping(value = "/spots", method = RequestMethod.POST)
     public String getResultSpots(@RequestParam (value = "locationInput") String locationInput,
                                  @RequestParam (value="onlySpotsWithBoltedRoutes", required = false) boolean onlySpotsWithBoltedRoutes,
-                                 @RequestParam (value = "rating") String rating,
+                                 @RequestParam (value = "ratingMin") String ratingMin,
+                                 @RequestParam (value = "ratingMax") String ratingMax,
                                  ModelMap model) {
 
         List<Location> resultLocations =serviceLocation.detailledInfoBasedOnLocation(locationInput, "departement_name");
-        resultLocations = serviceLocation.filterLocation(resultLocations, onlySpotsWithBoltedRoutes, parseInt(rating));
+        resultLocations = serviceLocation.filterLocations(resultLocations, onlySpotsWithBoltedRoutes, parseInt(ratingMin),parseInt(ratingMax));
         model.put("resultLocations", resultLocations);
         return "spots";
     }

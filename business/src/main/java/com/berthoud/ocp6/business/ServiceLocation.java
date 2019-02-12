@@ -1,7 +1,7 @@
 package com.berthoud.ocp6.business;
 import com.berthoud.ocp6.consumer.contract.dao.LocationDao;
+import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
-import com.berthoud.ocp6.model.bean.Route;
 import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,6 +17,7 @@ public class ServiceLocation {
 
     // OR AUTOWIRED, OR STATIC METHODS,  WHAT IS BEST?
     private ServiceSpot serviceSpot = new ServiceSpot();
+    private ServiceGuidebook serviceGuidebook = new ServiceGuidebook();
 
 //    @Autowired
 //    private ServiceSpot serviceSpot;
@@ -34,20 +35,40 @@ public class ServiceLocation {
 
     /**
      * This method takes a list of Locations as parameter and for each location and each spot remove the routes that don't
-     *  fullfit the research criteria (level too low or route not bolted)
+     * fulfil the research criteria (level too low or route not bolted) and remove the spots with no remaining routes after filtering.
      * @param locations
      * @param onlyBoltedRoutes
      * @param levelMin
+     * @param levelMax
      * @return
      */
-    public List<Location> filterLocation (List<Location> locations, boolean onlyBoltedRoutes, int levelMin){
+    public List<Location> filterLocations(List<Location> locations, boolean onlyBoltedRoutes, int levelMin, int levelMax){
 
         for (Iterator<Location> i = locations.iterator(); i.hasNext(); ) {
             Location location = i.next();
             List<Spot> spots = location.getSpots();
-            serviceSpot.filterSpots(spots, onlyBoltedRoutes, levelMin);
+            serviceSpot.filterSpots(spots, onlyBoltedRoutes, levelMin, levelMax);
+            if (spots.isEmpty()){
+                i.remove();
+            }
         }
      return locations;
+    }
+
+
+
+    public List<Location> filterLocationsForTopos (List<Location> locations, boolean loanRequired) {
+        for (Iterator<Location> i = locations.iterator(); i.hasNext(); ) {
+            Location location = i.next();
+            List<Spot> spots = location.getSpots();
+
+            for (Iterator<Spot> j = spots.iterator(); j.hasNext(); ) {
+                Spot spot = j.next();
+                List<Guidebook> guidebooks = spot.getGuidebooks();
+                serviceGuidebook.filterGuidebooksByLoanAvailable(guidebooks, loanRequired);
+            }
+        }
+        return locations;
     }
 
 }

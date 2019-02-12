@@ -1,8 +1,10 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.util.List;
+
 public class Guidebook {
     private int id;
-    private int isbn13;
+    private String isbn13;
     private String name;
     private short yearPublication;
     private String publisher;
@@ -10,9 +12,12 @@ public class Guidebook {
     private String summary;
     private String firstnameAuthor;
     private String SurnameAuthor;
+    private List<CommentGuidebook> commentsGuidebook;
+    private List <MemberLibrairy> memberLibrairies;
 
-    public Guidebook(int id, int isbn13, String name, short yearPublication, String publisher,
-                     String language, String summary, String firstnameAuthor, String surnameAuthor) {
+
+    public Guidebook(int id, String isbn13, String name, short yearPublication, String publisher, String language, String summary, String firstnameAuthor,
+                     String surnameAuthor, List<CommentGuidebook> commentsGuidebook, List<MemberLibrairy> memberLibrairies) {
         this.id = id;
         this.isbn13 = isbn13;
         this.name = name;
@@ -22,6 +27,8 @@ public class Guidebook {
         this.summary = summary;
         this.firstnameAuthor = firstnameAuthor;
         SurnameAuthor = surnameAuthor;
+        this.commentsGuidebook = commentsGuidebook;
+        this.memberLibrairies = memberLibrairies;
     }
 
     public Guidebook() {
@@ -35,11 +42,11 @@ public class Guidebook {
         this.id = id;
     }
 
-    public int getIsbn13() {
+    public String getIsbn13() {
         return isbn13;
     }
 
-    public void setIsbn13(int isbn13) {
+    public void setIsbn13(String isbn13) {
         this.isbn13 = isbn13;
     }
 
@@ -99,6 +106,22 @@ public class Guidebook {
         SurnameAuthor = surnameAuthor;
     }
 
+    public List<CommentGuidebook> getCommentsGuidebook() {
+        return commentsGuidebook;
+    }
+
+    public void setCommentsGuidebook(List<CommentGuidebook> commentsGuidebook) {
+        this.commentsGuidebook = commentsGuidebook;
+    }
+
+    public List<MemberLibrairy> getMemberLibrairies() {
+        return memberLibrairies;
+    }
+
+    public void setMemberLibrairies(List<MemberLibrairy> memberLibrairies) {
+        this.memberLibrairies = memberLibrairies;
+    }
+
     @Override
     public String toString() {
         return "Guidebook{" +
@@ -111,6 +134,8 @@ public class Guidebook {
                 ", summary='" + summary + '\'' +
                 ", firstnameAuthor='" + firstnameAuthor + '\'' +
                 ", SurnameAuthor='" + SurnameAuthor + '\'' +
+                ", commentsGuidebook=" + commentsGuidebook +
+                ", memberLibrairies=" + memberLibrairies +
                 '}';
     }
 }
