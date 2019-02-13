@@ -2,6 +2,7 @@ package com.berthoud.ocp6.business;
 
 
 import com.berthoud.ocp6.model.bean.Guidebook;
+import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
@@ -12,14 +13,15 @@ import java.util.List;
 public class ServiceGuidebook {
 
     /**
-     * This method takes a list of guidebooks and - if loan is required -  removes the one that do not fulfil this condition.
+     * This method takes a list of guidebooks and - if loan is required -  removes the ones that do not fulfil this condition.
+     *
      * @param guidebooks
-     * @param loanRequired
+     * @param loanRequired user want to display only guidebooks that are proposed for loan
      * @return
      */
-    List<Guidebook> filterGuidebooksByLoanAvailable(List<Guidebook> guidebooks, boolean loanRequired) {
+    public List<Guidebook> filterGuidebooksByLoanAvailable(List<Guidebook> guidebooks, boolean loanRequired) {
 
-        if(loanRequired) {
+        if (loanRequired) {
             for (Iterator<Guidebook> i = guidebooks.iterator(); i.hasNext(); ) {
                 Guidebook guidebook = i.next();
                 if (guidebook.getMemberLibrairies().isEmpty()) {
@@ -30,3 +32,4 @@ public class ServiceGuidebook {
         return guidebooks;
     }
 }
+

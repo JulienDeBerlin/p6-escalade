@@ -37,6 +37,7 @@
         <dependency>
             <groupId>com.berthoud.ocp6</groupId>
             <artifactId>consumer-impl-jdbc</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>

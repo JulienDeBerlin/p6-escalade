@@ -6,8 +6,7 @@ import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Component
 public class ServiceLocation {
@@ -25,7 +24,7 @@ public class ServiceLocation {
     /**
      * Finds the full location details (incl. matching spots and routes) based on location
      * @param locationInput the location input entered by the user
-     * @param tableColomn the category of input, basically the colomn of table "Location"the research is based on.
+     * @param tableColomn the category of input, basically the colomn of table "Location"the research is based on (i.e. region, departement_name...)
      * @return
      */
     public List<Location> detailledInfoBasedOnLocation(String locationInput, String tableColomn){
@@ -56,7 +55,13 @@ public class ServiceLocation {
     }
 
 
-
+    /**
+     * This method take as input a list of Location objects and remove from the list the objects whose matching Guidebook object do not
+     * fulfil the "loanRequired" - requirement
+     * @param locations the input list of locations
+     * @param loanRequired is true if user want to display only guidebook available for loan
+     * @return
+     */
     public List<Location> filterLocationsForTopos (List<Location> locations, boolean loanRequired) {
         for (Iterator<Location> i = locations.iterator(); i.hasNext(); ) {
             Location location = i.next();
@@ -71,6 +76,34 @@ public class ServiceLocation {
         return locations;
     }
 
+    /**
+     * This method takes a list of Location objects and return a list of matching Guidebook objects without any duplicates.
+     * @param locations
+     * @return
+     */
+    public List<Guidebook> editGuidebookListWithoutDuplicate(List<Location> locations) {
+
+        List<Guidebook> guidebooksWithoutRepetition = new ArrayList<Guidebook>();
+
+        for (Iterator<Location> k = locations.iterator(); k.hasNext(); ) {
+            Location location = k.next();
+            List<Spot> spots = location.getSpots();
+
+            for (Iterator<Spot> i = spots.iterator(); i.hasNext(); ) {
+                Spot spot = i.next();
+                List<Guidebook> listGuidebookToBeAdded = spot.getGuidebooks();
+
+                for (Iterator<Guidebook> j = listGuidebookToBeAdded.iterator(); j.hasNext(); ) {
+                    Guidebook guidebook = j.next();
+
+                    if (!guidebooksWithoutRepetition.contains(guidebook)) {
+                        guidebooksWithoutRepetition.add(guidebook);
+                    }
+                }
+            }
+        }
+        return guidebooksWithoutRepetition;
+    }
 }
 
 

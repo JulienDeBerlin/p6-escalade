@@ -1,5 +1,7 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.util.Objects;
+
 public class Route {
 
     private int id;
@@ -92,5 +94,24 @@ public class Route {
                 ", bolted=" + bolted +
                 ", spot=" + spot +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Route route = (Route) o;
+        return id == route.id &&
+                nbPitch == route.nbPitch &&
+                indexPitch == route.indexPitch &&
+                bolted == route.bolted &&
+                Objects.equals(name, route.name) &&
+                Objects.equals(rating, route.rating) &&
+                Objects.equals(spot, route.spot);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, nbPitch, indexPitch, rating, bolted, spot);
     }
 }

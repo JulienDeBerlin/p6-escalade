@@ -154,8 +154,8 @@
         </div>
 
         <div class="form-check">
-            <input type="checkbox" name= "loanAvailable" id="loanAvailable" class="form-check-input" >
-            <label class="form-check-label" for="loanAvailable">
+            <input type="checkbox" name= "loanRequired" id="loanRequired" class="form-check-input" >
+            <label class="form-check-label" for="loanRequired">
                 Afficher uniquement les topos proposés au prêt par nos membres pour nos membres
             </label>
         </div>

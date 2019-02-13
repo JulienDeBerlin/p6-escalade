@@ -1,5 +1,7 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.util.Objects;
+
 public class CommentGuidebook {
 
     private int id;
@@ -57,5 +59,22 @@ public class CommentGuidebook {
                 ", guidebookId=" + guidebookId +
                 ", comment='" + comment + '\'' +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CommentGuidebook that = (CommentGuidebook) o;
+        return id == that.id &&
+                memberId == that.memberId &&
+                guidebookId == that.guidebookId &&
+                Objects.equals(comment, that.comment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, memberId, guidebookId, comment);
     }
 }

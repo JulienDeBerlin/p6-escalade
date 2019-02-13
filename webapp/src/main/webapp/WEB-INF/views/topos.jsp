@@ -14,61 +14,23 @@
 </head>
 <body>
 
-<p>VOICI LA LISTE DES TOPOS CORRESPONDANT À LA RECHERCHE</p>
+<p>VOICI LA LISTE DES TOPOS CORRESPONDANT À LA RECHERCHE "${locationInputForTopo}"</p>
 
-<%--<div>--%>
-    <%--<ul>--%>
-        <%--<c:forEach items="${ resultLocations }" var="location">--%>
-            <%--<p> <mark> ${ location.region} </mark> </p>--%>
-
-            <%--<c:forEach items="${ location.spots }" var="spot">--%>
-                <%--<ul>--%>
-                    <%--<c:forEach items="${spot.guidebooks }" var="guidebook">--%>
-                        <%--<li> Nr. ISBN 13: <c:out value="${ guidebook.isbn13 }" /> </li>--%>
-                        <%--<li> Titre: <c:out value="${ guidebook.name }" /> </li>--%>
-                        <%--<li> Éditeur: <c:out value="${ guidebook.publisher }" /> </li>--%>
-                        <%--<li> Langue: <c:out value="${ guidebook.language}" /> </li>--%>
-                        <%--<li> Summary: <c:out value="${ guidebook.summary }" /> </li>--%>
-                        <%--<li> Auteur: <c:out value="${ guidebook.firstnameAuthor }" /> <c:out value="${ guidebook.surnameAuthor }" /></li>--%>
-                        <%--<br/>--%>
-                        <%--<br/>--%>
-                    <%--</c:forEach>--%>
-
-                <%--</ul>--%>
-            <%--</c:forEach>--%>
-
-        <%--</c:forEach>--%>
-
-    <%--</ul>--%>
-<%--</div>--%>
 
 <div>
-    <ul>
-        <c:forEach items="${ resultLocations }" var="location">
-            <p> <mark> ${ location.region} </mark> </p>
-
-            <c:forEach items="${ location.spots }" var="spot">
-                <ul>
-                    <c:forEach items="${spot.guidebooks }" var="guidebook">
-                        <li> Nr. ISBN 13: <c:out value="${ guidebook.isbn13 }" /> </li>
-                        <li> Titre: <c:out value="${ guidebook.name }" /> </li>
-                        <li> Éditeur: <c:out value="${ guidebook.publisher }" /> </li>
-                        <li> Langue: <c:out value="${ guidebook.language}" /> </li>
-                        <li> Summary: <c:out value="${ guidebook.summary }" /> </li>
-                        <li> Auteur: <c:out value="${ guidebook.firstnameAuthor }" /> <c:out value="${ guidebook.surnameAuthor }" /></li>
-                        <br/>
-                        <br/>
-                    </c:forEach>
-
-                </ul>
-            </c:forEach>
-
+    <ol>
+        <c:forEach items="${guidebookListWithoutDuplicates }" var="guidebook">
+            <li><strong>Titre: <c:out value="${ guidebook.name }"/> </strong></li>
+            <p> Nr. ISBN 13: <c:out value="${ guidebook.isbn13 }"/></p>
+            <p> Éditeur: <c:out value="${ guidebook.publisher }"/></p>
+            <p> Langue: <c:out value="${ guidebook.language}"/></p>
+            <p> Summary: <c:out value="${ guidebook.summary }"/></p>
+            <p> Auteur: <c:out value="${ guidebook.firstnameAuthor }"/> <c:out
+                    value="${ guidebook.surnameAuthor }"/></p> <br/>
+            <br/>
         </c:forEach>
-
-    </ul>
+    </ol>
 </div>
-
-
 
 
 </body>

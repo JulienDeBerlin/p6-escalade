@@ -2,6 +2,7 @@ package com.berthoud.ocp6.webapp.controllers;
 
 import com.berthoud.ocp6.business.ServiceGuidebook;
 import com.berthoud.ocp6.business.ServiceLocation;
+import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,12 +27,15 @@ public class ControllerTopos {
 
     @RequestMapping(value = "/topos", method = RequestMethod.POST)
     public String getResultTopos(@RequestParam (value= "locationInputForTopo") String locationInputForTopo,
-                                 @RequestParam (value = "loanAvailable", required =false) boolean loanRequired,
+                                 @RequestParam (value = "loanRequired", required =false) boolean loanRequired,
                                 ModelMap model){
 
         List<Location> resultLocations =serviceLocation.detailledInfoBasedOnLocation(locationInputForTopo, "departement_name");
-        resultLocations = serviceLocation.filterLocationsForTopos(resultLocations, loanRequired);
-        model.put("resultLocations", resultLocations);
+        List<Guidebook> guidebookListWithoutDuplicates = serviceLocation.editGuidebookListWithoutDuplicate(resultLocations);
+        serviceGuidebook.filterGuidebooksByLoanAvailable(guidebookListWithoutDuplicates, loanRequired);
+
+        model.put("locationInputForTopo", locationInputForTopo);
+        model.put("guidebookListWithoutDuplicates", guidebookListWithoutDuplicates);
 
         return "topos";
     }

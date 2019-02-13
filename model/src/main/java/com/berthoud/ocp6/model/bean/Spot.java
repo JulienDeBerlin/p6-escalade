@@ -1,6 +1,7 @@
 package com.berthoud.ocp6.model.bean;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Spot {
 
@@ -81,5 +82,23 @@ public class Spot {
                 ", routes=" + routes +
                 ", guidebooks=" + guidebooks +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Spot spot = (Spot) o;
+        return id == spot.id &&
+                Objects.equals(nameSpot, spot.nameSpot) &&
+                Objects.equals(nameArea, spot.nameArea) &&
+                Objects.equals(location, spot.location) &&
+                Objects.equals(routes, spot.routes) &&
+                Objects.equals(guidebooks, spot.guidebooks);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nameSpot, nameArea, location, routes, guidebooks);
     }
 }

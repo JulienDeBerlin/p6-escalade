@@ -1,6 +1,7 @@
 package com.berthoud.ocp6.model.bean;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Guidebook {
     private int id;
@@ -137,5 +138,28 @@ public class Guidebook {
                 ", commentsGuidebook=" + commentsGuidebook +
                 ", memberLibrairies=" + memberLibrairies +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Guidebook guidebook = (Guidebook) o;
+        return id == guidebook.id &&
+                yearPublication == guidebook.yearPublication &&
+                Objects.equals(isbn13, guidebook.isbn13) &&
+                Objects.equals(name, guidebook.name) &&
+                Objects.equals(publisher, guidebook.publisher) &&
+                Objects.equals(language, guidebook.language) &&
+                Objects.equals(summary, guidebook.summary) &&
+                Objects.equals(firstnameAuthor, guidebook.firstnameAuthor) &&
+                Objects.equals(SurnameAuthor, guidebook.SurnameAuthor) &&
+                Objects.equals(commentsGuidebook, guidebook.commentsGuidebook) &&
+                Objects.equals(memberLibrairies, guidebook.memberLibrairies);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, isbn13, name, yearPublication, publisher, language, summary, firstnameAuthor, SurnameAuthor, commentsGuidebook, memberLibrairies);
     }
 }

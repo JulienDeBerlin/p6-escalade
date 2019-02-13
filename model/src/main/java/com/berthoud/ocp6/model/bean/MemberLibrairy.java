@@ -1,5 +1,7 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.util.Objects;
+
 public class MemberLibrairy {
 
     private int memberId;
@@ -46,5 +48,20 @@ public class MemberLibrairy {
                 ", guidebookId=" + guidebookId +
                 ", loanAvailable=" + loanAvailable +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MemberLibrairy that = (MemberLibrairy) o;
+        return memberId == that.memberId &&
+                guidebookId == that.guidebookId &&
+                loanAvailable == that.loanAvailable;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(memberId, guidebookId, loanAvailable);
     }
 }
