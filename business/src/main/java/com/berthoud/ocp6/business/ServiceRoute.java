@@ -1,7 +1,10 @@
 package com.berthoud.ocp6.business;
 
 import com.berthoud.ocp6.model.bean.Route;
+import org.springframework.stereotype.Component;
 
+
+@Component
 public class ServiceRoute {
 
     /**

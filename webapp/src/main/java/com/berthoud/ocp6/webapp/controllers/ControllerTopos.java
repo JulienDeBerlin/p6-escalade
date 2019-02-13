@@ -2,8 +2,12 @@ package com.berthoud.ocp6.webapp.controllers;
 
 import com.berthoud.ocp6.business.ServiceGuidebook;
 import com.berthoud.ocp6.business.ServiceLocation;
+import com.berthoud.ocp6.business.ServiceSpot;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
+import com.berthoud.ocp6.model.bean.Spot;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
 
 
 @Controller
@@ -23,6 +28,12 @@ public class ControllerTopos {
 
     @Autowired
     ServiceGuidebook serviceGuidebook;
+
+    @Autowired
+    ServiceSpot serviceSpot;
+
+
+    private static final Logger logger = LogManager.getLogger();
 
 
     @RequestMapping(value = "/topos", method = RequestMethod.POST)
@@ -39,6 +50,21 @@ public class ControllerTopos {
 
         return "topos";
     }
+
+    @RequestMapping(value = "/topos", method = RequestMethod.GET)
+    public String getResultTopos(@RequestParam (value = "spotId") String spotId, ModelMap model){
+
+        Spot selectedSpot = serviceSpot.findSpotBasedOnId(parseInt(spotId));
+
+        String locationInputForTopo = selectedSpot.getNameSpot();
+        List<Guidebook> guidebooks = selectedSpot.getGuidebooks();
+
+        model.put("locationInputForTopo", locationInputForTopo);
+        model.put("guidebookListWithoutDuplicates", guidebooks);
+
+        return "topos";
+    }
+
 
 
 }

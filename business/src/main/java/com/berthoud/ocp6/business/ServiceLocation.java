@@ -14,12 +14,12 @@ public class ServiceLocation {
     @Autowired
     private LocationDao locationDao;
 
-    // OR AUTOWIRED, OR STATIC METHODS,  WHAT IS BEST?
-    private ServiceSpot serviceSpot = new ServiceSpot();
-    private ServiceGuidebook serviceGuidebook = new ServiceGuidebook();
+    @Autowired
+    private ServiceSpot serviceSpot;
 
-//    @Autowired
-//    private ServiceSpot serviceSpot;
+    @Autowired
+    private ServiceGuidebook serviceGuidebook;
+
 
     /**
      * Finds the full location details (incl. matching spots and routes) based on location

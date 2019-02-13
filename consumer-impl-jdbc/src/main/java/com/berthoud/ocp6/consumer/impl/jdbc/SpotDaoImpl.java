@@ -39,10 +39,26 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
             spot.setRoutes(routeDao.findRoutesBasedOnSpot(spot.getId()));
             spot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spot.getId()));
         }
-
         return myResults;
-
-
     }
 
+
+    /**
+     * The method returns a full Spot object based on its id
+     * @param spotId
+     * @return
+     */
+    @Override
+    public Spot findSpotBySpotId(int spotId) {
+
+        Spot selectedSpot;
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String mySqlRequest =   "select * from spot where spot.id = ?";
+        selectedSpot = (Spot)jdbcTemplate.queryForObject(mySqlRequest,new Object[]{spotId},new BeanPropertyRowMapper(Spot.class));
+
+        selectedSpot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spotId));
+
+        return selectedSpot;
+    }
 }

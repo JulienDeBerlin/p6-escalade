@@ -1,8 +1,8 @@
 package com.berthoud.ocp6.business;
 
-
+import com.berthoud.ocp6.consumer.contract.dao.GuidebookDao;
 import com.berthoud.ocp6.model.bean.Guidebook;
-import com.berthoud.ocp6.model.bean.Spot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
@@ -11,6 +11,9 @@ import java.util.List;
 
 @Component
 public class ServiceGuidebook {
+
+    @Autowired
+    GuidebookDao guidebookDao;
 
     /**
      * This method takes a list of guidebooks and - if loan is required -  removes the ones that do not fulfil this condition.
@@ -31,5 +34,19 @@ public class ServiceGuidebook {
         }
         return guidebooks;
     }
+
+
+    /**
+     * This method takes the id of the object Spot and return the matching Guidebooks
+     * @param spotId
+     * @return
+     */
+    public List<Guidebook> findGuidebooksBasedOnSpotId (int spotId){
+        return guidebookDao.findGuidebooksBasedOnSpot(spotId);
+    }
+
+
+
+
 }
 

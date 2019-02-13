@@ -5,11 +5,11 @@
   Time: 16:39
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <html>
 <head>
+    <meta charset="utf-8" />
     <title>High</title>
 </head>
 <body>
@@ -19,14 +19,22 @@
 <div>
     <ul>
 
-        <c:forEach items="${ resultLocations }" var="location">
-        <p> <mark> ${ location.region} </mark> </p>
+        
+        <c:forEach items="${ resultLocations }" var="location" varStatus = "status">
+
+            <c:if test="${status.first}">
+                <p> <strong> <c:out value="${ location.region}" /> </strong></p>
+            </c:if>
+
+            <c:set var="message" value="Salut les zéros !"/>
 
             <p> <c:out value="${ location.departementName }" /> (<c:out value="${ location.departementId }" />) </p>
             <p> <c:out value="${ location.zipCode }" />   <c:out value="${ location.cityName }" /> </p>
 
                 <c:forEach items="${ location.spots }" var="spot">
-                <p>  <c:out value="${ spot.nameSpot } " /> <c:out value="${ spot.nameArea } " /></p>
+                <p>  <c:out value="${ spot.nameSpot } " /> <c:out value="${ spot.nameArea } " />
+                    <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">Afficher les topos correspondants</a></p>
+
 
                         <ul>
                         <c:forEach items="${spot.routes }" var="route">
@@ -34,8 +42,6 @@
                         </c:forEach>
                         </ul>
                  </c:forEach>
-
-            <br/>
             <br/>
         </c:forEach>
 
