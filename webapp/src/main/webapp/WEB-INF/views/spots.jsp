@@ -19,63 +19,40 @@
 <div>
     <ul>
 
-        
-        <c:forEach items="${ resultLocations }" var="location" varStatus = "status">
+
+        <c:forEach items="${ resultLocations }" var="location" varStatus="status">
 
             <c:if test="${status.first}">
-                <p> <strong> <c:out value="${ location.region}" /> </strong></p>
+            <p><strong> <c:out value="${ location.region}"/> </strong></p>
             </c:if>
 
-            <c:set var="message" value="Salut les zéros !"/>
+        <p><c:out value="${ location.departementName }"/> (<c:out value="${ location.departementId }"/>) </p>
+        <p><c:out value="${ location.zipCode }"/> <c:out value="${ location.cityName }"/></p>
 
-            <p> <c:out value="${ location.departementName }" /> (<c:out value="${ location.departementId }" />) </p>
-            <p> <c:out value="${ location.zipCode }" />   <c:out value="${ location.cityName }" /> </p>
+            <c:forEach items="${ location.spots }" var="spot">
+            <p><c:out value="${ spot.nameSpot } "/> <c:out value="${ spot.nameArea } "/>
+                <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">Afficher les topos
+                correspondants</a></p>
 
-                <c:forEach items="${ location.spots }" var="spot">
-                <p>  <c:out value="${ spot.nameSpot } " /> <c:out value="${ spot.nameArea } " />
-                    <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">Afficher les topos correspondants</a></p>
+            <c:forEach items="${spot.routes }" var="route">
+                <ul>
+                <li>Nom de la voie: <c:out value="${ route.name }"/> Cotation: <c:out value="${ route.rating }"/> Voie
+                    équipée: <c:out value="${ route.bolted }"/></li>
+                </ul>
+            </c:forEach>
 
 
-                        <ul>
-                        <c:forEach items="${spot.routes }" var="route">
-                        <li>Nom de la voie: <c:out value="${ route.name }" /> Cotation: <c:out value="${ route.rating }" /> Voie équipée: <c:out value="${ route.bolted }" /></li>
-                        </c:forEach>
-                        </ul>
-                 </c:forEach>
-            <br/>
+            <c:forEach items="${ spot.comments }" var="comment">
+                 <p> Commentaire de <c:out value="${comment.member.nickname}"/> posté le <c:out value="${comment.date}"/></p>
+                <c:out value="${comment.comment}"/>
+            </c:forEach>
+
+        </c:forEach>
+        <br/>
         </c:forEach>
 
     </ul>
 </div>
-
-
-
-<%--<ul>--%>
-    <%--<c:forEach items="${ listSpots }" var="spot">--%>
-        <%--<li>--%>
-        <%--<c:out value="${ spot.nameSpot } " />--%>
-        <%--<c:out value="${ spot.nameArea }" />--%>
-
-        <%--<c:forEach items="${ spot.routes }" var="route">--%>
-            <%--<li>--%>
-                <%--<p>Nom de la voie: <c:out value="${ route.name }" /> </p>--%>
-                <%--<p>Cotation: <c:out value="${ route.rating }" /> </p>--%>
-            <%--</li>--%>
-        <%--</c:forEach>--%>
-
-        <%--</li>--%>
-    <%--</c:forEach>--%>
-<%--</ul>--%>
-
-
-
-
-
-
-
-
-
-
 
 
 </body>

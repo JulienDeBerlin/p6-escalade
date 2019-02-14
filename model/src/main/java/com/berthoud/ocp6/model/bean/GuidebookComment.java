@@ -2,21 +2,21 @@ package com.berthoud.ocp6.model.bean;
 
 import java.util.Objects;
 
-public class CommentGuidebook {
+public class GuidebookComment {
 
     private int id;
     private int memberId;
     private int guidebookId;
     private String comment;
 
-    public CommentGuidebook(int id, int memberId, int guidebookId, String comment) {
+    public GuidebookComment(int id, int memberId, int guidebookId, String comment) {
         this.id = id;
         this.memberId = memberId;
         this.guidebookId = guidebookId;
         this.comment = comment;
     }
 
-    public CommentGuidebook() {
+    public GuidebookComment() {
     }
 
     public int getId() {
@@ -53,7 +53,7 @@ public class CommentGuidebook {
 
     @Override
     public String toString() {
-        return "CommentGuidebook{" +
+        return "GuidebookComment{" +
                 "id=" + id +
                 ", memberId=" + memberId +
                 ", guidebookId=" + guidebookId +
@@ -66,7 +66,7 @@ public class CommentGuidebook {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CommentGuidebook that = (CommentGuidebook) o;
+        GuidebookComment that = (GuidebookComment) o;
         return id == that.id &&
                 memberId == that.memberId &&
                 guidebookId == that.guidebookId &&

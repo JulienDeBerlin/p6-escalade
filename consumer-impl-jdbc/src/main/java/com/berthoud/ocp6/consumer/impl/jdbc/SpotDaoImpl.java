@@ -18,6 +18,8 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
     RouteDaoImpl routeDao;
     @Autowired
     GuidebookDaoImpl guidebookDao;
+    @Autowired
+    SpotCommentDaoImpl commentSpotDao;
 
 
     /**
@@ -38,6 +40,7 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
             Spot spot = i.next();
             spot.setRoutes(routeDao.findRoutesBasedOnSpot(spot.getId()));
             spot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spot.getId()));
+            spot.setComments(commentSpotDao.findCommentSpotBySpotId(spot.getId()));
         }
         return myResults;
     }
@@ -51,11 +54,10 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
     @Override
     public Spot findSpotBySpotId(int spotId) {
 
-        Spot selectedSpot;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         String mySqlRequest =   "select * from spot where spot.id = ?";
-        selectedSpot = (Spot)jdbcTemplate.queryForObject(mySqlRequest,new Object[]{spotId},new BeanPropertyRowMapper(Spot.class));
+        Spot selectedSpot =jdbcTemplate.queryForObject(mySqlRequest,new Object[]{spotId},new BeanPropertyRowMapper <>(Spot.class));
 
         selectedSpot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spotId));
 

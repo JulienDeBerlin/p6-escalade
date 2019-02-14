@@ -37,15 +37,13 @@ public class ServiceGuidebook {
 
 
     /**
-     * This method takes the id of the object Spot and return the matching Guidebooks
-     * @param spotId
+     * This method returns a full guidebook object (incl. matching spots) based on its id
+     * @param guidebookId
      * @return
      */
-    public List<Guidebook> findGuidebooksBasedOnSpotId (int spotId){
-        return guidebookDao.findGuidebooksBasedOnSpot(spotId);
-    }
-
-
+public  Guidebook findGuidebookbyId (int guidebookId){
+     return guidebookDao.findGuidebookById(guidebookId);
+}
 
 
 }

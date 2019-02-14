@@ -1,7 +1,10 @@
 package com.berthoud.ocp6.webapp.controllers;
 
+import com.berthoud.ocp6.business.ServiceGuidebook;
 import com.berthoud.ocp6.business.ServiceLocation;
+import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
+import com.berthoud.ocp6.model.bean.Spot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,9 @@ public class ControllerSpots {
     @Autowired
     ServiceLocation serviceLocation;
 
+    @Autowired
+    ServiceGuidebook serviceGuidebook;
+
     private static final Logger logger = LogManager.getLogger();
 
     @RequestMapping(value = "/spots", method = RequestMethod.POST)
@@ -36,5 +42,15 @@ public class ControllerSpots {
         model.put("resultLocations", resultLocations);
         return "spots";
     }
+
+    @RequestMapping(value = "/spots", method = RequestMethod.GET)
+    public String getResultTopos(@RequestParam (value = "guidebookId") String guidebookId, ModelMap model){
+
+        Guidebook selectedGuidebook = serviceGuidebook.findGuidebookbyId(parseInt(guidebookId));
+        model.put("selectedGuidebook", selectedGuidebook);
+
+        return "spotsfromguidebook";
+    }
+
 
 }

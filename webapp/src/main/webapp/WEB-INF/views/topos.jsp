@@ -28,7 +28,7 @@
             <p> Summary: <c:out value="${ guidebook.summary }"/></p>
             <p> Auteur: <c:out value="${ guidebook.firstnameAuthor }"/> <c:out
                     value="${ guidebook.surnameAuthor }"/></p>
-            <a href="">Afficher les sites correspondants</a>
+            <a href="${pageContext.request.contextPath}/escalade/spots?guidebookId=${guidebook.id}">Afficher les sites correspondants</a>
             <br/>
         </c:forEach>
     </ol>

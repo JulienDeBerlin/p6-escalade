@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface GuidebookDao {
 
-    public List<Guidebook> findGuidebooksBasedOnSpot(int spotId);
+     List<Guidebook> findGuidebooksBasedOnSpot(int spotId);
+     Guidebook findGuidebookById(int guidebookId);
 }
+

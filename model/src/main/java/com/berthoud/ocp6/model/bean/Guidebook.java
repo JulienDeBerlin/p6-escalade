@@ -13,12 +13,14 @@ public class Guidebook {
     private String summary;
     private String firstnameAuthor;
     private String SurnameAuthor;
-    private List<CommentGuidebook> commentsGuidebook;
+    private List<GuidebookComment> commentsGuidebook;
     private List <MemberLibrairy> memberLibrairies;
+    private List <Spot> spots;
 
 
-    public Guidebook(int id, String isbn13, String name, short yearPublication, String publisher, String language, String summary, String firstnameAuthor,
-                     String surnameAuthor, List<CommentGuidebook> commentsGuidebook, List<MemberLibrairy> memberLibrairies) {
+    public Guidebook(int id, String isbn13, String name, short yearPublication, String publisher, String language, String summary,
+                     String firstnameAuthor, String surnameAuthor, List<GuidebookComment> commentsGuidebook,
+                     List<MemberLibrairy> memberLibrairies, List<Spot> spots) {
         this.id = id;
         this.isbn13 = isbn13;
         this.name = name;
@@ -30,6 +32,7 @@ public class Guidebook {
         SurnameAuthor = surnameAuthor;
         this.commentsGuidebook = commentsGuidebook;
         this.memberLibrairies = memberLibrairies;
+        this.spots = spots;
     }
 
     public Guidebook() {
@@ -107,11 +110,11 @@ public class Guidebook {
         SurnameAuthor = surnameAuthor;
     }
 
-    public List<CommentGuidebook> getCommentsGuidebook() {
+    public List<GuidebookComment> getCommentsGuidebook() {
         return commentsGuidebook;
     }
 
-    public void setCommentsGuidebook(List<CommentGuidebook> commentsGuidebook) {
+    public void setCommentsGuidebook(List<GuidebookComment> commentsGuidebook) {
         this.commentsGuidebook = commentsGuidebook;
     }
 
@@ -123,11 +126,19 @@ public class Guidebook {
         this.memberLibrairies = memberLibrairies;
     }
 
+    public List<Spot> getSpots() {
+        return spots;
+    }
+
+    public void setSpots(List<Spot> spots) {
+        this.spots = spots;
+    }
+
     @Override
     public String toString() {
         return "Guidebook{" +
                 "id=" + id +
-                ", isbn13=" + isbn13 +
+                ", isbn13='" + isbn13 + '\'' +
                 ", name='" + name + '\'' +
                 ", yearPublication=" + yearPublication +
                 ", publisher='" + publisher + '\'' +
@@ -137,6 +148,7 @@ public class Guidebook {
                 ", SurnameAuthor='" + SurnameAuthor + '\'' +
                 ", commentsGuidebook=" + commentsGuidebook +
                 ", memberLibrairies=" + memberLibrairies +
+                ", spots=" + spots +
                 '}';
     }
 
@@ -155,11 +167,12 @@ public class Guidebook {
                 Objects.equals(firstnameAuthor, guidebook.firstnameAuthor) &&
                 Objects.equals(SurnameAuthor, guidebook.SurnameAuthor) &&
                 Objects.equals(commentsGuidebook, guidebook.commentsGuidebook) &&
-                Objects.equals(memberLibrairies, guidebook.memberLibrairies);
+                Objects.equals(memberLibrairies, guidebook.memberLibrairies) &&
+                Objects.equals(spots, guidebook.spots);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, isbn13, name, yearPublication, publisher, language, summary, firstnameAuthor, SurnameAuthor, commentsGuidebook, memberLibrairies);
+        return Objects.hash(id, isbn13, name, yearPublication, publisher, language, summary, firstnameAuthor, SurnameAuthor, commentsGuidebook, memberLibrairies, spots);
     }
 }
