@@ -4,7 +4,6 @@ import com.berthoud.ocp6.business.ServiceGuidebook;
 import com.berthoud.ocp6.business.ServiceLocation;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
-import com.berthoud.ocp6.model.bean.Spot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,8 @@ public class ControllerSpots {
 
     @RequestMapping(value = "/spots", method = RequestMethod.POST)
     public String getResultSpots(@RequestParam (value = "locationInput") String locationInput,
-                                 @RequestParam (value="onlySpotsWithBoltedRoutes", required = false) boolean onlySpotsWithBoltedRoutes,
+                                 @RequestParam (value="onlySpotsWithBoltedRoutes", required = false)
+                                         boolean onlySpotsWithBoltedRoutes,
                                  @RequestParam (value = "ratingMin") String ratingMin,
                                  @RequestParam (value = "ratingMax") String ratingMax,
                                  ModelMap model) {
@@ -44,7 +44,8 @@ public class ControllerSpots {
     }
 
     @RequestMapping(value = "/spots", method = RequestMethod.GET)
-    public String getResultTopos(@RequestParam (value = "guidebookId") String guidebookId, ModelMap model){
+    public String getResultTopos(@RequestParam (value = "guidebookId") String guidebookId,
+                                 ModelMap model){
 
         Guidebook selectedGuidebook = serviceGuidebook.findGuidebookbyId(parseInt(guidebookId));
         model.put("selectedGuidebook", selectedGuidebook);

@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface MemberDao {
     public List<Member> findAll ();
+    public Member findMemberByEmail(String email);
 }

@@ -5,62 +5,77 @@
   Time: 15:25
   To change this template use File | Settings | File Templates.
 --%>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>High</title>
     <link href="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/css/bootstrap.min.css"
           rel="stylesheet"/>
-
-
-    <style type="text/css">
-        .jumbotron-fluid {
-            background-image: url("<c:url value="/resources/img/hauteMontage.jpg" />");
-        }
-
-        body
-        { padding-top: 70px; }
-
-        h1
-        {
-            padding-top: 50px;
-        }
-
-    </style>
 </head>
+
 
 <body>
 
+<style type="text/css">
+    .jumbotron-fluid {
+        background-image: url("<c:url value="/resources/img/hauteMontage.jpg" />");
+    }
+
+    body {
+        padding-top: 70px;
+    }
+
+    h1 {
+        padding-top: 50px;
+    }
+</style>
 
 <div class="container">
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
         <a class="navbar-brand" href="#">MENU</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                <a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-item nav-link" href="#lesSpots" >Les spots</a>
+                    <a class="nav-item nav-link" href="#lesSpots">Les spots</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-item nav-link" href="#lesTopos">Les topos</a>
+                    <a class="nav-item nav-link" href="#lesTopos">Les topos</a>
                 </li>
                 <li class="nav-item">
-                <a class="nav-item nav-link" href="#Contribuez">Contribuez</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-item nav-link" href="#" >Login</a>
+                    <a class="nav-item nav-link" href="#Contribuez">Contribuez</a>
                 </li>
             </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+
+                    <c:if test="${empty user}">
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/login?loginFrom=home">Login</a>
+                    </c:if>
+
+                    <c:if test="${not empty user}">
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/login?loginFrom=home">Bienvenue ${user.nickname}</a>
+                    </c:if>
+
+                </li>
+            </ul>
+
+
         </div>
     </nav>
 
@@ -72,9 +87,7 @@
     </div>
 
 
-
     <h1 id="leProjet">LE PROJET</h1>
-
 
 
     <div class="row">
@@ -98,7 +111,8 @@
 
         <div class="form-group">
             <label for="locationInput">Localisation</label>
-            <input type="text" name="locationInput" class="form-control" id="locationInput" placeholder="Région, département, commune, site...">
+            <input type="text" name="locationInput" class="form-control" id="locationInput"
+                   placeholder="Région, département, commune, site...">
         </div>
 
         <div class="form-group">
@@ -133,7 +147,8 @@
 
 
         <div class="form-check">
-            <input type="checkbox" name= "onlySpotsWithBoltedRoutes" id="onlySpotsWithBoltedRoutes" class="form-check-input" >
+            <input type="checkbox" name="onlySpotsWithBoltedRoutes" id="onlySpotsWithBoltedRoutes"
+                   class="form-check-input">
             <label class="form-check-label" for="onlySpotsWithBoltedRoutes">
                 Afficher uniquement les voies équipées
             </label>
@@ -150,11 +165,12 @@
 
         <div class="form-group">
             <label for="locationInputForTopo">Localisation</label>
-            <input type="text" name="locationInputForTopo" class="form-control" id="locationInputForTopo" placeholder="Région, département, commune, site...">
+            <input type="text" name="locationInputForTopo" class="form-control" id="locationInputForTopo"
+                   placeholder="Région, département, commune, site...">
         </div>
 
         <div class="form-check">
-            <input type="checkbox" name= "loanRequired" id="loanRequired" class="form-check-input" >
+            <input type="checkbox" name="loanRequired" id="loanRequired" class="form-check-input">
             <label class="form-check-label" for="loanRequired">
                 Afficher uniquement les topos proposés au prêt par nos membres pour nos membres
             </label>
@@ -169,7 +185,7 @@
     <h1 id="Contribuez">CONTRIBUEZ!</h1>
 
     <div>
-       <a href="">Référencez un spot ou une voie</a>
+        <a href="">Référencez un spot ou une voie</a>
     </div>
 
     <div>
@@ -189,15 +205,8 @@
 </div>
 
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
 
-<script>
-$('.navbar-nav>li>a').on('click', function(){
-$('.navbar-collapse').collapse('hide');
-});
-</script>
-
+<jsp:include page="resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
 
 </body>

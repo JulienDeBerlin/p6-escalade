@@ -12,7 +12,7 @@ public class ControllerTests {
 
     @RequestMapping(value = "/test/autocomplete", method = RequestMethod.GET)
     public String getSpots() {
-        return "testAutocomplete";
+        return "testAutocomplete2";
     }
 
 }

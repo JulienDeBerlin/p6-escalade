@@ -18,7 +18,7 @@ public class MemberLibrairyDaoImpl extends AbstractDaoImpl implements MemberLibr
 
         String sqlRequest = "select * from member_librairy where member_librairy.guidebook_id = ?";
         List<MemberLibrairy> memberLibrairies = jdbcTemplate.query
-                (sqlRequest, new Object[]{GuidebookId}, new BeanPropertyRowMapper<>(MemberLibrairy.class));
+                (sqlRequest, new Object[]{GuidebookId},  new BeanPropertyRowMapper<>(MemberLibrairy.class));
         return memberLibrairies;
     }
 }

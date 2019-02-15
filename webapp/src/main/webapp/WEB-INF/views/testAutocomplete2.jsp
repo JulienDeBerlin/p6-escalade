@@ -23,6 +23,9 @@
 </head>
 
 <body>
+
+
+
 <div id="jquery-script-menu">
     <div class="jquery-script-center">
         <ul>
@@ -46,6 +49,7 @@
 </div>
 <div class="container">
     <h1>jQuery Bootstrap 3/4 Typeahead Plugin Demo</h1>
+    <p>Bienvenue ${user.nickname}!</p>
     <input class="typeahead form-control">
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
