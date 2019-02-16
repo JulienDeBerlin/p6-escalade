@@ -47,11 +47,18 @@ public class ControllerLogin {
 
         if (serviceLogin.checkPassword(inputPassword, member)){
             model.put ("user", member);
-            return "testAutocomplete2";
+            return "index";
         }else {
             message="wrongPassword";
             model.put("message", message);
             return "login";
         }
     }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(ModelMap model){
+        model.remove("user");
+        return "index";
+    }
+
 }

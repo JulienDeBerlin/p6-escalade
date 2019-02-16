@@ -60,19 +60,24 @@
             </ul>
 
             <ul class="navbar-nav">
-                <li class="nav-item">
-
-                    <c:if test="${empty user}">
+                <c:if test="${empty user}">
+                    <li class="nav-item">
                         <a class="nav-item nav-link"
                            href="${pageContext.request.contextPath}/escalade/login?loginFrom=home">Login</a>
-                    </c:if>
+                    </li>
+                </c:if>
 
-                    <c:if test="${not empty user}">
-                        <a class="nav-item nav-link"
-                           href="${pageContext.request.contextPath}/escalade/login?loginFrom=home">Bienvenue ${user.nickname}</a>
-                    </c:if>
-
-                </li>
+                <c:if test="${not empty user}">
+                    <li class="nav-item">
+                        <p>Bienvenue ${user.nickname}</p>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="">Mon compte</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se déconnecter</a>
+                    </li>
+                </c:if>
             </ul>
 
 
