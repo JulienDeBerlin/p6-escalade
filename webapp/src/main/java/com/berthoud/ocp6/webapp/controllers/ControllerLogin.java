@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 
 @SessionAttributes (value = {"user", "loginFrom"})
@@ -37,16 +38,16 @@ public class ControllerLogin {
                                 @RequestParam (value = "password") String inputPassword,
                                 ModelMap model) {
         String message;
-        Member member = serviceLogin.findMemberByEmail(inputEmail);
+        Member user = serviceLogin.findMemberByEmail(inputEmail);
 
-        if (member==null){
+        if (user==null){
             message="memberNotFound";
             model.put("message", message);
             return "login";
         }
 
-        if (serviceLogin.checkPassword(inputPassword, member)){
-            model.put ("user", member);
+        if (serviceLogin.checkPassword(inputPassword, user)){
+            model.put ("user", user);
             return "index";
         }else {
             message="wrongPassword";
@@ -56,8 +57,8 @@ public class ControllerLogin {
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(ModelMap model){
-        model.remove("user");
+    public String logout(ModelMap model, SessionStatus status){
+        status.setComplete();
         return "index";
     }
 
