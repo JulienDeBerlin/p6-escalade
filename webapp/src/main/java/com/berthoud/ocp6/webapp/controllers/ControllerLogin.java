@@ -9,26 +9,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 
-@SessionAttributes (value = {"user", "loginFrom"})
+@SessionAttributes (value = {"user"})
 @Controller
 public class ControllerLogin {
 
     @Autowired
     ServiceLogin serviceLogin;
 
-//    @ModelAttribute("loginFrom")
-//    public String getLoginFrom(@RequestParam(value = "loginFrom") String requestOrigin)
-//    {
-//        return requestOrigin;
-//    }
-
-//    @ModelAttribute("user")
-//    public Member addUserToModel(Member member){
-//        return member;
-//    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String displayloginPage(){
+    public String displayloginPage(@RequestParam (value = "afterLogin") String jspAfterLogin,
+                                   ModelMap model){
+        model.put("jspAfterLogin",jspAfterLogin );
         return "login";
     }
 
@@ -36,6 +28,7 @@ public class ControllerLogin {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String checkPassword(@RequestParam (value = "email") String inputEmail,
                                 @RequestParam (value = "password") String inputPassword,
+                                @RequestParam (value = "afterLogin") String jspAfterLogin,
                                 ModelMap model) {
         String message;
         Member user = serviceLogin.findMemberByEmail(inputEmail);
@@ -43,15 +36,17 @@ public class ControllerLogin {
         if (user==null){
             message="memberNotFound";
             model.put("message", message);
+            model.put("jspAfterLogin",jspAfterLogin );
             return "login";
         }
 
         if (serviceLogin.checkPassword(inputPassword, user)){
             model.put ("user", user);
-            return "index";
+            return jspAfterLogin;
         }else {
             message="wrongPassword";
             model.put("message", message);
+            model.put("jspAfterLogin",jspAfterLogin );
             return "login";
         }
     }

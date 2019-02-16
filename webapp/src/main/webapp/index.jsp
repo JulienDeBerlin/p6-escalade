@@ -63,7 +63,7 @@
                 <c:if test="${empty user}">
                     <li class="nav-item">
                         <a class="nav-item nav-link"
-                           href="${pageContext.request.contextPath}/escalade/login?loginFrom=home">Login</a>
+                           href="${pageContext.request.contextPath}/escalade/login?afterLogin=index">Login</a>
                     </li>
                 </c:if>
 
@@ -190,7 +190,7 @@
     <h1 id="Contribuez">CONTRIBUEZ!</h1>
 
     <div>
-        <a href="">Référencez un spot ou une voie</a>
+        <a href="${pageContext.request.contextPath}/escalade/addcontent/spot">Référencez un spot ou une voie</a>
     </div>
 
     <div>
