@@ -7,8 +7,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
@@ -64,4 +66,31 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
     }
 
 
+    @Override
+    public List <String> getLocationProposals(String query) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        List<String> matches = new ArrayList<>();
+
+        String sqlQuery1 =   "SELECT DISTINCT region FROM location WHERE region ILIKE  '%"+ query+  "%'";
+        String sqlQuery2 =   "SELECT DISTINCT departement_name FROM location WHERE departement_name ILIKE  '%"+ query+  "%'";
+        String sqlQuery3 =   "SELECT DISTINCT departement_name FROM location WHERE departement_id ILIKE '"+ query+  "%'";
+        String sqlQuery4 =   "SELECT DISTINCT city_name FROM location WHERE city_name ILIKE  '%"+ query+  "%'";
+        String sqlQuery5 =   "SELECT DISTINCT city_name FROM location WHERE zip_code ILIKE  '"+ query+  "%'";
+
+        List<String> myResults1 =jdbcTemplate.queryForList(sqlQuery1,String.class);
+        List<String> myResults2 =jdbcTemplate.queryForList(sqlQuery2,String.class);
+        List<String> myResults3 =jdbcTemplate.queryForList(sqlQuery3,String.class);
+        List<String> myResults4 =jdbcTemplate.queryForList(sqlQuery4,String.class);
+        List<String> myResults5 =jdbcTemplate.queryForList(sqlQuery5,String.class);
+
+        matches.addAll(myResults1);
+        matches.addAll(myResults2);
+        matches.addAll(myResults3);
+        matches.addAll(myResults4);
+        matches.addAll(myResults5);
+
+
+        return matches;
+    }
 }

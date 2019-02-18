@@ -13,8 +13,30 @@
 <head>
     <meta charset="UTF-8"/>
     <title>High</title>
+
     <link href="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/css/bootstrap.min.css"
           rel="stylesheet"/>
+    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+          rel = "stylesheet">
+
+    <script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
+    <script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Javascript -->
+    <script>
+        $('.navbar-nav>li>a').on('click', function(){
+            $('.navbar-collapse').collapse('hide');
+        });
+    </script>
+
+    <script>
+        $(function() {
+            $( "#locationInput" ).autocomplete({
+                source: '${pageContext.request.contextPath}/escalade/get_location_list' });
+        });
+    </script>
+
 </head>
 
 
@@ -108,7 +130,6 @@
         </section>
 
     </div>
-
 
     <h1 id="lesSpots">RECHERCHER DES SITES</h1>
 
@@ -211,7 +232,7 @@
 
 
 
-<jsp:include page="resources/JspFragments/scriptsJS.jsp"></jsp:include>
+<%--<jsp:include page="resources/JspFragments/scriptsJS.jsp"></jsp:include>--%>
 
 
 </body>
