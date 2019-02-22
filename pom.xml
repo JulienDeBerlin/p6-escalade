@@ -119,6 +119,16 @@
         <version>5.1.4.RELEASE</version>
       </dependency>
 
+      <!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-tx</artifactId>
+        <version>5.1.4.RELEASE</version>
+      </dependency>
+
+
+
+
       <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
       <dependency>
         <groupId>org.postgresql</groupId>

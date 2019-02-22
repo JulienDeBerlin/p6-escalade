@@ -1,5 +1,6 @@
 package com.berthoud.ocp6.business;
 import com.berthoud.ocp6.consumer.contract.dao.LocationDao;
+import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
 import com.berthoud.ocp6.model.bean.Spot;
@@ -21,14 +22,15 @@ public class ServiceLocation {
     private ServiceGuidebook serviceGuidebook;
 
 
+
+
     /**
      * Finds the full location details (incl. matching spots and routes) based on location
      * @param locationInput the location input entered by the user
-     * @param tableColomn the category of input, basically the colomn of table "Location"the research is based on (i.e. region, departement_name...)
      * @return
      */
-    public List<Location> detailledInfoBasedOnLocation(String locationInput, String tableColomn){
-       return locationDao.findLocationsByTableColomn(locationInput,tableColomn);
+    public List<Location> detailledInfoBasedOnLocation(String locationInput) throws Exception{
+       return locationDao.findLocationsByTableColomn(locationInput);
     }
 
 
@@ -104,6 +106,13 @@ public class ServiceLocation {
         }
         return guidebooksWithoutRepetition;
     }
+
+    public List<String>  getLocationProposals( String query){
+        return locationDao.getLocationProposals(query);
+    }
+
+
+
 }
 
 

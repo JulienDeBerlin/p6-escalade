@@ -14,12 +14,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-
+@SessionAttributes (value = {"alertTopo"})
 @Controller
 public class ControllerTopos {
 
@@ -41,14 +42,24 @@ public class ControllerTopos {
                                  @RequestParam (value = "loanRequired", required =false) boolean loanRequired,
                                 ModelMap model){
 
-        List<Location> resultLocations =serviceLocation.detailledInfoBasedOnLocation(locationInputForTopo, "departement_name");
-        List<Guidebook> guidebookListWithoutDuplicates = serviceLocation.editGuidebookListWithoutDuplicate(resultLocations);
-        serviceGuidebook.filterGuidebooksByLoanAvailable(guidebookListWithoutDuplicates, loanRequired);
+        String alert;
 
-        model.put("locationInputForTopo", locationInputForTopo);
-        model.put("guidebookListWithoutDuplicates", guidebookListWithoutDuplicates);
+        try{
+            List<Location> resultLocations =serviceLocation.detailledInfoBasedOnLocation(locationInputForTopo);
+            List<Guidebook> guidebookListWithoutDuplicates = serviceLocation.editGuidebookListWithoutDuplicate(resultLocations);
+            serviceGuidebook.filterGuidebooksByLoanAvailable(guidebookListWithoutDuplicates, loanRequired);
 
-        return "topos";
+            model.put("locationInputForTopo", locationInputForTopo);
+            model.put("guidebookListWithoutDuplicates", guidebookListWithoutDuplicates);
+            alert = "ok";
+            model.put("alertTopo", alert);
+            return "topos";
+
+        } catch (Exception e){
+            alert = "notFound";
+            model.put("alertTopo", alert);
+            return "index";
+        }
     }
 
     @RequestMapping(value = "/topos", method = RequestMethod.GET)

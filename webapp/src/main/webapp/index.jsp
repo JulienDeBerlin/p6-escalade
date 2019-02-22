@@ -19,24 +19,6 @@
     <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
           rel = "stylesheet">
 
-    <script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
-    <script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <!-- Javascript -->
-    <script>
-        $('.navbar-nav>li>a').on('click', function(){
-            $('.navbar-collapse').collapse('hide');
-        });
-    </script>
-
-    <script>
-        $(function() {
-            $( "#locationInput" ).autocomplete({
-                source: '${pageContext.request.contextPath}/escalade/get_location_list' });
-        });
-    </script>
-
 </head>
 
 
@@ -56,10 +38,12 @@
     }
 </style>
 
+<p id="home"></p>
+
 <div class="container">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
-        <a class="navbar-brand" href="#">MENU</a>
+        <a class="navbar-brand" href=#>HOME</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -67,9 +51,9 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>
-                </li>
+                <%--<li class="nav-item active">--%>
+                    <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
+                <%--</li>--%>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#lesSpots">Les spots</a>
                 </li>
@@ -81,7 +65,7 @@
                 </li>
             </ul>
 
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" >
                 <c:if test="${empty user}">
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -94,7 +78,7 @@
                         <p>Bienvenue ${user.nickname}</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="">Mon compte</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Mon compte</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se déconnecter</a>
@@ -106,7 +90,7 @@
         </div>
     </nav>
 
-    <div class="jumbotron jumbotron-fluid">
+    <div class="jumbotron jumbotron-fluid" >
         <div class="container">
             <p class="display-4">HIGH</p>
             <p class="lead">La plateforme collaborative pour les passionnés d'escalade</p>
@@ -132,6 +116,12 @@
     </div>
 
     <h1 id="lesSpots">RECHERCHER DES SITES</h1>
+
+
+    <c:if test="${alert=='notFound'}">
+        <p style="color: red"> Attention, la localisation doit être choisie parmi la liste des propositions
+        </p>
+    </c:if>
 
     <form method="post" action="${pageContext.request.contextPath}/escalade/spots">
 
@@ -187,12 +177,17 @@
 
     <h1 id="lesTopos">RECHERCHER DES TOPOS</h1>
 
+    <c:if test="${alertTopo=='notFound'}">
+        <p style="color: red"> Attention, la localisation doit être choisie parmi la liste des propositions
+        </p>
+    </c:if>
+
     <form method="post" action="${pageContext.request.contextPath}/escalade/topos">
 
         <div class="form-group">
             <label for="locationInputForTopo">Localisation</label>
             <input type="text" name="locationInputForTopo" class="form-control" id="locationInputForTopo"
-                   placeholder="Région, département, commune, site...">
+                   placeholder="Région, département, commune">
         </div>
 
         <div class="form-check">
@@ -226,13 +221,31 @@
     <br/>
 
 
-    <a href="${pageContext.request.contextPath}/escalade/test/autocomplete">TESTER L'AUTOCOMPLETION</a>
+    <a href="${pageContext.request.contextPath}/escalade/test/autocomplete">TESTER L'AUTOCOMPLETION AVEC PLUGIN ALTERNATIF</a>
 
 </div>
 
 
+<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
+<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<%--<jsp:include page="resources/JspFragments/scriptsJS.jsp"></jsp:include>--%>
+
+<script>
+    $('.navbar-nav>li>a').on('click', function(){
+        $('.navbar-collapse').collapse('hide');
+    });
+</script>
+
+<script>
+    $(function() {
+        $( "#locationInput, #locationInputForTopo" ).autocomplete({
+            minLength: 2,
+            source: '${pageContext.request.contextPath}/escalade/get_location_list' ,
+        });
+    });
+
+</script>
 
 
 </body>

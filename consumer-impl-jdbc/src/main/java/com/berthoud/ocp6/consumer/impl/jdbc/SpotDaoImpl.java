@@ -1,5 +1,6 @@
 package com.berthoud.ocp6.consumer.impl.jdbc;
 import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
+import com.berthoud.ocp6.model.bean.Location;
 import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -20,6 +21,7 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
     GuidebookDaoImpl guidebookDao;
     @Autowired
     SpotCommentDaoImpl commentSpotDao;
+
 
 
     /**
@@ -62,5 +64,18 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
         selectedSpot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spotId));
 
         return selectedSpot;
+    }
+
+    /**
+     * This methods insert an object spot in the DB, including the foreign key pointing to Location
+     * @param s = the spot object to be created
+     * @return
+     */
+    @Override
+    public int insertSpot (Spot s) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        String sqlQuery = "insert into location(name_spot, name_area, location_id";
+        return jdbcTemplate.update(sqlQuery, (new Object [] {s.getNameSpot(), s.getNameArea(),
+                s.getLocation().getId()}));
     }
 }

@@ -12,12 +12,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-
+@SessionAttributes(value = {"alert"})
 @Controller
 public class ControllerSpots {
 
@@ -37,12 +38,29 @@ public class ControllerSpots {
                                  @RequestParam (value = "ratingMax") String ratingMax,
                                  ModelMap model) {
 
-        List<Location> resultLocations =serviceLocation.detailledInfoBasedOnLocation(locationInput, "departement_name");
-        resultLocations = serviceLocation.filterLocations(resultLocations, onlySpotsWithBoltedRoutes, parseInt(ratingMin),parseInt(ratingMax));
-        model.put("resultLocations", resultLocations);
-        return "spots";
+
+        String alert;
+
+        try {
+            List<Location> resultLocations = serviceLocation.detailledInfoBasedOnLocation(locationInput);
+            resultLocations = serviceLocation.filterLocations(resultLocations, onlySpotsWithBoltedRoutes, parseInt(ratingMin), parseInt(ratingMax));
+            model.put("resultLocations", resultLocations);
+            alert = "ok";
+            model.put("alert", alert);
+            return "spots";
+        }catch (Exception e){
+            alert = "notFound";
+            model.put("alert", alert);
+            return "index";
+        }
     }
 
+    /**
+     * Note: the returned Guidebook object contains the matching spots and location!
+     * @param guidebookId
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/spots", method = RequestMethod.GET)
     public String getResultTopos(@RequestParam (value = "guidebookId") String guidebookId,
                                  ModelMap model){

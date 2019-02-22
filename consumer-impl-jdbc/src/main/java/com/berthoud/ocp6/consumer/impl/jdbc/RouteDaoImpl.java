@@ -26,4 +26,16 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
 
         return jdbcTemplate.query (mySqlRequest, new Object[]{spotId}, new BeanPropertyRowMapper<> (Route.class));
     }
+
+
+    /**
+     * this method inserts a new route in the DB
+     */
+    @Override
+    public int insertRoute(Route r) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        String sqlQuery = "insert into route(name, nb_pitch, index_pitch, rating, bolted, spot_id)";
+        return jdbcTemplate.update(sqlQuery, (new Object [] {r.getName(), r.getNbPitch(), r.getRating(), r.isBolted(),
+                r.getSpot().getId()}));
+    }
 }

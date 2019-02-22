@@ -3,6 +3,7 @@ import com.berthoud.ocp6.consumer.contract.dao.SpotCommentDao;
 import com.berthoud.ocp6.consumer.contract.dao.GuidebookDao;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
+import com.berthoud.ocp6.model.bean.Member;
 import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -96,4 +97,25 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
 
         return selectedGuidebook;
     }
+
+
+    @Override
+    public List<Guidebook> getGuidebooksForLoan(Member member) {
+
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "select * from guidebook where guidebook.id in " +
+                "(select guidebook_id from member_librairy " +
+                "where member_id = ?)";
+
+        List <Guidebook> guidebooksForLoan = jdbcTemplate.query(sqlRequest, new Object[]{member.getId()},
+                new BeanPropertyRowMapper<>(Guidebook.class));
+        return guidebooksForLoan;
+    }
+
+
+
+
+
 }

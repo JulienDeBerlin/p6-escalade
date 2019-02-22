@@ -14,12 +14,7 @@ public class ControllerTests {
     public String getSpots() {
 
 
-
-
-
-
-
-        return "testAutocomplete";
+        return "testApiRest";
     }
 
 }

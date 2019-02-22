@@ -72,8 +72,82 @@
 
         </div>
     </nav>
+
+
+<h1>ESPACE MEMBRE</h1>
+
+    <h2>Coordonnées</h2>
+<ul>
+    <li>Prénom: ${user.firstName} (non public)</li>
+    <li>Nom: ${user.surname} (non public)</li>
+    <li>Pseudo: ${user.nickname} </li>
+    <li>Email: ${user.email}</li>
+    <li>Télephone: ${user.phone}</li>
+    <li>Membre depuis: ${user.dateMembership}</li>
+</ul>
+
+<c:if test="${message!='password2different' && message!='ok'}">
+<a href="${pageContext.request.contextPath}/escalade/login/resetPassword"> Changer le mot de passe</a>
+</c:if>
+
+<c:if test="${message=='password2different'}">
+    <p style="color: red">Erreur de saisie, les mots de passe ne sont pas identiques!</p>
+</c:if>
+
+<c:if test="${message=='ok'}">
+    <p style="color: green">Le mot de passe a bien été changé. </p>
+</c:if>
+
+
+<c:if test="${action=='resetPassword'}">
+
+
+    <br/>
+
+    <form method="post" action="${pageContext.request.contextPath}/escalade/login/resetPassword">
+
+        <div class="form-group" >
+            <label for="password1">Choisissez un mot de passe</label>
+            <input type="password" name="password1" class="form-control" id="password1" placeholder="monadresse@exemple.fr">
+        </div>
+
+        <div class="form-group">
+            <label for="password2">Saisissez à nouveau le mot de passe</label>
+            <input type="password" name="password2" class="form-control" id="password2">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Changer le mot de passe</button>
+    </form>
+
+</c:if>
+
+    <h2>Liste des topos que je propose au prêt: </h2>
+
+    <div>
+        <ol>
+            <c:forEach items="${guidebooksForLoan }" var="guidebook">
+                <li><strong>Titre: <c:out value="${ guidebook.name }"/> </strong></li>
+                <p> Nr. ISBN 13: <c:out value="${ guidebook.isbn13 }"/></p>
+                <p> Éditeur: <c:out value="${ guidebook.publisher }"/></p>
+                <p> Langue: <c:out value="${ guidebook.language}"/></p>
+                <p> Summary: <c:out value="${ guidebook.summary }"/></p>
+                <p> Auteur: <c:out value="${ guidebook.firstnameAuthor }"/> <c:out
+                        value="${ guidebook.surnameAuthor }"/></p>
+            </c:forEach>
+        </ol>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
 </div>
-<h1>Répertorier un spot</h1>
 
 
 <script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>

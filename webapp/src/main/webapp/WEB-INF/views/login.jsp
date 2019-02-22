@@ -25,7 +25,7 @@
 
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
-        <a class="navbar-brand" href="${pageContext.request.contextPath}">MENU</a>
+        <a class="navbar-brand" href="${pageContext.request.contextPath}">HOME</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,24 +33,23 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
+                <%--<li class="nav-item">--%>
+                    <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
+                <%--</li>--%>
                 <li class="nav-item">
-                    <a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/redirect?anchor=lesSpots" >Les spots</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="#lesSpots" >Les spots</a>
+                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/redirect?anchor=lesTopos">Les topos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="#lesTopos">Les topos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link" href="#Contribuez">Contribuez</a>
+                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/redirect?anchor=Contribuez">Contribuez</a>
                 </li>
             </ul>
 
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-item nav-link"
-                       href="${pageContext.request.contextPath}/escalade/login?loginFrom=home" >Login</a>
+                    <a class="nav-item nav-link">Login</a>
                 </li>
             </ul>
 
@@ -94,7 +93,16 @@
 <a href="${pageContext.request.contextPath}/escalade/test/autocomplete"> Autocomplete</a>
 
 </div>
-<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
+
+
+<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
+<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
+
+<script>
+    $('.navbar-nav>li>a').on('click', function(){
+        $('.navbar-collapse').collapse('hide');
+    });
+</script>
 
 
 </body>

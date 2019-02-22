@@ -2,6 +2,7 @@ package com.berthoud.ocp6.business;
 
 import com.berthoud.ocp6.consumer.contract.dao.GuidebookDao;
 import com.berthoud.ocp6.model.bean.Guidebook;
+import com.berthoud.ocp6.model.bean.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,6 +46,16 @@ public  Guidebook findGuidebookbyId (int guidebookId){
      return guidebookDao.findGuidebookById(guidebookId);
 }
 
+
+    /**
+     * This method displays the guidebook owned by a member and available for loan
+     * @param member
+     * @return
+     */
+  public List <Guidebook>  getGuidebooksForLoan(Member member){
+      return guidebookDao.getGuidebooksForLoan(member);
+
+  }
 
 }
 
