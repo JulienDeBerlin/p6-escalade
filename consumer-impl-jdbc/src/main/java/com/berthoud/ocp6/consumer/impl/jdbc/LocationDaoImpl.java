@@ -5,8 +5,16 @@ import com.berthoud.ocp6.model.bean.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,12 +31,11 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
 
     /**
      * Finds Location object based on Id (Primary key of table "Location")
-     *
      * @param locationInput the id (= colomn "id" in SQL table)
      * @return
      */
     @Override
-    public Location findLocationById(String locationInput) {
+    public Location findLocationById(int locationInput) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         myResult = jdbcTemplate.queryForObject(sqlQueryBuilder("id"), new Object[]{locationInput}, new BeanPropertyRowMapper<>(Location.class));
         myResult.setSpots(spotDao.findSpotsByLocationId(myResult.getId()));
@@ -47,17 +54,29 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
     public List<Location> findLocationsByTableColomn(String locationInput) throws Exception {
 
         try {
-            String cleanedLocation = cleanedLocation(locationInput);
             String colomnInTableLocation = getColomnInTableLocation(locationInput);
-
+            String cleanedLocation = cleanedLocation(locationInput);
             JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-            myResults = jdbcTemplate.query(sqlQueryBuilder(colomnInTableLocation), new Object[]{cleanedLocation}, new BeanPropertyRowMapper<>(Location.class));
+
+            if (colomnInTableLocation == "city_name"){
+                String departement = cleanedDepartement(locationInput);
+                String myRequest = "select * from location where location.city_name = ? and location.departement_name=?";
+                myResults = jdbcTemplate.query(myRequest, new Object[]{cleanedLocation, departement},
+                        new BeanPropertyRowMapper<>(Location.class));
+            }
+
+            else {
+                myResults = jdbcTemplate.query(sqlQueryBuilder(colomnInTableLocation), new Object[]{cleanedLocation},
+                        new BeanPropertyRowMapper<>(Location.class));
+            }
+
             for (Iterator<Location> i = myResults.iterator(); i.hasNext(); ) {
                 Location location = i.next();
                 location.setSpots(spotDao.findSpotsByLocationId(location.getId()));
             }
 
             return myResults;
+
         } catch (Exception e) {
             throw e;
         }
@@ -65,14 +84,15 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
 
     /**
      * Builds a find-all sqlQuery based on the tableColomn param
-     *
      * @param tableColomn is the colomn of the table the query is based on (i.e. : departement_name, region...)
      * @return
      */
     private String sqlQueryBuilder(String tableColomn) {
         String myRequest;
-        myRequest = "select * from location where location." + tableColomn + "= ?";
-        return myRequest;
+
+            myRequest = "select * from location where location." + tableColomn + "= ?";
+                return myRequest;
+
     }
 
 
@@ -83,6 +103,12 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
         return locationInput.substring(0, locationInput.lastIndexOf("(") - 1);
     }
 
+    /**
+     * From a string formated as "location (ville du département: ain)", extracts "ain"
+     */
+    private String cleanedDepartement (String locationInput){
+        return locationInput.substring(locationInput.lastIndexOf(":")+2, locationInput.lastIndexOf(")"));
+    }
 
     /**
      * From a string formated as "location (category)", extracts the name of the SQL table location
@@ -106,7 +132,7 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
 
     /**
      * This method is used for the autocompletion in the site-search-field. It looks in different colomns of the "location"
-     * table for items that match with the @param. For each of the match, add its category and return the results in form of a
+     * table for items that match with the @param. For each of the match, adds its category and return the results in form of a
      * String List.
      *
      * @param query = the input entered by the user
@@ -114,6 +140,16 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
      */
     @Override
     public List<String> getLocationProposals(String query) {
+
+                class CityLocationMapper implements RowMapper<String> {
+                    @Override
+                    public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        String s = rs.getString("city_name") + " (ville du département: " +
+                                rs.getString("departement_name") + ")";
+                        return s;
+                    }
+                }
+
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         List<String> matches = new ArrayList<>();
@@ -121,14 +157,14 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
         String sqlQuery1 = "SELECT DISTINCT region FROM location WHERE region ILIKE  '%" + query + "%'";
         String sqlQuery2 = "SELECT DISTINCT departement_name FROM location WHERE departement_name ILIKE  '%" + query + "%'";
         String sqlQuery3 = "SELECT DISTINCT departement_name FROM location WHERE departement_id ILIKE '" + query + "%'";
-        String sqlQuery4 = "SELECT DISTINCT city_name FROM location WHERE city_name ILIKE  '%" + query + "%'";
-        String sqlQuery5 = "SELECT DISTINCT city_name FROM location WHERE zip_code ILIKE  '" + query + "%'";
+        String sqlQuery4 = "SELECT DISTINCT city_name, departement_name FROM location WHERE city_name ILIKE  '%" + query + "%'";
+        String sqlQuery5 = "SELECT DISTINCT city_name, departement_name FROM location WHERE zip_code ILIKE  '" + query + "%'";
 
         List<String> myResults1 = jdbcTemplate.queryForList(sqlQuery1, String.class);
         List<String> myResults2 = jdbcTemplate.queryForList(sqlQuery2, String.class);
         List<String> myResults3 = jdbcTemplate.queryForList(sqlQuery3, String.class);
-        List<String> myResults4 = jdbcTemplate.queryForList(sqlQuery4, String.class);
-        List<String> myResults5 = jdbcTemplate.queryForList(sqlQuery5, String.class);
+        List<String> myResults4 = jdbcTemplate.query(sqlQuery4, new CityLocationMapper());
+        List<String> myResults5 = jdbcTemplate.query(sqlQuery5, new CityLocationMapper());
 
         for (String s : myResults1) {
             matches.add(s + " (région)");
@@ -139,15 +175,15 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
         }
 
         for (String s : myResults3) {
-            matches.add(s + " (départemention)");
+            matches.add(s + " (département)");
         }
 
         for (String s : myResults4) {
-            matches.add(s + " (ville)");
+            matches.add(s);
         }
 
         for (String s : myResults5) {
-            matches.add(s + " (ville)");
+            matches.add(s);
         }
 
         return matches;
@@ -160,11 +196,34 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
      * @return
      */
     @Override
-    public int insertLocation(Location l) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        String sqlQuery = "insert into location(region, departement_name, departement_id, city_name, zip_code";
-        return jdbcTemplate.update(sqlQuery, (new Object [] {l.getRegion(), l.getDepartementName(),
-                l.getDepartementId(), l.getCityName(), l.getZipCode()}));
+    public Location insertLocation(Location l) {
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        KeyHolder holder = new GeneratedKeyHolder();
+
+        String sqlQuery = "insert into location(region, departement_name, departement_id, city_name, zip_code) values(:region, :departement_name, :departement_id, :city_name, :zip_code)";
+
+        SqlParameterSource sqlParameterSource= new MapSqlParameterSource();
+        ((MapSqlParameterSource) sqlParameterSource).addValue("region", l.getRegion());
+        ((MapSqlParameterSource) sqlParameterSource).addValue("departement_name", l.getDepartementName());
+        ((MapSqlParameterSource) sqlParameterSource).addValue("departement_id", l.getDepartementId());
+        ((MapSqlParameterSource) sqlParameterSource).addValue("city_name", l.getCityName());
+        ((MapSqlParameterSource) sqlParameterSource).addValue("zip_code", l.getZipCode());
+
+        jdbcTemplate.update(sqlQuery,sqlParameterSource, holder, new String[]{"id"});
+
+        int id = holder.getKey().intValue();
+        l.setId(id);
+
+        return l;
     }
 
+
+    @Override
+    public Location findLocationByNameAndDepartement(String cityName, String departementName) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        String myRequest = "select * from location where city_name=? and departement_name=?";
+        myResult = jdbcTemplate.queryForObject(myRequest, new Object[]{cityName, departementName}, new BeanPropertyRowMapper<>(Location.class));
+        myResult.setSpots(spotDao.findSpotsByLocationId(myResult.getId()));
+        return myResult;
+    }
 }

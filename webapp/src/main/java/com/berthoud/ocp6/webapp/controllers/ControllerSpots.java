@@ -37,8 +37,6 @@ public class ControllerSpots {
                                  @RequestParam (value = "ratingMin") String ratingMin,
                                  @RequestParam (value = "ratingMax") String ratingMax,
                                  ModelMap model) {
-
-
         String alert;
 
         try {
@@ -70,6 +68,4 @@ public class ControllerSpots {
 
         return "spotsfromguidebook";
     }
-
-
 }

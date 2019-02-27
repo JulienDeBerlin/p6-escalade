@@ -6,9 +6,10 @@ import java.util.List;
 
 
 public interface SpotDao {
-     List<Spot> findSpotsByLocationId(String location);
+     List<Spot> findSpotsByLocationId(int location);
      Spot findSpotBySpotId(int spotId);
-     int insertSpot(Spot spot);
+     Spot insertSpot(Spot spot);
+
 
 
 

@@ -1,4 +1,5 @@
 package com.berthoud.ocp6.business;
+
 import com.berthoud.ocp6.consumer.contract.dao.LocationDao;
 import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
 import com.berthoud.ocp6.model.bean.Guidebook;
@@ -6,14 +7,20 @@ import com.berthoud.ocp6.model.bean.Location;
 import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Component
 public class ServiceLocation {
 
     @Autowired
     private LocationDao locationDao;
+
+    @Autowired
+    private SpotDao spotDao;
 
     @Autowired
     private ServiceSpot serviceSpot;
@@ -36,7 +43,7 @@ public class ServiceLocation {
 
     /**
      * This method takes a list of Locations as parameter and for each location and each spot remove the routes that don't
-     * fulfil the research criteria (level too low or route not bolted) and remove the spots with no remaining routes after filtering.
+     * fulfil the research criteria (level too low or route not bolted) and remove the locations with no remaining spot after filtering.
      * @param locations
      * @param onlyBoltedRoutes
      * @param levelMin
@@ -111,6 +118,28 @@ public class ServiceLocation {
         return locationDao.getLocationProposals(query);
     }
 
+    public Location findLocationByNameAndDepartement( String cityName, String departementName){
+        try {
+            return locationDao.findLocationByNameAndDepartement(cityName, departementName);
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+
+    @Transactional
+    public Spot insertLocationAndItsSpot(Location location, Spot spot) {
+        try {
+            Location newLocationWithKey = locationDao.insertLocation(location);
+            spot.setLocation(newLocationWithKey);
+            Spot newSpotwithKey = spotDao.insertSpot(spot);
+            newSpotwithKey.setLocation(newLocationWithKey);
+            return newSpotwithKey;
+
+        } catch (Exception e){
+            return null;
+        }
+    }
 
 
 }

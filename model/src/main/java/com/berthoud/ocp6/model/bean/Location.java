@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Location {
 
-    private String id;
+    private int id;
     private String region;
     private String departementName;
     private int departementId;
@@ -14,7 +14,7 @@ public class Location {
     private List<Spot> spots;
 
 
-    public Location(String id, String region, String departementName, int departementId, String cityName, String zipCode, List<Spot> spots) {
+    public Location(int id, String region, String departementName, int departementId, String cityName, String zipCode, List<Spot> spots) {
         this.id = id;
         this.region = region;
         this.departementName = departementName;
@@ -27,11 +27,11 @@ public class Location {
     public Location() {
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -101,8 +101,8 @@ public class Location {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Location location = (Location) o;
-        return departementId == location.departementId &&
-                Objects.equals(id, location.id) &&
+        return id == location.id &&
+                departementId == location.departementId &&
                 Objects.equals(region, location.region) &&
                 Objects.equals(departementName, location.departementName) &&
                 Objects.equals(cityName, location.cityName) &&

@@ -5,6 +5,7 @@ import com.berthoud.ocp6.model.bean.Route;
 import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
@@ -21,7 +22,7 @@ public class ServiceSpot {
 
     /**
      * This method takes a list of spots as parameter and for each spot removes the routes that don't
-     * fulfil the research criteria (level too low or route not bolted or spot without any remaining routes after filtering)
+     * fulfil the research criteria (level too low or route not bolted)
      *
      * @param spots            the list of spots to be filtered
      * @param onlyBoltedRoutes true if filter is activated
@@ -42,17 +43,15 @@ public class ServiceSpot {
                     j.remove();
                 }
             }
-            if (routes.isEmpty()) {
-                i.remove();
-            }
+//            if (routes.isEmpty()) {
+//                i.remove();
+//            }
         }
         return spots;
     }
 
-
     /**
      * The method returns a full Spot object based on its id
-     *
      * @param spotId
      * @return
      */
@@ -61,8 +60,10 @@ public class ServiceSpot {
     }
 
 
-    public void addSpot(){
-
+    @Transactional
+    public Spot insertSpot(Spot spot) {
+        return spotDao.insertSpot(spot);
     }
+
 
 }

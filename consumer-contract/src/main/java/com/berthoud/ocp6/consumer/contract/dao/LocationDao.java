@@ -6,13 +6,16 @@ import java.util.Map;
 
 public interface LocationDao {
 
-    Location findLocationById(String locationInput);
+    Location findLocationById(int locationInput);
+
+    Location findLocationByNameAndDepartement(String cityName, String departementName);
 
     List<Location> findLocationsByTableColomn(String locationInput) throws Exception;
 
+
     List <String> getLocationProposals(String query);
 
-    int insertLocation(Location location);
+    Location insertLocation(Location location);
 
 
 

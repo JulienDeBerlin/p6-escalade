@@ -5,8 +5,14 @@ import com.berthoud.ocp6.model.bean.SpotComment;
 import com.berthoud.ocp6.model.bean.Member;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -37,5 +43,28 @@ public class SpotCommentDaoImpl extends AbstractDaoImpl implements SpotCommentDa
 
         }
         return spotComments;
+    }
+
+
+    @Override
+    public SpotComment insertSpotComment(SpotComment sc) {
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        KeyHolder holder = new GeneratedKeyHolder();
+
+        String sqlQuery = "insert into comment_spot(comment, member_id, spot_id, date) values (:comment, :member_id, :spot_id, :date)";
+
+        SqlParameterSource sqlParameterSource= new MapSqlParameterSource();
+        ((MapSqlParameterSource) sqlParameterSource).addValue("comment", sc.getComment());
+        ((MapSqlParameterSource) sqlParameterSource).addValue("member_id", sc.getMember().getId());
+        ((MapSqlParameterSource) sqlParameterSource).addValue("spot_id", sc.getSpot().getId());
+        ((MapSqlParameterSource) sqlParameterSource).addValue("date", new Date());
+
+
+        jdbcTemplate.update(sqlQuery,sqlParameterSource, holder, new String[]{"id"});
+
+        int id = holder.getKey().intValue();
+        sc.setId(id);
+
+        return sc;
     }
 }

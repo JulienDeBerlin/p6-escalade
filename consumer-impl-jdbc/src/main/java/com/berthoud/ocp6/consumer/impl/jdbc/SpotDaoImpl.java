@@ -5,6 +5,11 @@ import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Iterator;
@@ -30,7 +35,7 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
      * @return
      */
     @Override
-    public List<Spot> findSpotsByLocationId(String locationId) {
+    public List<Spot> findSpotsByLocationId(int locationId) {
 
         List<Spot> myResults;
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
@@ -61,21 +66,35 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
         String mySqlRequest =   "select * from spot where spot.id = ?";
         Spot selectedSpot =jdbcTemplate.queryForObject(mySqlRequest,new Object[]{spotId},new BeanPropertyRowMapper <>(Spot.class));
 
+        selectedSpot.setRoutes(routeDao.findRoutesBasedOnSpot(spotId));
         selectedSpot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spotId));
 
         return selectedSpot;
     }
 
     /**
-     * This methods insert an object spot in the DB, including the foreign key pointing to Location
+     * This method inserts an object spot in the DB, including the foreign key pointing to Location
      * @param s = the spot object to be created
      * @return
      */
     @Override
-    public int insertSpot (Spot s) {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        String sqlQuery = "insert into location(name_spot, name_area, location_id";
-        return jdbcTemplate.update(sqlQuery, (new Object [] {s.getNameSpot(), s.getNameArea(),
-                s.getLocation().getId()}));
+    public Spot insertSpot (Spot s) {
+        NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
+        KeyHolder holder = new GeneratedKeyHolder();
+
+        String sqlQuery = "insert into spot(name_spot, name_area, location_id) values (:name_spot, :name_area, :location_id)";
+
+        SqlParameterSource sqlParameterSource= new MapSqlParameterSource();
+        ((MapSqlParameterSource) sqlParameterSource).addValue("name_spot", s.getNameSpot());
+        ((MapSqlParameterSource) sqlParameterSource).addValue("name_area", s.getNameArea());
+        ((MapSqlParameterSource) sqlParameterSource).addValue("location_id", s.getLocation().getId());
+
+        jdbcTemplate.update(sqlQuery,sqlParameterSource, holder, new String[]{"id"});
+
+        int id = holder.getKey().intValue();
+        s.setId(id);
+
+        return s;
+
     }
 }
