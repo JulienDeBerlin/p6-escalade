@@ -238,52 +238,46 @@
     <script>
 
 
-    $(function () {
+        $(function () {
+            $("#cityNameInput").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "https://geo.api.gouv.fr/communes?nom=" + request.term + "&fields=codesPostaux,departement,region",
+                        dataType: "json",
+                        data: {},
 
-    $("#cityNameInput").autocomplete({
-    source: function (request, response) {
-    $.ajax({
-    url: "https://geo.api.gouv.fr/communes?nom=" + request.term + "&fields=codesPostaux,departement,region",
-    dataType: "json",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return {
+                                    label: (item.nom + ' (' + item.departement.nom + ')'),
+                                    value: item.nom,
+                                    departementName: item.departement.nom,
+                                    departementId: item.departement.code,
+                                    region: item.region.nom,
+                                    codesPostal: item.codesPostaux[0]
+                                }
+                            }));
+                        },
+                    });
+                },
 
-    data: {
-    },
+                minLength: 3,
+                focus: function (event, ui) {
+                    $("#cityNameInput").val(ui.item.value);
+                    return false;
+                },
 
-    success: function (data) {
-    response($.map(data, function (item) {
-    return {
-    label: (item.nom + ' (' + item.departement.nom + ')'),
-    value: item.nom,
-    departementName: item.departement.nom,
-    departementId: item.departement.code,
-    region: item.region.nom,
-    codesPostal: item.codesPostaux[0]
-    }
+                select: function (event, ui) {
+                    $("#cityNameInput").val(ui.item.value);
+                    $("#region").val(ui.item.region);
+                    $("#departementName").val(ui.item.departementName);
+                    $("#departementId").val(ui.item.departementId);
+                    $("#codePostal").val(ui.item.codesPostal);
 
-    }));
-    },
-    });
-    },
-
-
-    minLength: 3,
-    focus: function (event, ui) {
-    $("#cityNameInput").val(ui.item.value);
-    return false;
-    },
-
-    select: function (event, ui) {
-    $("#cityNameInput").val(ui.item.value);
-    $("#region").val(ui.item.region);
-    $("#departementName").val(ui.item.departementName);
-    $("#departementId").val(ui.item.departementId);
-    $("#codePostal").val(ui.item.codesPostal);
-
-    return false;
-    }
-
-    })
-    });
+                    return false;
+                }
+            })
+        });
 
     </script>
 

@@ -129,16 +129,13 @@ public class ServiceLocation {
 
     @Transactional
     public Spot insertLocationAndItsSpot(Location location, Spot spot) {
-        try {
+
             Location newLocationWithKey = locationDao.insertLocation(location);
             spot.setLocation(newLocationWithKey);
             Spot newSpotwithKey = spotDao.insertSpot(spot);
             newSpotwithKey.setLocation(newLocationWithKey);
             return newSpotwithKey;
 
-        } catch (Exception e){
-            return null;
-        }
     }
 
 

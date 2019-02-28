@@ -9,16 +9,14 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-@SessionAttributes(value = {"alert"})
+@SessionAttributes(value = {"alert","locationInput", "onlySpotsWithBoltedRoutes", "ratingMin", "ratingMax" })
 @Controller
 public class ControllerSpots {
 
@@ -30,12 +28,32 @@ public class ControllerSpots {
 
     private static final Logger logger = LogManager.getLogger();
 
+
+
     @RequestMapping(value = "/spots", method = RequestMethod.POST)
-    public String getResultSpots(@RequestParam (value = "locationInput") String locationInput,
-                                 @RequestParam (value="onlySpotsWithBoltedRoutes", required = false)
+    public String saveRequestParams (@RequestParam (value = "locationInput") String locationInput,
+                                          @RequestParam (value="onlySpotsWithBoltedRoutes", required = false)
+                                                  boolean onlySpotsWithBoltedRoutes,
+                                          @RequestParam (value = "ratingMin") String ratingMin,
+                                          @RequestParam (value = "ratingMax") String ratingMax,
+                                          ModelMap model) {
+
+
+        model.put("locationInput", locationInput);
+        model.put("onlySpotsWithBoltedRoutes", onlySpotsWithBoltedRoutes);
+        model.put("ratingMin", ratingMin);
+        model.put("ratingMax", ratingMax);
+
+        return ("redirect:/escalade/displaySpots");
+    }
+
+
+    @RequestMapping(value = "/displaySpots", method = RequestMethod.GET)
+    public String getResultSpots(@SessionAttribute(value = "locationInput") String locationInput,
+                                 @SessionAttribute (value="onlySpotsWithBoltedRoutes", required = false)
                                          boolean onlySpotsWithBoltedRoutes,
-                                 @RequestParam (value = "ratingMin") String ratingMin,
-                                 @RequestParam (value = "ratingMax") String ratingMax,
+                                 @SessionAttribute (value = "ratingMin") String ratingMin,
+                                 @SessionAttribute (value = "ratingMax") String ratingMax,
                                  ModelMap model) {
         String alert;
 

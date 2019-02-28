@@ -59,7 +59,7 @@
                         <p>Bienvenue ${user.nickname}</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="">Mon compte</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Mon compte</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se déconnecter</a>
@@ -108,6 +108,18 @@
                 </div>
 
                 <div>
+                    <a href="${pageContext.request.contextPath}/escalade/toNewComment?IdSpotToBeCommented=${spot.id}"> Ajouter un commentaire</a>
+
+                    <c:if test="${ selectedSpot.id==spot.id}">
+                        <form method="post" action="${pageContext.request.contextPath}/escalade/addComment">
+                            <div class="form-group">
+                                <label for="comment">Commentaire:</label>
+                                <textarea class="form-control" rows="5" id="comment" name="comment" autofocus></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Valider le commentaire</button>
+                        </form>
+                    </c:if>
+
 
                     <c:forEach items="${ spot.comments }" var="comment">
                         <br/>
