@@ -17,12 +17,12 @@
     <Loggers>
      <!--on peut mettre en place différents loggers, par exemple propre à des classes spécifiques-->
 
-        <Logger name="HelloController" level="ALL" additivity="false">
+        <Logger name="HelloController" level="OFF" additivity="false">
         <AppenderRef ref="STDOUT"/>
         </Logger>
         <!--ci-dessus un logger spécifique pour la classe HelloController-->
 
-        <Logger name="org.springframework" level="ALL" additivity="false">
+        <Logger name="org.springframework" level="OFF" additivity="false">
             <AppenderRef ref="STDOUT"/>
         </Logger>
 

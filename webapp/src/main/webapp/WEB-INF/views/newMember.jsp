@@ -34,7 +34,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
                 <%--<li class="nav-item">--%>
-                    <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
+                <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
                 <%--</li>--%>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/redirect?anchor=lesSpots" >Les spots</a>
@@ -57,44 +57,59 @@
         </div>
     </nav>
 
-    <c:if test="${message=='onlyMembers'}">
-        <p>Cette fonction n'est accessible que pour les membres, alors...</p>
-    </c:if>
 
-    <c:if test="${message=='wrongPassword'}">
-        <p style="color: red"> Le mot de passe n'est pas correct!</p>
-    </c:if>
+    <h1>Rejoignez la communauté High</h1>
 
-    <c:if test="${message=='memberNotFound'}">
-        <p style="color: red">Hum... cette adresse nous est inconnue!</p>
-    </c:if>
+    <form method="post" action="${pageContext.request.contextPath}/escalade/newMember?afterLogin=${jspAfterLogin}">
 
-    <c:if test="${newMemberAccount=='success'}">
-        <p style="color: green">Le compte a bien été créé, vous pouvez maintenant vous identifier. </p>
-    </c:if>
+    <p>Les données collectées sont simplement destinées à votre identification. <br/>
+        Par défaut seul votre pseudo sera visible par les autres membres. <br/>
+        Si vous proposez des topos au prêt, les emprunteurs auront accès - selon votre choix - à votre email, votre numéro de tel ou bien aux deux.
+    </p>
 
 
-<h1>CONNECTEZ-VOUS !</h1>
+        <c:if test="${nickname==''}">
+            <p style="color: red">Ce pseudo est déjà utilisé par un autre membre, merci d'en choisir un autre.</p>
+        </c:if>
 
-<form method="post" action="${pageContext.request.contextPath}/escalade/login?afterLogin=${jspAfterLogin}">
+        <c:if test="${email==''}">
+            <p style="color: red">Il existe déjà un compte membre avec cette adresse email!</p>
+        </c:if>
 
-    <div class="form-group" >
-        <label for="email">E-Mail</label>
-        <input type="email" name="email" class="form-control" id="email" placeholder="monadresse@exemple.fr">
-    </div>
 
-    <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input type="password" name="password" class="form-control" id="password">
-    </div>
+        <div class="form-group" >
+            <label for="firstName">Prénom</label>
+            <input type="text" name="firstName" class="form-control" id="firstName" value="${firstName}" required>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Se connecter</button>
-</form>
+        <div class="form-group">
+            <label for="surname">Nom</label>
+            <input type="text" name="surname" class="form-control" id="surname"  value="${surname}"  required>
+        </div>
 
-<br/>
-<p>Pas encore inscrit? <a href="${pageContext.request.contextPath}/escalade/newMember?afterLogin=${jspAfterLogin}">Créez votre compte en quelques clics</a></p>
 
-<a href="${pageContext.request.contextPath}/escalade/test/autocomplete"> Autocomplete</a>
+        <div class="form-group">
+            <label for="nickname">Pseudo</label>
+            <input type="text" name="nickname" class="form-control" id="nickname" value="${nickname}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" class="form-control" id="password" value="${password}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">email</label>
+            <input type="email" name="email" class="form-control" id="email" value="${email}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Téléphone</label>
+            <input type="tel" name="phone" class="form-control" id="phone" value="${phone}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
 
 </div>
 

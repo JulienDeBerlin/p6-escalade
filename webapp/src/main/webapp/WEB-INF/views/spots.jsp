@@ -110,7 +110,8 @@
                 <div>
                     <a href="${pageContext.request.contextPath}/escalade/toNewComment?IdSpotToBeCommented=${spot.id}"> Ajouter un commentaire</a>
 
-                    <c:if test="${ selectedSpot.id==spot.id}">
+                    <c:if test="${ not empty selectedSpot && spot.id==selectedSpot.id}">
+
                         <form method="post" action="${pageContext.request.contextPath}/escalade/addComment">
                             <div class="form-group">
                                 <label for="comment">Commentaire:</label>

@@ -4,6 +4,8 @@ import com.berthoud.ocp6.model.bean.Member;
 import java.util.List;
 
 public interface MemberDao {
-    public List<Member> findAll ();
-    public Member findMemberByEmail(String email);
+     List<Member> findAll ();
+     Member findMemberByEmail(String email);
+     Member insertNewMember(Member member);
+     Member findMemberbyNickname( String nickname);
 }

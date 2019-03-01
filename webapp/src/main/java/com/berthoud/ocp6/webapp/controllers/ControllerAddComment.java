@@ -5,6 +5,8 @@ import com.berthoud.ocp6.business.ServiceSpotComment;
 import com.berthoud.ocp6.model.bean.Member;
 import com.berthoud.ocp6.model.bean.Spot;
 import com.berthoud.ocp6.model.bean.SpotComment;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,6 +25,7 @@ public class ControllerAddComment {
     @Autowired
     ServiceSpot serviceSpot;
 
+    private static final Logger logger = LogManager.getLogger();
 
     @RequestMapping (value = "/toNewComment", method = RequestMethod.GET)
     public String displayFormNewComment (@RequestParam (value = "IdSpotToBeCommented") int IdSpotToBeCommented,
@@ -50,6 +53,7 @@ public class ControllerAddComment {
 
 
     {
+
         SpotComment newCommentWithoutKey = new SpotComment();
         newCommentWithoutKey.setComment(comment);
         newCommentWithoutKey.setMember(user);
@@ -58,6 +62,7 @@ public class ControllerAddComment {
 
         spotToBeCommented.setId(-1);
         model.put("selectedSpot", spotToBeCommented);
+        logger.info(model);
 
         return ("redirect:/escalade/displaySpots");
 
