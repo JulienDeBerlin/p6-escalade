@@ -210,7 +210,7 @@
     </div>
 
     <div>
-        <a href="">Référencez un topo</a>
+        <a href="${pageContext.request.contextPath}/escalade/addcontent/guidebook">Référencez un topo</a>
     </div>
 
     <div>
@@ -219,9 +219,6 @@
 
     <br/>
     <br/>
-
-
-    <a href="${pageContext.request.contextPath}/escalade/test/autocomplete">TESTER L'AUTOCOMPLETION AVEC PLUGIN ALTERNATIF</a>
 
 </div>
 

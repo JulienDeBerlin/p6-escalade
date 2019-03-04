@@ -1,6 +1,5 @@
 package com.berthoud.ocp6.consumer.impl.jdbc;
 import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
-import com.berthoud.ocp6.model.bean.Location;
 import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -26,6 +25,8 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
     GuidebookDaoImpl guidebookDao;
     @Autowired
     SpotCommentDaoImpl commentSpotDao;
+    @Autowired
+    LocationDaoImpl locationDao;
 
 
 
@@ -68,6 +69,7 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
 
         selectedSpot.setRoutes(routeDao.findRoutesBasedOnSpot(spotId));
         selectedSpot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spotId));
+        selectedSpot.setLocation(locationDao.findLocationBasedOnSpotId(spotId));
 
         return selectedSpot;
     }

@@ -5,6 +5,7 @@ import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
@@ -39,23 +40,51 @@ public class ServiceGuidebook {
 
     /**
      * This method returns a full guidebook object (incl. matching spots) based on its id
+     *
      * @param guidebookId
      * @return
      */
-public  Guidebook findGuidebookbyId (int guidebookId){
-     return guidebookDao.findGuidebookById(guidebookId);
-}
+    public Guidebook findGuidebookbyId(int guidebookId) {
+        return guidebookDao.findGuidebookById(guidebookId);
+    }
 
 
     /**
      * This method displays the guidebook owned by a member and available for loan
+     *
      * @param member
      * @return
      */
-  public List <Guidebook>  getGuidebooksForLoan(Member member){
-      return guidebookDao.getGuidebooksForLoan(member);
+    public List<Guidebook> getGuidebooksForLoan(Member member) {
+        return guidebookDao.getGuidebooksForLoan(member);
 
-  }
+    }
+
+
+    /**
+     * Return a Guidebook object based on its unique isbn13 number
+     *
+     * @param isbn13
+     * @return
+     */
+    public Guidebook findGuidebookbyIsbn(String isbn13) {
+        return guidebookDao.findGuidebookByIsbn(isbn13);
+    }
+
+
+    @Transactional
+    public Guidebook insertGuidebook(Guidebook guidebook) {
+        return guidebookDao.insertGuidebook(guidebook);
+    }
+
+
+
+    @Transactional
+    public void insertRelationGuidebookSpots(List<Integer> listSpotId, Guidebook guidebook){
+        guidebookDao.insertRelationGuidebookSpots(listSpotId, guidebook);
+    }
+
+
 
 }
 

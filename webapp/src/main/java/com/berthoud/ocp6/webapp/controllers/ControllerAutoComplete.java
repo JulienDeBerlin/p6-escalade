@@ -17,8 +17,8 @@ public class ControllerAutoComplete {
     ServiceLocation serviceLocation;
 
     @RequestMapping(value = "/get_location_list", method = RequestMethod.GET)
-    public @ResponseBody
-    List<String> getLocationList(@RequestParam("term") String query) {
+    @ResponseBody
+    public List<String> getLocationList(@RequestParam("term") String query) {
         List<String>  locationProposals = serviceLocation.getLocationProposals(query);
         return locationProposals;
     }

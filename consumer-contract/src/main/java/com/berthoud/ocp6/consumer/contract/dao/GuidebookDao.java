@@ -13,4 +13,10 @@ public interface GuidebookDao {
 
      List<Guidebook> getGuidebooksForLoan(Member member);
 
+     Guidebook findGuidebookByIsbn(String isbn);
+
+     Guidebook insertGuidebook (Guidebook guidebook);
+
+     void insertRelationGuidebookSpots(List <Integer> listSpotId, Guidebook guidebook);
+
 }

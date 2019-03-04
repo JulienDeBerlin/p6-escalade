@@ -226,4 +226,13 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
         myResult.setSpots(spotDao.findSpotsByLocationId(myResult.getId()));
         return myResult;
     }
+
+
+    @Override
+    public Location findLocationBasedOnSpotId(int SpotId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        String myRequest = "select * from location where id in (select location_id from spot where spot.id = ?)";
+        Location selectedLocation = jdbcTemplate.queryForObject(myRequest, new Object[]{SpotId}, new BeanPropertyRowMapper<>(Location.class));
+        return selectedLocation;
+    }
 }

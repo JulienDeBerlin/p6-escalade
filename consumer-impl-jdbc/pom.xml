@@ -43,6 +43,12 @@
             <artifactId>spring-jdbc</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-web -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-web</artifactId>
+        </dependency>
+
 
     </dependencies>
 

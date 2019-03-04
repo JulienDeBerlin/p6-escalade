@@ -139,6 +139,47 @@ public class ServiceLocation {
     }
 
 
+    /**
+     * This method takes as parameter a list of Location objects (incl. matching spot objects...) and a Guidebook object. It remove for each Location object and each
+     * matching spots all the spots already included in the spots matching with the Guidebook object.
+     * @param listLocations
+     * @param selectedGuidebook
+     * @return
+     */
+    public List<Location> removeSpotsAlreadyLinked(List<Location> listLocations, Guidebook selectedGuidebook){
+
+        List <Integer> spotIdFromSelectedGuidebook = new ArrayList<>();
+        for (Spot s: selectedGuidebook.getSpots()) {
+            spotIdFromSelectedGuidebook.add(s.getId());
+        }
+
+        for (Iterator<Location> i = listLocations.iterator(); i.hasNext(); ) {
+            Location location = i.next();
+            List<Spot> spots = location.getSpots();
+
+            for (Iterator<Spot> j = spots.iterator(); j.hasNext(); ) {
+                Spot spot = j.next();
+                if ((spotIdFromSelectedGuidebook.contains(spot.getId()))){
+                    j.remove();
+                }
+            }
+        }
+       return listLocations;
+    }
+
+
+    public boolean testIfNoSpot(List<Location> listLocations) {
+
+        for (Iterator<Location> i = listLocations.iterator(); i.hasNext(); ) {
+            Location location = i.next();
+            List<Spot> spots = location.getSpots();
+            if (!spots.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
 
 
