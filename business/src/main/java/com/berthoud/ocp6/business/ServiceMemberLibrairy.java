@@ -1,6 +1,7 @@
 package com.berthoud.ocp6.business;
 
 import com.berthoud.ocp6.consumer.contract.dao.MemberLibrairyDao;
+import com.berthoud.ocp6.model.bean.Booking;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Member;
 import com.berthoud.ocp6.model.bean.MemberLibrairy;
@@ -42,5 +43,19 @@ public class ServiceMemberLibrairy {
         }
         return false;
     }
+
+    public MemberLibrairy getMemberLibrairy(Guidebook selectedGuidebook, Member user){
+        MemberLibrairy privateLibrairy;
+        privateLibrairy = memberLibrairy.findMemberLibrairy(selectedGuidebook, user);
+        return  privateLibrairy;
+    }
+
+
+    @Transactional
+    public Booking insertBooking (MemberLibrairy privateGuidebook, Booking booking){
+        return memberLibrairy.insertBooking(privateGuidebook,booking);
+    }
+
+
 
 }

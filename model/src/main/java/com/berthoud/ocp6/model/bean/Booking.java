@@ -1,19 +1,18 @@
 package com.berthoud.ocp6.model.bean;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Booking {
 
     private int id;
     private String bookedBy;
-    private Date dateFrom;
-    private Date dateUntil;
+    private LocalDate dateFrom;
+    private LocalDate dateUntil;
     private String email;
     private String phone;
     private int memberLibrairyMemberId;
     private int memberLibrairyGuidebookId;
 
-    public Booking(int id, String bookedBy, Date dateFrom, Date dateUntil, String email, String phone,
+    public Booking(int id, String bookedBy, LocalDate dateFrom, LocalDate dateUntil, String email, String phone,
                    int memberLibrairyMemberId, int memberLibrairyGuidebookId) {
         this.id = id;
         this.bookedBy = bookedBy;
@@ -44,19 +43,19 @@ public class Booking {
         this.bookedBy = bookedBy;
     }
 
-    public Date getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(Date dateFrom) {
+    public void setDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public Date getDateUntil() {
+    public LocalDate getDateUntil() {
         return dateUntil;
     }
 
-    public void setDateUntil(Date dateUntil) {
+    public void setDateUntil(LocalDate dateUntil) {
         this.dateUntil = dateUntil;
     }
 

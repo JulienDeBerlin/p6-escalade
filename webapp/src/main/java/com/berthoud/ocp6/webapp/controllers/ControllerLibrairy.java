@@ -2,22 +2,21 @@ package com.berthoud.ocp6.webapp.controllers;
 
 import com.berthoud.ocp6.business.ServiceGuidebook;
 import com.berthoud.ocp6.business.ServiceMemberLibrairy;
+import com.berthoud.ocp6.model.bean.Booking;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Member;
-import com.berthoud.ocp6.model.bean.Route;
-import com.berthoud.ocp6.model.bean.Spot;
+import com.berthoud.ocp6.model.bean.MemberLibrairy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import static com.berthoud.ocp6.business.Utils.convertStringIntoDate;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.time.LocalDate;
 import java.util.List;
 
 
-@SessionAttributes(value= { "user", "guidebooksForLoan" })
+@SessionAttributes(value= { "user", "guidebooksForLoan", "privateGuidebook", "selectedGuidebook"})
 @Controller
 public class ControllerLibrairy {
 
@@ -26,8 +25,6 @@ public class ControllerLibrairy {
     @Autowired
     ServiceMemberLibrairy serviceMemberLibrairy;
 
-    @Value("#{servletContext.contextPath}")
-    private String servletContextPath;
 
 
     @RequestMapping(value = "memberArea/librairy", method = RequestMethod.GET)
@@ -78,4 +75,49 @@ public class ControllerLibrairy {
         return "redirect:/escalade/login/espaceMembre";
 
     }
+
+
+    @RequestMapping(value = "memberArea/librairy/bookings", method = RequestMethod.GET)
+    public String goToBookings(@ModelAttribute(value = "guidebookId") int GuidebookId,
+                               @SessionAttribute(value = "user") Member user,
+                               ModelMap model) {
+
+        Guidebook selectedGuidebook = serviceGuidebook.findGuidebookbyId(GuidebookId);
+        MemberLibrairy privateGuidebook = serviceMemberLibrairy.getMemberLibrairy(selectedGuidebook, user);
+
+        model.put("privateGuidebook", privateGuidebook);
+        model.put("selectedGuidebook", selectedGuidebook);
+
+
+        return "guidebookBookings";
+    }
+
+
+    @RequestMapping(value = "memberArea/librairy/bookings", method = RequestMethod.POST)
+    public String insertBooking(@RequestParam(value = "booked_by") String booked_by,
+                               @RequestParam(value = "date_from") String date_from,
+                               @RequestParam(value = "date_until") String date_until,
+                               @RequestParam(value = "email") String email,
+                               @RequestParam(value = "phone") String phone,
+                               @SessionAttribute(value = "user") Member user,
+                                @SessionAttribute(value = "privateGuidebook") MemberLibrairy privateGuidebook,
+                               ModelMap model) {
+
+        Booking newBooking = new Booking();
+        newBooking.setBookedBy(booked_by);
+        newBooking.setDateFrom(convertStringIntoDate(date_from));
+        newBooking.setDateUntil(convertStringIntoDate(date_until));
+        newBooking.setEmail(email);
+        newBooking.setPhone(phone);
+        newBooking.setMemberLibrairyGuidebookId(privateGuidebook.getGuidebook().getId());
+        newBooking.setMemberLibrairyMemberId(user.getId());
+
+        serviceMemberLibrairy.insertBooking(privateGuidebook,newBooking);
+
+        model.put("guidebookId", privateGuidebook.getGuidebook().getId());
+
+        return "redirect:";
+    }
+
+
 }

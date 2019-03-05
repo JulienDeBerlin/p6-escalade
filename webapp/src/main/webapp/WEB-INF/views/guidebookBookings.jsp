@@ -72,9 +72,76 @@
 
         </div>
     </nav>
-</div>
-<h1>Répertorier un spot</h1>
 
+<h1>Gestion des réservations</h1>
+<p> Titre du topo: ${selectedGuidebook.name}
+    <br/>Auteur: ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor}</p>
+
+
+<h3>Liste des réservations actuelles</h3>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Nom de l'emprunteur</th>
+        <th scope="col">Du</th>
+        <th scope="col">Au</th>
+        <th scope="col">Email</th>
+        <th scope="col">Téléphone</th>
+        <th scope="col">Modifier</th>
+        <th scope="col">Supprimer</th>
+
+    </tr>
+    </thead>
+
+    <tbody>
+    <c:forEach items="${privateGuidebook.bookings }" var="booking">
+        <tr>
+            <td>${ booking.bookedBy}</td>
+            <td>${ booking.dateFrom}</td>
+            <td>${ booking.dateUntil} </td>
+            <td>${ booking.email} </td>
+            <td>${ booking.phone} </td>
+            <td><a href=""> <img src="${pageContext.request.contextPath}/resources/img/modify.png"
+                                                                                                                                     alt="réservation"/> </a></td>
+            <td><a href=""> <img src="${pageContext.request.contextPath}/resources/img/delete.png" alt="delete"/>
+            </a></td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+
+
+<h3>Ajouter une nouvelle réservation</h3>
+
+<form method="post" action="${pageContext.request.contextPath}/escalade/memberArea/librairy/bookings">
+
+    <div class="form-group">
+        <label for="booked_by">Emprunteur</label>
+        <input type="text" name="booked_by" class="form-control" id="booked_by" required>
+    </div>
+    <div class="form-group">
+        <label for="date_from">Date début</label>
+        <input type="date" name="date_from" class="form-control" id="date_from" required>
+    </div>
+    <div class="form-group">
+        <label for="date_until">Date fin</label>
+        <input type="date" name="date_until" class="form-control" id="date_until" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" id="email">
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="tel" name="phone" class="form-control" id="phone">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Valider la nouvelle réservation</button>
+
+</form>
+
+</div>
 
 <script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
 <script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
