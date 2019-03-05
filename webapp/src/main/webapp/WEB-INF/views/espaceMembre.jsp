@@ -61,7 +61,7 @@
                         <p>Bienvenue ${user.nickname}</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link active" >Mon compte</a>
+                        <a class="nav-item nav-link active" >Espace Membre</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se déconnecter</a>
@@ -121,31 +121,65 @@
 
 </c:if>
 
-    <h2>Liste des topos que je propose au prêt: </h2>
-
-    <div>
-        <ol>
-            <c:forEach items="${guidebooksForLoan }" var="guidebook">
-                <li><strong>Titre: <c:out value="${ guidebook.name }"/> </strong></li>
-                <p> Nr. ISBN 13: <c:out value="${ guidebook.isbn13 }"/></p>
-                <p> Éditeur: <c:out value="${ guidebook.publisher }"/></p>
-                <p> Langue: <c:out value="${ guidebook.language}"/></p>
-                <p> Summary: <c:out value="${ guidebook.summary }"/></p>
-                <p> Auteur: <c:out value="${ guidebook.firstnameAuthor }"/> <c:out
-                        value="${ guidebook.surnameAuthor }"/></p>
-            </c:forEach>
-        </ol>
-    </div>
+    <h2 id="librairy">Ma bibliothèque </h2>
+    <h4>Liste des topos que je propose au prêt:</h4>
 
 
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Date publication</th>
+            <th scope="col">Gérer les réservations</th>
+            <th scope="col">Supprimer de la bibliothèque</th>
 
+        </tr>
+        </thead>
 
+        <tbody>
+        <c:forEach items="${guidebooksForLoan }" var="guidebook">
+            <tr>
+                <td>${ guidebook.name} (ISBN ${ guidebook.isbn13})</td>
+                <td>${ guidebook.firstnameAuthor} ${guidebook.surnameAuthor}</td>
+                <td>${ guidebook.yearPublication} </td>
+                <td><a href=""> <img src="${pageContext.request.contextPath}/resources/img/logoGestionResa.png"
+                                     alt="réservation"/> </a></td>
+                <td><a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/delete?guidebookId=${guidebook.id}"> <img src="${pageContext.request.contextPath}/resources/img/delete.png" alt="delete"/>
+                </a></td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 
+    <c:if test="${message == 'guidebookRemoved'}" >
+        <p style="color: green"> Le topo a bien été supprimé de la liste.</p>
+    </c:if>
 
+    <h4>Ajouter un topo à la liste</h4>
 
+    <c:if test="${message == 'guidebookAdded'}" >
+        <p style="color: green">Le topo a bien été ajouté à la liste.</p>
+    </c:if>
 
+    <c:if test="${message == 'notFound'}" >
+        <p style="color: red"> Ce topo n'est pas encore référencé. <a href="${pageContext.request.contextPath}/escalade/addcontent/guidebook">Vous pouvez le faire en cliquant ici.</a></p>
+    </c:if>
 
+    <c:if test="${message == 'alreadyListed'}" >
+        <p style="color: green"> Le topo est déjà présent dans votre bibliothèque.</p>
+    </c:if>
 
+    <form method="post" action="${pageContext.request.contextPath}/escalade/memberArea/librairy/isbn">
+
+        <div class="form-group">
+            <label for="isbn13">Saisissez le numéro ISBN13 du topo</label>
+            <input type="text" name="isbn13" class="form-control" id="isbn13" aria-describedby="helpIsbn" pattern="\d{13}" required>
+            <small id="helpIsbn" class="form-text text-muted">Combinaison de 13 chiffres, sans tirets</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Proposer ce topo au prêt</button>
+    </form>
 
 </div>
 

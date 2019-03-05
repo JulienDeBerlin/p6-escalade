@@ -1,12 +1,16 @@
 package com.berthoud.ocp6.consumer.contract.dao;
 
 
+import com.berthoud.ocp6.model.bean.Guidebook;
+import com.berthoud.ocp6.model.bean.Member;
 import com.berthoud.ocp6.model.bean.MemberLibrairy;
 
 import java.util.List;
 
 public interface MemberLibrairyDao {
 
-    public List<MemberLibrairy> findMemberLibrairyByGuidebookId(int GuidebookId);
+    List<MemberLibrairy> findMemberLibrairyByGuidebookId(int GuidebookId);
+    MemberLibrairy insertGuidebook(Guidebook selectedGuidebook, Member user);
+    void removeGuidebook(Guidebook selectedGuidebook, Member user);
 
 }

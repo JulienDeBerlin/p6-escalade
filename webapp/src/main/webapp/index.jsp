@@ -78,7 +78,7 @@
                         <p>Bienvenue ${user.nickname}</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Mon compte</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Espace Membre</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se déconnecter</a>
@@ -214,7 +214,7 @@
     </div>
 
     <div>
-        <a href="">Proposez un topo au prêt</a>
+        <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy">Proposez un topo au prêt</a>
     </div>
 
     <br/>

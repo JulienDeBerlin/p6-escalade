@@ -4,49 +4,49 @@ import java.util.Objects;
 
 public class MemberLibrairy {
 
-    private int memberId;
-    private int guidebookId;
-    private boolean loanAvailable;
+    private int id;
+    private Member member;
+    private Guidebook guidebook;
 
-    public MemberLibrairy(int memberId, int guidebookId, boolean loanAvailable) {
-        this.memberId = memberId;
-        this.guidebookId = guidebookId;
-        this.loanAvailable = loanAvailable;
+    public MemberLibrairy(int id, Member member, Guidebook guidebook) {
+        this.id = id;
+        this.member = member;
+        this.guidebook = guidebook;
     }
 
     public MemberLibrairy() {
     }
 
-    public int getMemberId() {
-        return memberId;
+    public int getId() {
+        return id;
     }
 
-    public void setMemberId(int memberId) {
-        this.memberId = memberId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getGuidebookId() {
-        return guidebookId;
+    public Member getMember() {
+        return member;
     }
 
-    public void setGuidebookId(int guidebookId) {
-        this.guidebookId = guidebookId;
+    public void setMember(Member member) {
+        this.member = member;
     }
 
-    public boolean isLoanAvailable() {
-        return loanAvailable;
+    public Guidebook getGuidebook() {
+        return guidebook;
     }
 
-    public void setLoanAvailable(boolean loanAvailable) {
-        this.loanAvailable = loanAvailable;
+    public void setGuidebook(Guidebook guidebook) {
+        this.guidebook = guidebook;
     }
 
     @Override
     public String toString() {
         return "MemberLibrairy{" +
-                "memberId=" + memberId +
-                ", guidebookId=" + guidebookId +
-                ", loanAvailable=" + loanAvailable +
+                "id=" + id +
+                ", member=" + member +
+                ", guidebook=" + guidebook +
                 '}';
     }
 
@@ -55,13 +55,13 @@ public class MemberLibrairy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberLibrairy that = (MemberLibrairy) o;
-        return memberId == that.memberId &&
-                guidebookId == that.guidebookId &&
-                loanAvailable == that.loanAvailable;
+        return id == that.id &&
+                Objects.equals(member, that.member) &&
+                Objects.equals(guidebook, that.guidebook);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(memberId, guidebookId, loanAvailable);
+        return Objects.hash(id, member, guidebook);
     }
 }

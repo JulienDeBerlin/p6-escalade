@@ -71,13 +71,15 @@ public class ControllerLogin {
     }
 
     @RequestMapping(value = "/login/espaceMembre", method = RequestMethod.GET)
-    public String goToMemberArea(ModelMap model, @SessionAttribute (value = "user") Member user) {
+    public String goToMemberArea(ModelMap model,
+                                 @SessionAttribute (value = "user") Member user,
+                                 @ModelAttribute (value = "message") String message)
+    {
         List<Guidebook> guidebooksForLoan = serviceGuidebook.getGuidebooksForLoan(user);
         model.put("guidebooksForLoan", guidebooksForLoan);
+        model.put("message", message);
         return "espaceMembre";
     }
-
-
 
     @RequestMapping(value = "/login/resetPassword", method = RequestMethod.GET)
     public String displayResetPassword(ModelMap model) {
@@ -161,6 +163,10 @@ public class ControllerLogin {
             return "newMember";
         }
     }
+
+
+
+
 
 
 }
