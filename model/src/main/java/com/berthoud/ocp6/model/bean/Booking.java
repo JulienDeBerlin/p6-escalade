@@ -1,7 +1,7 @@
 package com.berthoud.ocp6.model.bean;
 import java.time.LocalDate;
 
-public class Booking {
+public class Booking implements Comparable<Booking> {
 
     private int id;
     private String bookedBy;
@@ -103,5 +103,10 @@ public class Booking {
                 ", memberLibrairyMemberId=" + memberLibrairyMemberId +
                 ", memberLibrairyGuidebookId=" + memberLibrairyGuidebookId +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Booking o) {
+        return this.getDateFrom().isAfter(o.getDateFrom())?1:this.getDateFrom().isBefore(o.getDateFrom())?-1:0 ;
     }
 }

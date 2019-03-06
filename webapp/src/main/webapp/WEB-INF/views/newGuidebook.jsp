@@ -229,13 +229,9 @@
             <p style="color: red">La recherche n'a donné aucun résultat</p>
         </c:if>
 
-        <c:if test="${alert!=null && alert=='ok'}">
-
-
+        <c:if test="${alert=='ok'}">
 
             <form method="post" action="${pageContext.request.contextPath}/escalade/spotsForGuidebook">
-
-
 
                 <table class="table">
                     <thead>

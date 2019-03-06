@@ -1,33 +1,67 @@
 package com.berthoud.ocp6.consumer.impl.jdbc;
 
 import com.berthoud.ocp6.consumer.contract.dao.MemberLibrairyDao;
-import com.berthoud.ocp6.model.bean.Booking;
-import com.berthoud.ocp6.model.bean.Guidebook;
-import com.berthoud.ocp6.model.bean.Member;
-import com.berthoud.ocp6.model.bean.MemberLibrairy;
+import com.berthoud.ocp6.model.bean.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
-import java.time.LocalDate;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Component
-public class MemberLibrairyDaoImpl extends AbstractDaoImpl implements MemberLibrairyDao
+public class MemberLibrairyDaoImpl extends AbstractDaoImpl implements MemberLibrairyDao {
 
-{
+    @Autowired
+    GuidebookDaoImpl guidebookDao;
+    @Autowired
+    MemberDaoImpl memberDao;
+
+
     @Override
-    public List<MemberLibrairy> findMemberLibrairyByGuidebookId(int GuidebookId) {
+    public List<MemberLibrairy> findMemberLibrairyByGuidebookId(int guidebookId) {
+
+        class MemberLibrairyMapper implements RowMapper<MemberLibrairy> {
+            @Override
+            public MemberLibrairy mapRow(ResultSet rs, int rowNum) throws SQLException {
+                MemberLibrairy privateGuidebook = new MemberLibrairy();
+                int guidebookId = Integer.parseInt(rs.getString("guidebook_id"));
+                int memberId = Integer.parseInt(rs.getString("member_id"));
+                int id = Integer.parseInt(rs.getString("id"));
+                privateGuidebook.setGuidebook(guidebookDao.findGuidebookById(guidebookId));
+                privateGuidebook.setMember(memberDao.findMemberById(memberId));
+                privateGuidebook.setId(id);
+                return privateGuidebook;
+            }
+        }
+
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         String sqlRequest = "select * from member_librairy where member_librairy.guidebook_id = ?";
         List<MemberLibrairy> memberLibrairies = jdbcTemplate.query
-                (sqlRequest, new Object[]{GuidebookId},  new BeanPropertyRowMapper<>(MemberLibrairy.class));
+                (sqlRequest, new Object[]{guidebookId},  new MemberLibrairyMapper());
+
+        for (Iterator<MemberLibrairy> i = memberLibrairies.iterator(); i.hasNext(); ) {
+            MemberLibrairy privateGuidebook = i.next();
+
+            // + Add bookings to privateGuidebook (peut etre factorisé)
+            List<Booking> bookings;
+            String sqlRequest2 = "select * from booking where member_librairy_id = ?";
+            bookings = jdbcTemplate.query(sqlRequest2, new Object[]{privateGuidebook.getId()},
+                    new BeanPropertyRowMapper<>(Booking.class));
+
+            privateGuidebook.setBookings(bookings);
+        }
         return memberLibrairies;
     }
 
@@ -110,6 +144,29 @@ public class MemberLibrairyDaoImpl extends AbstractDaoImpl implements MemberLibr
         booking.setId(id);
 
         return booking;
+    }
 
+    @Override
+    public void removeBooking(int bookingId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "delete from booking where id = ?";
+        jdbcTemplate.update(sqlRequest, bookingId);
+
+    }
+
+    @Override
+    public Booking updateBooking(int bookingId) {
+        return null;
+    }
+
+
+    @Override
+    public Booking findBookingById(int bookingId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "select * from booking where id = ?";
+        Booking selectedBooking = jdbcTemplate.queryForObject(sqlRequest, new Object[]{bookingId}, new BeanPropertyRowMapper<>(Booking.class));
+        return selectedBooking;
     }
 }

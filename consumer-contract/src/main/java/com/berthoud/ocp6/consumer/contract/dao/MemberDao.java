@@ -8,4 +8,5 @@ public interface MemberDao {
      Member findMemberByEmail(String email);
      Member insertNewMember(Member member);
      Member findMemberbyNickname( String nickname);
+     Member findMemberById (int id);
 }

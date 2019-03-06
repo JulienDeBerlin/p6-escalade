@@ -88,7 +88,8 @@
                 <p> Auteur: <c:out value="${ guidebook.firstnameAuthor }"/> <c:out
                         value="${ guidebook.surnameAuthor }"/></p>
                 <a href="${pageContext.request.contextPath}/escalade/spots?guidebookId=${guidebook.id}">Afficher les
-                    sites correspondants</a>
+                sites correspondants</a> <br/>
+                <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/loan?guidebookId=${guidebook.id}">Emprunter ce topo</a>
                 <br/>
             </c:forEach>
         </ol>

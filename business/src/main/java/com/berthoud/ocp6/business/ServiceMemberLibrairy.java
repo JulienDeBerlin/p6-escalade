@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -56,6 +57,45 @@ public class ServiceMemberLibrairy {
         return memberLibrairy.insertBooking(privateGuidebook,booking);
     }
 
+    @Transactional
+    public void removeBooking(int bookingId){
+        memberLibrairy.removeBooking(bookingId);
+    }
+
+//    @Transactional
+////    public Booking updateBooking(int bookingId){
+////        memberLibrairy.updateBooking(bookingId);
+////    }
+
+
+    public Booking findBookingById(int bookingId){
+       return memberLibrairy.findBookingById(bookingId);
+    }
+
+
+    public boolean periodBookingRequestAvailable(MemberLibrairy privateGuidebook, LocalDate bookingRequestFrom, LocalDate bookingRequestUntil){
+        List<Booking> bookings = privateGuidebook.getBookings();
+        for (Iterator<Booking> i = bookings.iterator(); i.hasNext(); ) {
+            Booking booking = i.next();
+            if (bookingRequestFrom.isAfter(booking.getDateUntil()) || bookingRequestUntil.isBefore(booking.getDateFrom())){
+                continue; } else{
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<MemberLibrairy> findAvailablePrivateGuidebooks(Guidebook selectedGuidebook, LocalDate date_from, LocalDate date_until){
+        List<MemberLibrairy> listPrivateGuidebooks = memberLibrairy.findMemberLibrairyByGuidebookId(selectedGuidebook.getId());
+
+        for (Iterator<MemberLibrairy> i = listPrivateGuidebooks.iterator(); i.hasNext(); ) {
+            MemberLibrairy privateGuidebook = i.next();
+            if (!periodBookingRequestAvailable(privateGuidebook, date_from, date_until)) {
+                i.remove();
+            }
+        }
+        return listPrivateGuidebooks;
+    }
 
 
 }

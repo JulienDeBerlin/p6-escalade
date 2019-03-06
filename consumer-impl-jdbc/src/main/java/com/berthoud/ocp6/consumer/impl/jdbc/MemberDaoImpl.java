@@ -77,6 +77,17 @@ public class MemberDaoImpl extends AbstractDaoImpl implements MemberDao {
             return null;
         }
     }
+
+    @Override
+    public Member findMemberById(int id) {
+        try{
+            JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+            return jdbcTemplate.queryForObject("select * from member where id = ?",new Object[]{id},
+                    new BeanPropertyRowMapper<>(Member.class));
+        } catch (EmptyResultDataAccessException e){
+            return null;
+        }
+    }
 }
 
 

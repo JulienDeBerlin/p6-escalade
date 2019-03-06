@@ -143,7 +143,7 @@
                 <td>${ guidebook.name} (ISBN ${ guidebook.isbn13})</td>
                 <td>${ guidebook.firstnameAuthor} ${guidebook.surnameAuthor}</td>
                 <td>${ guidebook.yearPublication} </td>
-                <td><a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/bookings?guidebookId=${guidebook.id}"> <img src="${pageContext.request.contextPath}/resources/img/logoGestionResa.png"
+                <td><a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/goToBookings?guidebookId=${guidebook.id}"> <img src="${pageContext.request.contextPath}/resources/img/logoGestionResa.png"
                                      alt="réservation"/> </a></td>
                 <td><a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/delete?guidebookId=${guidebook.id}"> <img src="${pageContext.request.contextPath}/resources/img/delete.png" alt="delete"/>
                 </a></td>
