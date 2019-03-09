@@ -182,19 +182,36 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
             jdbcTemplate.update(sqlQuery, i, guidebook.getId());
         }
 
-//        Iterator<Integer> i = listSpotId.iterator(); i.hasNext();
-//        Spot spot = i.next();
-//
-//
-//        for (Iterator<Integer> i = listSpotId.iterator(); i.hasNext(); ) {
-//            Integer integer = i.next();
-//            spot.setRoutes(routeDao.findRoutesBasedOnSpot(spot.getId()));
-//            spot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spot.getId()));
-//            spot.setComments(commentSpotDao.findCommentSpotBySpotId(spot.getId()));
-//        }
+    }
 
+    @Override
+    public void updateGuidebook(Guidebook g) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
+        String SQL = "update guidebook set name = ?, year_publication=?, publisher=?, language=?, summary=?," +
+                "firstname_author=?, surname_author=? where id = ?";
+        jdbcTemplate.update(SQL, g.getName(),g.getYearPublication(), g.getPublisher(), g.getLanguage(), g.getSummary(),
+                                    g.getFirstnameAuthor(), g.getSurnameAuthor(), g.getId());
 
     }
+
+    @Override
+    public void deleteGuidebook(Guidebook g) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "delete from guidebook where id = ?";
+        jdbcTemplate.update(sqlRequest, g.getId());
+    }
+
+
+    @Override
+    public void deleteRelationGuidebookSpot(int spotId, int guidebookId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "delete from association_spot_guidebook where spot_id = ? and guidebook_id = ? ";
+        jdbcTemplate.update(sqlRequest, spotId,guidebookId) ;
+
+    }
+
 }
 

@@ -5,6 +5,7 @@ import com.berthoud.ocp6.business.ServiceLocation;
 import com.berthoud.ocp6.business.ServiceSpot;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
+import com.berthoud.ocp6.model.bean.Member;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,7 @@ public class ControllerAddGuidebook {
 
     @RequestMapping(value = "addcontent/guidebook/isbn", method = RequestMethod.POST)
     public String testIsbn (@RequestParam(value = "isbn13") String isbn13,
+                            @SessionAttribute (value = "user") Member user,
                             ModelMap model) {
 
         Guidebook selectedGuidebook = new Guidebook();
@@ -58,7 +60,11 @@ public class ControllerAddGuidebook {
         }
         model.put("selectedGuidebook", selectedGuidebook);
         model.put("isbn13", isbn13);
-        return "newGuidebook";
+
+
+            return "newGuidebook";
+
+
     }
 
 

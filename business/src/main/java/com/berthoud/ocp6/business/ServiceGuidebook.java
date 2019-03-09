@@ -1,10 +1,7 @@
 package com.berthoud.ocp6.business;
 
 import com.berthoud.ocp6.consumer.contract.dao.GuidebookDao;
-import com.berthoud.ocp6.model.bean.Booking;
-import com.berthoud.ocp6.model.bean.Guidebook;
-import com.berthoud.ocp6.model.bean.Member;
-import com.berthoud.ocp6.model.bean.MemberLibrairy;
+import com.berthoud.ocp6.model.bean.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,7 +83,21 @@ public class ServiceGuidebook {
         guidebookDao.insertRelationGuidebookSpots(listSpotId, guidebook);
     }
 
+    @Transactional
+    public void deleteRelationGuidebookSpot(int spotId, int guidebookId){
+        guidebookDao.deleteRelationGuidebookSpot(spotId, guidebookId);
+    }
 
+
+    @Transactional
+    public void updateGuidebook(Guidebook selectedGuidebook){
+         guidebookDao.updateGuidebook(selectedGuidebook);
+    }
+
+    @Transactional
+    public void deleteGuidebook(Guidebook selectedGuidebook){
+        guidebookDao.deleteGuidebook(selectedGuidebook);
+    }
 
 
 }

@@ -51,9 +51,6 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
-                <%--<li class="nav-item active">--%>
-                    <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
-                <%--</li>--%>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#lesSpots">Les spots</a>
                 </li>
@@ -209,9 +206,20 @@
         <a href="${pageContext.request.contextPath}/escalade/addcontent/spot">Référencez un spot ou une voie</a>
     </div>
 
-    <div>
-        <a href="${pageContext.request.contextPath}/escalade/addcontent/guidebook">Référencez un topo</a>
-    </div>
+
+    <c:if test="${user.email=='superadmin@admin.fr' && not empty user.email}">
+        <div>
+            <a href="${pageContext.request.contextPath}/escalade/admin/guidebooks">Modifier ou supprimer un topo</a>
+        </div>
+    </c:if>
+
+
+    <c:if test="${user.email!='superadmin@admin.fr'}">
+        <div>
+            <a href="${pageContext.request.contextPath}/escalade/addcontent/guidebook">Référencez un topo</a>
+        </div>
+    </c:if>
+
 
     <div>
         <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy">Proposez un topo au prêt</a>
@@ -238,7 +246,7 @@
     $(function() {
         $( "#locationInput, #locationInputForTopo" ).autocomplete({
             minLength: 2,
-            source: '${pageContext.request.contextPath}/escalade/get_location_list' ,
+            source: '${pageContext.request.contextPath}/escalade/get_location_list'
         });
     });
 

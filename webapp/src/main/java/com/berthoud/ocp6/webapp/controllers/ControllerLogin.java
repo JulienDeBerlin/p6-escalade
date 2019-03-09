@@ -5,6 +5,8 @@ import com.berthoud.ocp6.business.ServiceLogin;
 import com.berthoud.ocp6.business.ServiceMember;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Member;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,7 +18,7 @@ import java.util.List;
 
 
 
-@SessionAttributes (value = {"user", "guidebooksForLoan"})
+@SessionAttributes (value = {"user", "guidebooksForLoan",  "selectedGuidebook", "test"})
 @Controller
 public class ControllerLogin {
 
@@ -29,6 +31,7 @@ public class ControllerLogin {
     @Autowired
     ServiceMember serviceMember;
 
+    private static final Logger logger = LogManager.getLogger();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String displayloginPage(@RequestParam (value = "afterLogin") String jspAfterLogin,
@@ -55,18 +58,27 @@ public class ControllerLogin {
 
         if (serviceLogin.checkPassword(inputPassword, user)){
             model.put ("user", user);
+
+            logger.info("quitte checkPassword");
+            logger.info(model);
             return jspAfterLogin;
+
         }else {
             message="wrongPassword";
             model.put("message", message);
             model.put("jspAfterLogin",jspAfterLogin );
             return "login";
         }
+
+
+
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(ModelMap model, SessionStatus status){
         status.setComplete();
+        logger.info("quitte logout et retourne à l'index");
+        logger.info(model);
         return "index";
     }
 
