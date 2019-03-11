@@ -54,7 +54,8 @@
             </li>
             <c:if test="${user.email=='superadmin@admin.fr'}">
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="#Moderation">Moderation</a>
+                    <a class="nav-item nav-link"
+                       href="${pageContext.request.contextPath}/escalade/redirect?anchor=Moderation">Moderation</a>
                 </li>
             </c:if>
         </ul>
@@ -94,14 +95,19 @@
     <div class="form-group">
         <label for="cityNameInput">Indiquez la commune dans laquelle se trouve le site à ajouter ou compléter</label>
         <input type="text" name="cityNameInput" class="form-control" id="cityNameInput"
-               placeholder="Chamonix-Mont-Blanc...">
+               placeholder="Chamonix-Mont-Blanc..." required>
 
         <input type="hidden" name="region" class="form-control" id="region">
         <input type="hidden" name="departementName" class="form-control" id="departementName">
         <input type="hidden" name="departementId" class="form-control" id="departementId">
 
         <label for="codePostal">Code postal</label>
-        <input type="text" name="codePostal" class="form-control" id="codePostal">
+        <input type="text" name="codePostal" class="form-control" id="codePostal" aria-describedby="codePostalHelp">
+        <small id="codePostalHelp" class="form-text text-muted">Le code postal est déduit automatiquement de choix de la
+            commune. Dans le cas de communes avec plusieurs codes postaux, il peut être nécessaire de corriger le code
+            postal affiché.
+        </small>
+
 
     </div>
 
@@ -278,7 +284,6 @@
                     $("#departementName").val(ui.item.departementName);
                     $("#departementId").val(ui.item.departementId);
                     $("#codePostal").val(ui.item.codesPostal);
-
                     return false;
                 }
             })

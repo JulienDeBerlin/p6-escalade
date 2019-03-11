@@ -30,4 +30,14 @@ public class ServiceRoute {
         return (routeDao.insertRoute(route));
     }
 
+    @Transactional
+    public void updateRoute(Route route) {
+        routeDao.updateRoute(route);
+    }
+
+    @Transactional
+    public void deleteRoute(int routeId) {
+        routeDao.deleteRoute(routeId);
+    }
+
 }

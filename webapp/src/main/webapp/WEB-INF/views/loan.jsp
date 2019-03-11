@@ -55,7 +55,8 @@
 
                 <c:if test="${user.email=='superadmin@admin.fr'}">
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="#Moderation">Moderation</a>
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/redirect?anchor=Moderation">Moderation</a>
                     </li>
                 </c:if>
 

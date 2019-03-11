@@ -10,6 +10,10 @@ public interface SpotDao {
      Spot findSpotBySpotId(int spotId);
      Spot insertSpot(Spot spot);
 
+    void updateSpot(Spot spot);
+
+    void deleteSpot(int spotId);
+
 
 
 

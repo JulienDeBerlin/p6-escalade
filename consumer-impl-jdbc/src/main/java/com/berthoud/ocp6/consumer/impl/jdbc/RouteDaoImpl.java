@@ -60,4 +60,22 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
 
         return r;
     }
+
+
+    @Override
+    public void updateRoute(Route route) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String SQL = "update route set name =?, nb_pitch =?, index_pitch=?, rating=?, bolted=? where id = ?";
+        jdbcTemplate.update(SQL, route.getName(), route.getNbPitch(), route.getIndexPitch(), route.getRating(),
+                route.isBolted(), route.getId());
+    }
+
+    @Override
+    public void deleteRoute(int routeId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "delete from route where id = ?";
+        jdbcTemplate.update(sqlRequest, routeId);
+    }
 }

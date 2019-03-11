@@ -228,7 +228,10 @@
 
         <h1 id="Moderation">MODERATION</h1>
         <div>
-            <a href="${pageContext.request.contextPath}/escalade/admin/guidebooks">Modifier ou supprimer un topo</a>
+            <a href="${pageContext.request.contextPath}/escalade/admin/guidebooks">Modifier/supprimer un topo</a>
+        </div>
+        <div>
+            <a href="${pageContext.request.contextPath}/escalade/admin/spots">Modifier/supprimer un site ou une voie</a>
         </div>
     </c:if>
 

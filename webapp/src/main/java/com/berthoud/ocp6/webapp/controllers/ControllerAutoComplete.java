@@ -23,4 +23,14 @@ public class ControllerAutoComplete {
         return locationProposals;
     }
 
+    @RequestMapping(value = "autocomplete/citiesForUpdateSpots", method = RequestMethod.GET)
+    @ResponseBody
+    public List<String> getCityProposalsForUpdateSpots(@RequestParam("term") String query) {
+        List<String> locationProposals = serviceLocation.getCityProposalsForUpdateSpots(query);
+        return locationProposals;
+    }
+
+
+
+
 }

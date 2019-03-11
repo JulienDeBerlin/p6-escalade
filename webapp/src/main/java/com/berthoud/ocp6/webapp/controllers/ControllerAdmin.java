@@ -1,9 +1,10 @@
 package com.berthoud.ocp6.webapp.controllers;
 
-import com.berthoud.ocp6.business.ServiceGuidebook;
-import com.berthoud.ocp6.business.ServiceMember;
-import com.berthoud.ocp6.business.ServiceSpotComment;
+import com.berthoud.ocp6.business.*;
 import com.berthoud.ocp6.model.bean.Guidebook;
+import com.berthoud.ocp6.model.bean.Location;
+import com.berthoud.ocp6.model.bean.Route;
+import com.berthoud.ocp6.model.bean.Spot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
+
+@SessionAttributes(value = {"locationInput", "selectedLocations", "selectedSpot"})
 @Controller
 public class ControllerAdmin {
 
@@ -23,6 +27,16 @@ public class ControllerAdmin {
 
     @Autowired
     ServiceMember serviceMember;
+
+    @Autowired
+    ServiceLocation serviceLocation;
+
+    @Autowired
+    ServiceSpot serviceSpot;
+
+    @Autowired
+    ServiceRoute serviceRoute;
+
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -83,7 +97,7 @@ public class ControllerAdmin {
 
     @RequestMapping(value = "/admin/guidebooks/delete", method = RequestMethod.POST)
     public String deleteGuidebook (@RequestParam (value = "isbn13") String isbn13,
-                                    ModelMap model){
+                                   ModelMap model){
 
         serviceGuidebook.deleteGuidebook(serviceGuidebook.findGuidebookbyIsbn(isbn13));
         model.put("message", "guidebookDeleted");
@@ -126,9 +140,122 @@ public class ControllerAdmin {
         return ("redirect:/escalade/logout");
     }
 
+    @RequestMapping(value = "/admin/spots", method = RequestMethod.GET)
+    public String gotToAdminSpots() {
+        return "adminSpots";
+    }
 
 
+    @RequestMapping(value = "admin/spots/locationInput", method = RequestMethod.POST)
+    public String saveParamLocationInput(@RequestParam(value = "locationInput") String locationInput,
+//                                         @RequestParam (value = "step") String step,
+                                         ModelMap model) {
 
+        model.put("locationInput", locationInput);
+        model.put("step", "step2");
+        return "redirect:locationInput/displaySpot";
+    }
+
+
+    @RequestMapping(value = "admin/spots/locationInput/displaySpot")
+    public String displaySpots(@SessionAttribute(value = "locationInput") String locationInput,
+                               @RequestParam(value = "step") String step,
+                               ModelMap model) {
+
+        try {
+            List<Location> selectedLocations = serviceLocation.detailledInfoBasedOnLocation(locationInput);
+            model.put("step", step);
+            model.put("locationInput", locationInput);
+            model.put("selectedLocations", selectedLocations);
+
+        } catch (Exception e) {
+            logger.info(e);
+        }
+
+        return "adminSpots";
+    }
+
+
+    @RequestMapping(value = "admin/spots/update", method = RequestMethod.POST)
+    public String updateSpot(@RequestParam(value = "spotId") int spotId,
+                             @RequestParam(value = "nameSpot") String nameSpot,
+                             @RequestParam(value = "nameArea") String nameArea,
+                             ModelMap model) {
+
+        Spot spotUpdated = new Spot();
+        spotUpdated.setId(spotId);
+        spotUpdated.setNameSpot(nameSpot);
+        spotUpdated.setNameArea(nameArea);
+        serviceSpot.updateSpot(spotUpdated);
+
+        model.put("step", "step2");
+
+        return "redirect:locationInput/displaySpot";
+    }
+
+
+    @RequestMapping(value = "admin/spots/delete", method = RequestMethod.POST)
+    public String deleteSpot(@RequestParam(value = "spotId") int spotId) {
+
+        serviceSpot.deleteSpot(spotId);
+
+        return "redirect:locationInput/displaySpot";
+    }
+
+
+    @RequestMapping(value = "admin/spots/accessRoute", method = RequestMethod.POST)
+    public String accessRoute(@RequestParam(value = "spotId") int spotId,
+                              ModelMap model) {
+
+        Spot selectedSpot = serviceSpot.findSpotBasedOnId(spotId);
+        model.put("selectedSpot", selectedSpot);
+        model.put("step", "step3");
+
+        return "redirect:locationInput/displaySpot";
+    }
+
+
+    @RequestMapping(value = "admin/routes/update", method = RequestMethod.POST)
+    public String updateRoute(@RequestParam(value = "name") String name,
+                              @RequestParam(value = "id") int id,
+                              @RequestParam(value = "nbPitch") byte nbPitch,
+                              @RequestParam(value = "indexPitch") byte indexPitch,
+                              @RequestParam(value = "rating") String rating,
+                              @RequestParam(value = "bolted", required = false) boolean isBolted,
+                              @SessionAttribute(value = "selectedSpot") Spot selectedSpot,
+                              ModelMap model) {
+
+        Route routeUpdated = new Route();
+        routeUpdated.setId(id);
+        routeUpdated.setName(name);
+        routeUpdated.setNbPitch(nbPitch);
+        routeUpdated.setIndexPitch(indexPitch);
+        routeUpdated.setRating(rating);
+        routeUpdated.setBolted(isBolted);
+
+        serviceRoute.updateRoute(routeUpdated);
+
+        selectedSpot = serviceSpot.findSpotBasedOnId(selectedSpot.getId());
+        model.put("selectedSpot", selectedSpot);
+        model.put("step", "step3");
+
+
+        return "redirect:/escalade/admin/spots/locationInput/displaySpot";
+    }
+
+
+    @RequestMapping(value = "admin/routes/delete", method = RequestMethod.POST)
+    public String deleteRoute(@RequestParam(value = "id") int id,
+                              @SessionAttribute(value = "selectedSpot") Spot selectedSpot,
+                              ModelMap model) {
+
+        serviceRoute.deleteRoute(id);
+        selectedSpot = serviceSpot.findSpotBasedOnId(selectedSpot.getId());
+        model.put("selectedSpot", selectedSpot);
+        model.put("step", "step3");
+
+        return "redirect:/escalade/admin/spots/locationInput/displaySpot";
+    }
 
 
 }

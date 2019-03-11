@@ -66,4 +66,18 @@ public class ServiceSpot {
     }
 
 
+    @Transactional
+    public void updateSpot(Spot spot) {
+        spotDao.updateSpot(spot);
+    }
+
+
+    @Transactional
+    public void deleteSpot(int spotId) {
+        spotDao.deleteSpot(spotId);
+    }
+
+
+
+
 }

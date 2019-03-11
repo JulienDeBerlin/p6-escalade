@@ -99,4 +99,22 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
         return s;
 
     }
+
+    @Override
+    public void updateSpot(Spot spot) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String SQL = "update spot set name_spot = ?, name_area = ? where id = ?";
+        jdbcTemplate.update(SQL, spot.getNameSpot(), spot.getNameArea(), spot.getId());
+
+    }
+
+
+    @Override
+    public void deleteSpot(int spotId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "delete from spot where id = ?";
+        jdbcTemplate.update(sqlRequest, spotId);
+    }
 }

@@ -15,10 +15,11 @@ public interface LocationDao {
 
     List <String> getLocationProposals(String query);
 
+    List<String> getCityProposalsForUpdateSpots(String query);
+
     Location insertLocation(Location location);
 
     Location findLocationBasedOnSpotId (int SpotId);
-
 
 
 }

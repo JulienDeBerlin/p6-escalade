@@ -82,6 +82,7 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
         }
     }
 
+
     /**
      * Builds a find-all sqlQuery based on the tableColomn param
      * @param tableColomn is the colomn of the table the query is based on (i.e. : departement_name, region...)
@@ -97,14 +98,14 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
 
 
     /**
-     * From a string formated as "location (category)", extracts "location"
+     * From a string formatted as "location (category)", extracts "location"
      */
     private String cleanedLocation(String locationInput) {
         return locationInput.substring(0, locationInput.lastIndexOf("(") - 1);
     }
 
     /**
-     * From a string formated as "location (ville du département: ain)", extracts "ain"
+     * From a string formatted as "location (ville du département: ain)", extracts "ain"
      */
     private String cleanedDepartement (String locationInput){
         return locationInput.substring(locationInput.lastIndexOf(":")+2, locationInput.lastIndexOf(")"));
@@ -141,14 +142,14 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
     @Override
     public List<String> getLocationProposals(String query) {
 
-                class CityLocationMapper implements RowMapper<String> {
-                    @Override
-                    public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        String s = rs.getString("city_name") + " (ville du département: " +
-                                rs.getString("departement_name") + ")";
-                        return s;
-                    }
-                }
+        class CityLocationMapper implements RowMapper<String> {
+            @Override
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                String s = rs.getString("city_name") + " (ville du département: " +
+                        rs.getString("departement_name") + ")";
+                return s;
+            }
+        }
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
@@ -188,6 +189,46 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
 
         return matches;
 
+    }
+
+    /**
+     * This method is used for the autocompletion field in page update/delete spots or routes. It returns city proposals for which at least 1 spot is
+     * available in the DB.
+     *
+     * @param query = the input entered by the user
+     * @return
+     */
+    @Override
+    public List<String> getCityProposalsForUpdateSpots(String query) {
+
+        class CityLocationMapper implements RowMapper<String> {
+            @Override
+            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+                String s = rs.getString("city_name") + " (ville du département: " +
+                        rs.getString("departement_name") + ")";
+                return s;
+            }
+        }
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        List<String> matches = new ArrayList<>();
+
+        String sqlQuery4 = "SELECT DISTINCT city_name, departement_name FROM location WHERE city_name ILIKE  '%" + query + "%'";
+        String sqlQuery5 = "SELECT DISTINCT city_name, departement_name FROM location WHERE zip_code ILIKE  '" + query + "%'";
+
+        List<String> myResults4 = jdbcTemplate.query(sqlQuery4, new CityLocationMapper());
+        List<String> myResults5 = jdbcTemplate.query(sqlQuery5, new CityLocationMapper());
+
+        for (String s : myResults4) {
+            matches.add(s);
+        }
+
+        for (String s : myResults5) {
+            matches.add(s);
+        }
+
+        return matches;
     }
 
     /**
@@ -235,4 +276,6 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
         Location selectedLocation = jdbcTemplate.queryForObject(myRequest, new Object[]{SpotId}, new BeanPropertyRowMapper<>(Location.class));
         return selectedLocation;
     }
+
+
 }

@@ -118,6 +118,12 @@ public class ServiceLocation {
         return locationDao.getLocationProposals(query);
     }
 
+
+    public List<String> getCityProposalsForUpdateSpots(String query) {
+        return locationDao.getCityProposalsForUpdateSpots(query);
+    }
+
+
     public Location findLocationByNameAndDepartement( String cityName, String departementName){
         try {
             return locationDao.findLocationByNameAndDepartement(cityName, departementName);
