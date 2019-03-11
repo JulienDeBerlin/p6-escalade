@@ -44,6 +44,11 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/redirect?anchor=Contribuez">Contribuez</a>
                 </li>
+                    <c:if test="${user.email=='superadmin@admin.fr'}">
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="#Moderation">Moderation</a>
+                        </li>
+                    </c:if>
             </ul>
 
             <ul class="navbar-nav" >
@@ -124,7 +129,14 @@
 
                     <c:forEach items="${ spot.comments }" var="comment">
                         <br/>
-                        <p>Commentaire de <c:out value="${comment.member.nickname}"/> posté le <c:out
+                        <p>
+                            <c:if test="${user.email=='superadmin@admin.fr'}">
+                                <a class="nav-item nav-link"
+                                   href="${pageContext.request.contextPath}/escalade/admin/deleteComment?commentId=${comment.id}">
+                                    <img src="${pageContext.request.contextPath}/resources/img/delete.png"
+                                         alt="delete"/></a>
+                            </c:if>
+                            Commentaire de <c:out value="${comment.member.nickname}"/> posté le <c:out
                                 value="${comment.date}"/> </p>
                           <p>  <c:out value="${comment.comment}"/> </p>
                     </c:forEach>

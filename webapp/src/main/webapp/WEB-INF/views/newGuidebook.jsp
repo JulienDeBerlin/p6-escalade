@@ -52,6 +52,12 @@
                     <a class="nav-item nav-link"
                        href="${pageContext.request.contextPath}/escalade/redirect?anchor=Contribuez">Contribuez</a>
                 </li>
+
+                <c:if test="${user.email=='superadmin@admin.fr'}">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#Moderation">Moderation</a>
+                    </li>
+                </c:if>
             </ul>
 
             <ul class="navbar-nav">
@@ -164,7 +170,7 @@
 <br/>
     <c:if test="${step == 'step3'}">
 
-        <h2 id="etape3">Étape 3: Valider les sites couverts par le topo </h2>
+        <h2 id="step3">Étape 3: Valider les sites couverts par le topo </h2>
 
         <script>
             $("html, body").animate({ scrollTop: $('#etape3').offset().top }, 1000);
@@ -272,7 +278,18 @@
                 <button type="submit" class="btn btn-primary">Associer les sites sélectionnés au topo</button>
             </form>
         </c:if>
+
+        <c:if test="${user.email=='superadmin@admin.fr'}">
+            <h2>Supprimer ou effectuer des modifications sur ce topo?</h2>
+            <div>
+                <a href="${pageContext.request.contextPath}/escalade/admin/guidebooks/isbn?isbn13=${selectedGuidebook.isbn13}#step2">
+                    Afficher la page de modération</a>
+            </div>
+        </c:if>
+
+
     </c:if>
+
 
 </div>
 

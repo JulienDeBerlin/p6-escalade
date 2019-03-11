@@ -52,6 +52,13 @@
                     <a class="nav-item nav-link"
                        href="${pageContext.request.contextPath}/escalade/redirect?anchor=Contribuez">Contribuez</a>
                 </li>
+
+                <c:if test="${user.email=='superadmin@admin.fr'}">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#Moderation">Moderation</a>
+                    </li>
+                </c:if>
+
             </ul>
 
             <ul class="navbar-nav">

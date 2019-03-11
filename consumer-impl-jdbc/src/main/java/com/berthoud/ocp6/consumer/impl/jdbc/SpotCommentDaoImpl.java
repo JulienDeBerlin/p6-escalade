@@ -67,4 +67,14 @@ public class SpotCommentDaoImpl extends AbstractDaoImpl implements SpotCommentDa
 
         return sc;
     }
+
+    @Override
+    public void deleteComment(int commentId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "delete from comment_spot where id = ?";
+        jdbcTemplate.update(sqlRequest, commentId);
+    }
+
+
 }

@@ -52,6 +52,13 @@
                     <a class="nav-item nav-link"
                        href="${pageContext.request.contextPath}/escalade/redirect?anchor=Contribuez">Contribuez</a>
                 </li>
+
+                <c:if test="${user.email=='superadmin@admin.fr'}">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#Moderation">Moderation</a>
+                    </li>
+                </c:if>
+
             </ul>
 
             <ul class="navbar-nav">
@@ -108,9 +115,9 @@
     </c:if>
 
 
-    <c:if test="${ selectedGuidebook != null }">
+    <c:if test="${ step == 'guidebookSelected' }">
 
-        <h2>Étape 2: référencement du topo</h2>
+        <h2 id="step2">Étape 2: référencement du topo</h2>
 
         <h4>Modification des champs: </h4>
 
@@ -193,7 +200,7 @@
 
         <br/>
 
-        <h2 id="etape3">Étape 3: Valider les sites couverts par le topo </h2>
+        <h2 id="step3">Étape 3: Valider les sites couverts par le topo </h2>
 
         <script>
             $("html, body").animate({scrollTop: $('#etape3').offset().top}, 1000);
@@ -234,83 +241,14 @@
 
         </c:if>
 
+        <h4>Pour associer d'autres sites au topo: </h4>
+        <a href="${pageContext.request.contextPath}/escalade/addcontent/guidebook/isbn?isbn13=${selectedGuidebook.isbn13}#step3">
+            quitter la page de modération et rejoindre la partie publique du site</a>
 
-        <h4>Compléter la liste</h4>
-
-        <p> Pour cela vous devez d'abord vous assurer que les sites que vous souhaitez associer au topo sont référencés
-            dans la base de
-            données et si ce n'est pas le cas les ajouter. <a
-                    href=${pageContext.request.contextPath}/escalade/addcontent/spot
-                    target="_blank">Cela ce passe ici.</a>
-
-
-        <p>Ensuite il suffit de saisir une localité et de sélectionner les sites à associer parmi la liste des
-            propositions. </p>
-
-        <c:if test="${alert=='notFound'}">
-            <p style="color: red"> Attention, la localisation doit être choisie parmi la liste des propositions
-            </p>
-        </c:if>
-
-        <form method="get" action="${pageContext.request.contextPath}/escalade/spotsForGuidebook">
-
-            <div class="form-group">
-                <label for="locationSpotsForGuidebook">Entrer la localité des sites à associer au topo</label>
-                <input type="text" name="locationSpotsForGuidebook" class="form-control" id="locationSpotsForGuidebook"
-                       placeholder="Région, département, commune">
-            </div>
-
-            <button type="submit" class="btn btn-primary">Valider</button>
-        </form>
-
-
-        <c:if test="${alert=='noSpot'}">
-            <p style="color: red">La recherche n'a donné aucun résultat</p>
-        </c:if>
-
-        <c:if test="${alert=='ok'}">
-
-            <form method="post" action="${pageContext.request.contextPath}/escalade/spotsForGuidebook">
-
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">Sélection</th>
-                        <th scope="col">Nom du site</th>
-                        <th scope="col">Secteur</th>
-                        <th scope="col">Commune</th>
-                        <th scope="col">Département</th>
-                    </tr>
-                    </thead>
-
-
-                    <tbody>
-                    <c:forEach items="${ listMatchingLocations}" var="location">
-
-                        <c:if test="${empty location.spots}" var="noSpots" scope="session"/>
-
-                        <c:forEach items="${ location.spots }" var="spot">
-                            <tr>
-                                <th scope="col">
-                                    <div class="checkbox">
-                                        <input type="checkbox" name="selectedSpots" value="${spot.id}">
-                                    </div>
-                                </th>
-                                <th>${ spot.nameSpot  }</th>
-                                <th>${ spot.nameArea  }</th>
-                                <th>${ location.cityName } </th>
-                                <th>${ location.departementName} (${location.departementId})</th>
-                            </tr>
-                        </c:forEach>
-                    </c:forEach>
-
-                    </tbody>
-                </table>
-                <button type="submit" class="btn btn-primary">Associer les sites sélectionnés au topo</button>
-            </form>
-        </c:if>
+        </p>
 
     </c:if>
+
 
 </div>
 

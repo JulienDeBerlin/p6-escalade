@@ -1,6 +1,8 @@
 package com.berthoud.ocp6.webapp.controllers;
 
 import com.berthoud.ocp6.business.ServiceGuidebook;
+import com.berthoud.ocp6.business.ServiceMember;
+import com.berthoud.ocp6.business.ServiceSpotComment;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +17,12 @@ public class ControllerAdmin {
 
     @Autowired
     ServiceGuidebook serviceGuidebook;
+
+    @Autowired
+    ServiceSpotComment serviceSpotComment;
+
+    @Autowired
+    ServiceMember serviceMember;
 
     private static final Logger logger = LogManager.getLogger();
 
@@ -36,6 +44,7 @@ public class ControllerAdmin {
 
         } else{
             model.put("selectedGuidebook", selectedGuidebook);
+            model.put("step", "guidebookSelected");
         }
         return "adminGuidebooks";
     }
@@ -65,6 +74,8 @@ public class ControllerAdmin {
 
         model.put("selectedGuidebook", selectedGuidebook);
         model.put("message", "guidebookUpdated");
+        model.put("step", "guidebookSelected");
+
 
         return "adminGuidebooks";
     }
@@ -76,6 +87,7 @@ public class ControllerAdmin {
 
         serviceGuidebook.deleteGuidebook(serviceGuidebook.findGuidebookbyIsbn(isbn13));
         model.put("message", "guidebookDeleted");
+
         return "adminGuidebooks";
     }
 
@@ -93,9 +105,28 @@ public class ControllerAdmin {
         model.put("selectedGuidebook", selectedGuidebook);
 
         model.put("message", "spotDeleted");
+        model.put("step", "guidebookSelected");
 
         return "adminGuidebooks";
     }
+
+
+    @RequestMapping(value = "admin/deleteComment", method = RequestMethod.GET)
+    public String deleteComment(@RequestParam(value = "commentId") int commentId) {
+
+        serviceSpotComment.deleteComment(commentId);
+        return ("redirect:/escalade/displaySpots");
+    }
+
+    @RequestMapping(value = "admin/delete/memberAccount", method = RequestMethod.POST)
+    public String deleteMemberAccount(@RequestParam(value = "userId") int userId) {
+
+        serviceMember.deleteMemberAccount(userId);
+
+        return ("redirect:/escalade/logout");
+    }
+
+
 
 
 

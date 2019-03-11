@@ -7,6 +7,6 @@ import java.util.List;
 public interface GuidebookCommentDao {
 
 
-    public List<GuidebookComment> findCommentGuidebooksByGuidebookId(int GuidebookId);
+    List<GuidebookComment> findCommentGuidebooksByGuidebookId(int GuidebookId);
 
 }

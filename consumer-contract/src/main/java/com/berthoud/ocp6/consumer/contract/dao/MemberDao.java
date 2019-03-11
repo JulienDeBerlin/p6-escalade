@@ -9,4 +9,6 @@ public interface MemberDao {
      Member insertNewMember(Member member);
      Member findMemberbyNickname( String nickname);
      Member findMemberById (int id);
+
+    void deleteMemberAccount(int memberId);
 }

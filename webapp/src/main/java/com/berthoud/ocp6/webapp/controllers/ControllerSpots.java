@@ -30,12 +30,12 @@ public class ControllerSpots {
 
 
     @RequestMapping(value = "/spots", method = RequestMethod.POST)
-    public String saveRequestParams (@RequestParam (value = "locationInput") String locationInput,
-                                          @RequestParam (value="onlySpotsWithBoltedRoutes", required = false)
-                                                  boolean onlySpotsWithBoltedRoutes,
-                                          @RequestParam (value = "ratingMin") String ratingMin,
-                                          @RequestParam (value = "ratingMax") String ratingMax,
-                                          ModelMap model) {
+    public String saveRequestParams(@RequestParam(value = "locationInput") String locationInput,
+                                    @RequestParam(value = "onlySpotsWithBoltedRoutes", required = false)
+                                            boolean onlySpotsWithBoltedRoutes,
+                                    @RequestParam(value = "ratingMin") String ratingMin,
+                                    @RequestParam(value = "ratingMax") String ratingMax,
+                                    ModelMap model) {
 
 
         model.put("locationInput", locationInput);

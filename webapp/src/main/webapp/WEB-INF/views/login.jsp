@@ -94,7 +94,6 @@
 <br/>
 <p>Pas encore inscrit? <a href="${pageContext.request.contextPath}/escalade/newMember?afterLogin=${jspAfterLogin}">Créez votre compte en quelques clics</a></p>
 
-<a href="${pageContext.request.contextPath}/escalade/test/autocomplete"> Autocomplete</a>
 
 </div>
 

@@ -17,6 +17,9 @@ public class ServiceSpotComment {
        return spotCommentDao.insertSpotComment(spotComment);
     }
 
-
+    @Transactional
+    public void deleteComment(int commentId) {
+        spotCommentDao.deleteComment(commentId);
+    }
 
 }

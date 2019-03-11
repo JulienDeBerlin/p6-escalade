@@ -20,4 +20,6 @@ public class GuidebookCommentDaoImpl extends AbstractDaoImpl implements Guideboo
                 (sqlRequest, new Object[]{GuidebookId}, new BeanPropertyRowMapper<>(GuidebookComment.class));
         return guidebookComments;
     }
+
+
 }

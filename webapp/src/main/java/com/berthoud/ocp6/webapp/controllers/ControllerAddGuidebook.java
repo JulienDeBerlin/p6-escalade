@@ -44,7 +44,7 @@ public class ControllerAddGuidebook {
     }
 
 
-    @RequestMapping(value = "addcontent/guidebook/isbn", method = RequestMethod.POST)
+    @RequestMapping(value = "addcontent/guidebook/isbn")
     public String testIsbn (@RequestParam(value = "isbn13") String isbn13,
                             @SessionAttribute (value = "user") Member user,
                             ModelMap model) {

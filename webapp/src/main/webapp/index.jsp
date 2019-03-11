@@ -16,8 +16,8 @@
 
     <link href="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/css/bootstrap.min.css"
           rel="stylesheet"/>
-    <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-          rel = "stylesheet">
+    <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+          rel="stylesheet">
 
 </head>
 
@@ -60,9 +60,15 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="#Contribuez">Contribuez</a>
                 </li>
+
+                <c:if test="${user.email=='superadmin@admin.fr'}">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="#Moderation">Moderation</a>
+                    </li>
+                </c:if>
             </ul>
 
-            <ul class="navbar-nav" >
+            <ul class="navbar-nav">
                 <c:if test="${empty user}">
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -75,10 +81,12 @@
                         <p>Bienvenue ${user.nickname}</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Espace Membre</a>
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Espace Membre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se déconnecter</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se
+                            déconnecter</a>
                     </li>
                 </c:if>
             </ul>
@@ -87,7 +95,7 @@
         </div>
     </nav>
 
-    <div class="jumbotron jumbotron-fluid" >
+    <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <p class="display-4">HIGH</p>
             <p class="lead">La plateforme collaborative pour les passionnés d'escalade</p>
@@ -206,45 +214,41 @@
         <a href="${pageContext.request.contextPath}/escalade/addcontent/spot">Référencez un spot ou une voie</a>
     </div>
 
-
-    <c:if test="${user.email=='superadmin@admin.fr' && not empty user.email}">
-        <div>
-            <a href="${pageContext.request.contextPath}/escalade/admin/guidebooks">Modifier ou supprimer un topo</a>
-        </div>
-    </c:if>
-
-
-    <c:if test="${user.email!='superadmin@admin.fr'}">
-        <div>
-            <a href="${pageContext.request.contextPath}/escalade/addcontent/guidebook">Référencez un topo</a>
-        </div>
-    </c:if>
-
+    <div>
+        <a href="${pageContext.request.contextPath}/escalade/addcontent/guidebook">Référencez un topo</a>
+    </div>
 
     <div>
         <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy">Proposez un topo au prêt</a>
     </div>
 
-    <br/>
-    <br/>
+
+    <c:if test="${user.email=='superadmin@admin.fr'}">
+
+
+        <h1 id="Moderation">MODERATION</h1>
+        <div>
+            <a href="${pageContext.request.contextPath}/escalade/admin/guidebooks">Modifier ou supprimer un topo</a>
+        </div>
+    </c:if>
 
 </div>
 
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
+<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
 <script>
-    $('.navbar-nav>li>a').on('click', function(){
+    $('.navbar-nav>li>a').on('click', function () {
         $('.navbar-collapse').collapse('hide');
     });
 </script>
 
 <script>
-    $(function() {
-        $( "#locationInput, #locationInputForTopo" ).autocomplete({
+    $(function () {
+        $("#locationInput, #locationInputForTopo").autocomplete({
             minLength: 2,
             source: '${pageContext.request.contextPath}/escalade/get_location_list'
         });

@@ -46,6 +46,13 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/redirect?anchor=Contribuez">Contribuez</a>
                 </li>
+
+                    <c:if test="${user.email=='superadmin@admin.fr'}">
+                        <li class="nav-item">
+                            <a class="nav-item nav-link" href="#Moderation">Moderation</a>
+                        </li>
+                    </c:if>
+
             </ul>
 
             <ul class="navbar-nav" >
@@ -120,6 +127,25 @@
     </form>
 
 </c:if>
+
+    <h4>Supprimer mon compte </h4>
+
+    <form method="post" action="${pageContext.request.contextPath}/escalade//admin/delete/memberAccount">
+
+        <div class="form-check">
+            <input type="checkbox" name="deleteMemberAccount" id="deleteMemberAccount"
+                   class="form-check-input">
+            <label class="form-check-label" for="deleteMemberAccount" style="color: red">
+                Je souhaite supprimer mon compte. Toutes les informations personnelles seront perdues.
+                </br> Attention, cette action est irréversible!
+            </label>
+            <input type="hidden" name="userId" value="${user.id}">
+
+        </div>
+
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+
+    </form>
 
     <h2 id="librairy">Ma bibliothèque </h2>
     <h4>Liste des topos que je propose au prêt:</h4>

@@ -88,6 +88,14 @@ public class MemberDaoImpl extends AbstractDaoImpl implements MemberDao {
             return null;
         }
     }
+
+    @Override
+    public void deleteMemberAccount(int memberId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "delete from member where id = ?";
+        jdbcTemplate.update(sqlRequest, memberId);
+    }
 }
 
 

@@ -30,7 +30,9 @@ public class ServiceMember {
         }else return false;
     }
 
-
-
+    @Transactional
+    public void deleteMemberAccount(int memberId) {
+        memberDao.deleteMemberAccount(memberId);
+    }
 
 }
