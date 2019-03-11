@@ -251,7 +251,8 @@
                         <input type="text" class="form-control" value="${route.rating}" name="rating">
                     </div>
                     <div class="col">
-                        <input type="checkbox" class="form-control" value="${route.bolted}" name="bolted">
+                        <input type="checkbox" class="form-control"
+                               <c:if test="${route.bolted==true}">checked</c:if> name="bolted">
                     </div>
 
                     <div class="col">
