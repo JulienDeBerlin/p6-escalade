@@ -43,7 +43,7 @@ public class ControllerSpots {
         model.put("ratingMin", ratingMin);
         model.put("ratingMax", ratingMax);
 
-        return ("redirect:/escalade/displaySpots");
+        return "redirect:/escalade/displaySpots";
     }
 
 
@@ -53,6 +53,7 @@ public class ControllerSpots {
                                          boolean onlySpotsWithBoltedRoutes,
                                  @SessionAttribute (value = "ratingMin") String ratingMin,
                                  @SessionAttribute (value = "ratingMax") String ratingMax,
+                                 @RequestParam(value = "idSpotToBeCommented") int idSpotToBeCommented,
                                  ModelMap model) {
         String alert;
 
@@ -60,6 +61,8 @@ public class ControllerSpots {
             List<Location> resultLocations = serviceLocation.detailledInfoBasedOnLocation(locationInput);
             resultLocations = serviceLocation.filterLocations(resultLocations, onlySpotsWithBoltedRoutes, parseInt(ratingMin), parseInt(ratingMax));
             model.put("resultLocations", resultLocations);
+            model.put("idSpotToBeCommented", idSpotToBeCommented);
+            model.put("locationInput", locationInput);
             alert = "ok";
             model.put("alert", alert);
             return "spots";
@@ -87,7 +90,11 @@ public class ControllerSpots {
     }
 
 
-
+    @ModelAttribute(value = "idSpotToBeCommented")
+    public int getIdSpotToBeCommented() {
+        int getIdSpotToBeCommented = 0;
+        return getIdSpotToBeCommented;
+    }
 
 
 

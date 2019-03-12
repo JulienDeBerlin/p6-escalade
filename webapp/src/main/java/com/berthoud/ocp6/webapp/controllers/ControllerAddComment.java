@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@SessionAttributes(value= {"IdSpotToBeCommented", "user", "selectedSpot"})
+@SessionAttributes(value = {"user", "selectedSpot"})
 
 public class ControllerAddComment {
 
@@ -28,17 +28,19 @@ public class ControllerAddComment {
     private static final Logger logger = LogManager.getLogger();
 
     @RequestMapping (value = "/toNewComment", method = RequestMethod.GET)
-    public String displayFormNewComment (@RequestParam (value = "IdSpotToBeCommented") int IdSpotToBeCommented,
-                                               ModelMap model)
+    public String displayFormNewComment(@RequestParam(value = "idSpotToBeCommented") int idSpotToBeCommented,
+                                        ModelMap model)
     {
-        Spot selectedSpot = serviceSpot.findSpotBasedOnId(IdSpotToBeCommented);
+        Spot selectedSpot = serviceSpot.findSpotBasedOnId(idSpotToBeCommented);
         model.put("selectedSpot", selectedSpot);
+        model.put("idSpotToBeCommented", idSpotToBeCommented);
 
         if (!model.containsAttribute("user")){
-            model.put("jspAfterLogin", "redirect:/escalade/displaySpots");
+            model.put("jspAfterLogin", "redirect:/escalade/displaySpots?idSpotToBeCommented=" + idSpotToBeCommented);
             model.put("message", "onlyMembers");
             return ("login");
         }else{
+
             return ("redirect:/escalade/displaySpots");
         }
     }
@@ -51,24 +53,17 @@ public class ControllerAddComment {
                                 @SessionAttribute (value = "selectedSpot") Spot spotToBeCommented,
                                 ModelMap model)
 
-
     {
-
         SpotComment newCommentWithoutKey = new SpotComment();
         newCommentWithoutKey.setComment(comment);
         newCommentWithoutKey.setMember(user);
         newCommentWithoutKey.setSpot(spotToBeCommented);
         serviceSpotComment.insertSpotComment(newCommentWithoutKey);
 
-        spotToBeCommented.setId(-1);
         model.put("selectedSpot", spotToBeCommented);
         logger.info(model);
 
-        return ("redirect:/escalade/displaySpots");
-
+        return ("redirect:/escalade/displaySpots?idSpotToBeCommented=0");
     }
-
-
-
 
 }

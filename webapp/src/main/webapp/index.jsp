@@ -174,9 +174,8 @@
                 Afficher uniquement les voies équipées
             </label>
         </div>
-
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <br/>
+        <button type="submit" class="btn btn-primary">Chercher</button>
 
     </form>
 
@@ -201,9 +200,8 @@
                 Afficher uniquement les topos proposés au prêt par nos membres pour nos membres
             </label>
         </div>
-
-
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <br/>
+        <button type="submit" class="btn btn-primary">Chercher</button>
 
     </form>
 

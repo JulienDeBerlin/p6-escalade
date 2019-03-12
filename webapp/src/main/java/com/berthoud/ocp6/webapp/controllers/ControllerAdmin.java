@@ -1,10 +1,7 @@
 package com.berthoud.ocp6.webapp.controllers;
 
 import com.berthoud.ocp6.business.*;
-import com.berthoud.ocp6.model.bean.Guidebook;
-import com.berthoud.ocp6.model.bean.Location;
-import com.berthoud.ocp6.model.bean.Route;
-import com.berthoud.ocp6.model.bean.Spot;
+import com.berthoud.ocp6.model.bean.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,7 +126,7 @@ public class ControllerAdmin {
     public String deleteComment(@RequestParam(value = "commentId") int commentId) {
 
         serviceSpotComment.deleteComment(commentId);
-        return ("redirect:/escalade/displaySpots");
+        return ("redirect:/escalade/displaySpots?idSpotToBeCommented=0");
     }
 
     @RequestMapping(value = "admin/delete/memberAccount", method = RequestMethod.POST)
@@ -238,7 +235,6 @@ public class ControllerAdmin {
         selectedSpot = serviceSpot.findSpotBasedOnId(selectedSpot.getId());
         model.put("selectedSpot", selectedSpot);
         model.put("step", "step3");
-
 
         return "redirect:/escalade/admin/spots/locationInput/displaySpot";
     }
