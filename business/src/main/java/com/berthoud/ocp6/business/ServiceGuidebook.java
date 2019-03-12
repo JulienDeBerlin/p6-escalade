@@ -38,7 +38,7 @@ public class ServiceGuidebook {
 
 
     /**
-     * This method returns a full guidebook object (incl. matching spots) based on its id
+     *
      *
      * @param guidebookId
      * @return

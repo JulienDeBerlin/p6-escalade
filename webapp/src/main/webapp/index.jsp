@@ -133,7 +133,7 @@
         <div class="form-group">
             <label for="locationInput">Localisation</label>
             <input type="text" name="locationInput" class="form-control" id="locationInput"
-                   placeholder="Région, département, commune, site...">
+                   placeholder="Région, département, commune">
         </div>
 
         <div class="form-group">
@@ -232,6 +232,10 @@
             <a href="${pageContext.request.contextPath}/escalade/admin/spots">Modifier/supprimer un site ou une voie</a>
         </div>
     </c:if>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 
 </div>
 

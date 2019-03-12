@@ -44,7 +44,6 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
 
     /**
      * This method finds all the guidebooks matching with a single spot identified with its primary key.
-     *
      * @param spotId
      * @return
      */
@@ -68,7 +67,7 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
     }
 
     /**
-     * This method returns a full guidebook object (incl. matching spots) based on its id
+     * This method returns a guidebook object based on its id
      *
      * @param guidebookId
      * @return
@@ -78,34 +77,9 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
-        // GET DATA FROM GUIDEBOOK TABLE
         String sqlRequest = "select * from guidebook where guidebook.id = ?";
         Guidebook selectedGuidebook = jdbcTemplate.queryForObject(sqlRequest, new Object[]{guidebookId}, new BeanPropertyRowMapper<>(Guidebook.class));
 
-        //ADD DATA FOR MATCHING SPOTS
-        sqlRequest = "select * from spot where spot.id in " +
-                "(select spot_id from association_spot_guidebook " +
-                "where association_spot_guidebook.guidebook_id = ?)";
-        List<Spot> spots = jdbcTemplate.query(sqlRequest, new Object[]{guidebookId}, new BeanPropertyRowMapper<>(Spot.class));
-
-        //ADD DATA FOR MATCHING LOCATION
-        sqlRequest = "select * from location where location.id in " +
-                "(select location_id from spot " +
-                "where spot.id = ?)";
-
-        for (Iterator<Spot> i = spots.iterator(); i.hasNext(); ) {
-            Spot spot = i.next();
-            Location location = jdbcTemplate.queryForObject(sqlRequest, new Object[]{spot.getId()},
-                    new BeanPropertyRowMapper<>(Location.class));
-
-            spot.setLocation(location);
-            spot. setRoutes(routeDao.findRoutesBasedOnSpot(spot.getId()));
-
-            //ADD DATA FOR MATCHING COMMENTS
-            spot.setComments(spotCommentDao.findCommentSpotBySpotId(spot.getId()));
-        }
-
-            selectedGuidebook.setSpots(spots);
 
         return selectedGuidebook;
     }

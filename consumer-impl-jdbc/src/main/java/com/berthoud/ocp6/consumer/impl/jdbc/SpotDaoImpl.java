@@ -1,5 +1,6 @@
 package com.berthoud.ocp6.consumer.impl.jdbc;
 import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
+import com.berthoud.ocp6.model.bean.Location;
 import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -52,6 +53,41 @@ public class SpotDaoImpl extends AbstractDaoImpl implements SpotDao {
         }
         return myResults;
     }
+
+
+    @Override
+    public List<Spot> findSpotsBasedOnGuidebookId(int guidebookId) {
+
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "select * from spot where spot.id in " +
+                "(select spot_id from association_spot_guidebook " +
+                "where association_spot_guidebook.guidebook_id = ?)";
+
+        List<Spot> spots = jdbcTemplate.query(sqlRequest, new Object[]{guidebookId}, new BeanPropertyRowMapper<>(Spot.class));
+
+        //ADD DATA FOR MATCHING LOCATION
+        sqlRequest = "select * from location where location.id in " +
+                "(select location_id from spot " +
+                "where spot.id = ?)";
+
+        for (Iterator<Spot> i = spots.iterator(); i.hasNext(); ) {
+            Spot spot = i.next();
+            Location location = jdbcTemplate.queryForObject(sqlRequest, new Object[]{spot.getId()},
+                    new BeanPropertyRowMapper<>(Location.class));
+
+            spot.setLocation(location);
+
+            spot.setRoutes(routeDao.findRoutesBasedOnSpot(spot.getId()));
+            spot.setGuidebooks(guidebookDao.findGuidebooksBasedOnSpot(spot.getId()));
+            spot.setComments(commentSpotDao.findCommentSpotBySpotId(spot.getId()));
+        }
+
+        return spots;
+    }
+
+
+
 
 
     /**

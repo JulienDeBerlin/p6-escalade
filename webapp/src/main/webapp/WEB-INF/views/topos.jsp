@@ -81,25 +81,40 @@
     </nav>
 
 
-    <p>VOICI LA LISTE DES TOPOS CORRESPONDANT À LA RECHERCHE "${locationInputForTopo}"</p>
+    <p><strong>LISTE DES TOPOS CORRESPONDANT À LA RECHERCHE "${locationInputForTopo}" </strong></p>
 
-    <div>
-        <ol>
-            <c:forEach items="${guidebookListWithoutDuplicates }" var="guidebook">
-                <li><strong>Titre: <c:out value="${ guidebook.name }"/> </strong></li>
-                <p> Nr. ISBN 13: <c:out value="${ guidebook.isbn13 }"/></p>
-                <p> Éditeur: <c:out value="${ guidebook.publisher }"/></p>
-                <p> Langue: <c:out value="${ guidebook.language}"/></p>
-                <p> Summary: <c:out value="${ guidebook.summary }"/></p>
-                <p> Auteur: <c:out value="${ guidebook.firstnameAuthor }"/> <c:out
-                        value="${ guidebook.surnameAuthor }"/></p>
-                <a href="${pageContext.request.contextPath}/escalade/spots?guidebookId=${guidebook.id}">Afficher les
-                sites correspondants</a> <br/>
-                <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/loan?guidebookId=${guidebook.id}">Emprunter ce topo</a>
-                <br/>
-            </c:forEach>
-        </ol>
-    </div>
+
+    <c:forEach items="${guidebookListWithoutDuplicates }" var="guidebook">
+        <p style="margin-top: 2em">
+            <a href="${pageContext.request.contextPath}/escalade/spots?guidebookId=${guidebook.id}">
+                <img src="${pageContext.request.contextPath}/resources/img/mountain.png"
+                     title="Afficher les sites correspondants" alt="Les sites">
+            </a>
+
+            <c:if test="${not empty guidebook.memberLibrairies }">
+                <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/loan?guidebookId=${guidebook.id}">
+                    <img src="${pageContext.request.contextPath}/resources/img/agenda.png"
+                         title="Emprunter ce topo auprès d'un membre" alt="emprunter le topo">
+                </a>
+            </c:if>
+
+            <span class="font-italic"> <strong><c:out value="${ guidebook.name }"/> <br/></strong> </span>
+            <span> <c:out value="${ guidebook.firstnameAuthor }"/> <c:out
+                    value="${ guidebook.surnameAuthor }"/> </span>
+        </p>
+
+        <p>
+            <span> Nr. ISBN 13: <c:out value="${ guidebook.isbn13 }"/><br/></span>
+            <span> Éditions: <c:out value="${ guidebook.publisher }"/><br/></span>
+            <span> Langue: <c:out value="${ guidebook.language}"/></span>
+            <span> Année de publication: <c:out value="${ guidebook.yearPublication}"/></span>
+        </p>
+
+        <p>
+            <c:out value="${ guidebook.summary }"/><br/></span>
+        </p>
+
+    </c:forEach>
 
 </div>
 

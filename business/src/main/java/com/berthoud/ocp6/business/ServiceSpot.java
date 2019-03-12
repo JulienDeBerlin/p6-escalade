@@ -78,6 +78,9 @@ public class ServiceSpot {
     }
 
 
+    public List<Spot> findSpotsBasedOnGuidebookId(int guidebookId) {
+        return spotDao.findSpotsBasedOnGuidebookId(guidebookId);
+    }
 
 
 }

@@ -88,94 +88,107 @@
         ${locationInput}</strong></p>
 
 
-    <c:forEach items="${ resultLocations }" var="location" varStatus="status">
-        <div style="background: lightgray;margin-top: 2em;margin-bottom: -2em ">
-                <%--<c:if test="${status.first}">--%>
-                <%--<p><strong> <c:out value="${ location.region}"/> </strong></p>--%>
-                <%--</c:if>--%>
-            <c:out value="${ location.departementName }"/> </br>
-            <c:out value="${ location.zipCode }"/> <c:out value="${ location.cityName }"/>
-        </div>
+    <c:forEach items="${ resultLocations }" var="location">
 
-        <br/>
-        <c:forEach items="${ location.spots }" var="spot">
-            <div style=" margin-top: 2em ">
-                <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">
-                    <img src="${pageContext.request.contextPath}/resources/img/bookshelf.png"
-                         title="Voir les topos correspondants"></a>
+        <c:forEach items="${ location.spots }" var="spot" varStatus="status">
 
-                <a href="${pageContext.request.contextPath}/escalade/toNewComment?idSpotToBeCommented=${spot.id}"
-                   title="Ajouter un commentaire">
-                    <img src="${pageContext.request.contextPath}/resources/img/chat.png"></a>
+            <c:if test="${ not empty spot.routes}">
 
-                <span> <strong> <c:out value="site: ${spot.nameSpot}"/>
-                    <c:if test="${ spot.nameArea != null}"><c:out value="/ secteur: ${spot.nameArea}"/>
-                    </c:if></strong> </span>
-            </div>
+                <c:if test="${status.first}">
 
+                    <div style="background: lightgray;margin-top: 2em;margin-bottom: -2em ">
 
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Nom de la voie</th>
-                    <th scope="col">Cotation</th>
-                    <th scope="col">Longueur</th>
-                    <th scope="col">Voie équipée</th>
-                </tr>
-                </thead>
+                        <c:out value="${ location.departementName }"/> </br>
+                        <c:out value="${ location.zipCode }"/> <c:out value="${ location.cityName }"/>
+                    </div>
 
-                <tbody>
-                <c:forEach items="${spot.routes}" var="route">
-                    <tr>
-                        <td>${route.name}</td>
-                        <td>${route.rating}</td>
-                        <td>${route.indexPitch}/${route.nbPitch} </td>
-                        <td><c:if test="${route.bolted==true}">oui</c:if>
-                            <c:if test="${route.bolted==false}">non</c:if>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-
-
-            <div>
-                <c:if test="${ idSpotToBeCommented == spot.id}">
-                    <form method="post" action="${pageContext.request.contextPath}/escalade/addComment">
-                        <div class="form-group">
-                            <label for="comment">Commentaire:</label>
-                            <textarea class="form-control" rows="5" id="comment" name="comment"
-                                      autofocus></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Valider le commentaire</button>
-                    </form>
+                    <br/>
                 </c:if>
 
-                <c:forEach items="${ spot.comments }" var="comment">
 
-                    <div>
-                        <c:if test="${user.email=='superadmin@admin.fr'}">
-                            <a class="nav-item nav-link"
-                               href="${pageContext.request.contextPath}/escalade/admin/deleteComment?commentId=${comment.id}">
-                                <img style="float: left"
-                                     src="${pageContext.request.contextPath}/resources/img/delete.png"
-                                     alt="delete" title="Supprimer le commentaire"/></a>
-                        </c:if>
+                <div style=" margin-top: 2em ">
+                    <c:if test="${ not empty spot.guidebooks}">
+                        <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">
+                            <img src="${pageContext.request.contextPath}/resources/img/bookshelf.png"
+                                 title="Afficher les topos correspondants"></a>
+                    </c:if>
 
-                        <span class="font-italic">
+                    <a href="${pageContext.request.contextPath}/escalade/toNewComment?idSpotToBeCommented=${spot.id}"
+                       title="Ajouter un commentaire">
+                        <img src="${pageContext.request.contextPath}/resources/img/chat.png"></a>
+
+                    <span> <strong> <c:out value="site: ${spot.nameSpot}"/>
+                    <c:if test="${ spot.nameArea != null}"><c:out value="/ secteur: ${spot.nameArea}"/>
+                    </c:if></strong> </span>
+                </div>
+
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Nom de la voie</th>
+                        <th scope="col">Cotation</th>
+                        <th scope="col">Longueur</th>
+                        <th scope="col">Voie équipée</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <c:forEach items="${spot.routes}" var="route">
+                        <tr>
+                            <td>${route.name}</td>
+                            <td>${route.rating}</td>
+                            <td>${route.indexPitch}/${route.nbPitch} </td>
+                            <td><c:if test="${route.bolted==true}">oui</c:if>
+                                <c:if test="${route.bolted==false}">non</c:if>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+
+
+                <div>
+                    <c:if test="${ idSpotToBeCommented == spot.id}">
+                        <form method="post" action="${pageContext.request.contextPath}/escalade/addComment">
+                            <div class="form-group">
+                                <label for="comment">Commentaire:</label>
+                                <textarea class="form-control" rows="5" id="comment" name="comment"
+                                          autofocus></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Valider le commentaire</button>
+                        </form>
+                    </c:if>
+
+                    <c:forEach items="${ spot.comments }" var="comment">
+
+                        <div>
+                            <c:if test="${user.email=='superadmin@admin.fr'}">
+                                <a class="nav-item nav-link"
+                                   href="${pageContext.request.contextPath}/escalade/admin/deleteComment?commentId=${comment.id}">
+                                    <img style="float: left"
+                                         src="${pageContext.request.contextPath}/resources/img/delete.png"
+                                         alt="delete" title="Supprimer le commentaire"/></a>
+                            </c:if>
+
+                            <span class="font-italic">
                             <c:out value="\"${comment.comment}\""/>
                         </span>
 
-                    </div>
+                        </div>
 
-                    <p class="font-weight-normal"><c:out value=" ${comment.member.nickname}"/>,
-                        <c:out value="${comment.date}"/></p>
+                        <p class="font-weight-normal"><c:out value=" ${comment.member.nickname}"/>,
+                            <c:out value="${comment.date}"/></p>
 
-                </c:forEach>
-            </div>
+                    </c:forEach>
+                </div>
+
+            </c:if>
 
         </c:forEach>
+
     </c:forEach>
+
 
 </div>
 

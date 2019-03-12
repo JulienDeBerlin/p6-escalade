@@ -14,6 +14,8 @@ public interface SpotDao {
 
     void deleteSpot(int spotId);
 
+    List<Spot> findSpotsBasedOnGuidebookId(int guidebookId);
+
 
 
 
