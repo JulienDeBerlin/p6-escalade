@@ -46,25 +46,24 @@ public class ControllerAddGuidebook {
 
     @RequestMapping(value = "addcontent/guidebook/isbn")
     public String testIsbn (@RequestParam(value = "isbn13") String isbn13,
-                            @SessionAttribute (value = "user") Member user,
                             ModelMap model) {
 
         Guidebook selectedGuidebook = new Guidebook();
 
+        // If the guidebook whose ISBN has been entered doesn't exist in the DB, it should be referenced first (step2)
         if (serviceGuidebook.findGuidebookbyIsbn(isbn13)==null){
             selectedGuidebook.setId(-1);
             model.put("step", "step2");
-        } else {
+        }
+        //Otherwise we can skip directly to the referencing of the matching routes (step3)
+        else {
             selectedGuidebook = serviceGuidebook.findGuidebookbyIsbn(isbn13);
             model.put("step", "step3");
         }
         model.put("selectedGuidebook", selectedGuidebook);
         model.put("isbn13", isbn13);
 
-
-            return "newGuidebook";
-
-
+        return "newGuidebook";
     }
 
 
@@ -123,45 +122,16 @@ public class ControllerAddGuidebook {
     }
 
 
-//    @RequestMapping(value = "/spotsForGuidebook1", method = RequestMethod.POST)
-//    public String addSpotstoGuide (@RequestParam (value = "selectedSpots") List<Integer> listSpotId,
-//                                         RedirectAttributes redirectAttrs,
-//                                         ModelMap model) {
-//
-//        if(!model.containsAttribute("spotsLinkedToGuidebook")) {
-//            model.addAttribute("spotsLinkedToGuidebook", new ArrayList<Spot>());
-//        }
-//
-//        redirectAttrs.addFlashAttribute("listSpotId", listSpotId);
-//        return "redirect:/spotsForGuidebook2";
-//    }
-
-
-
-
     @RequestMapping(value = "/spotsForGuidebook", method = RequestMethod.POST)
     public String addSpotstoGuide (@ModelAttribute (value = "selectedGuidebook") Guidebook selectedGuidebook,
                                    @RequestParam (value = "selectedSpots") List<Integer> listSpotId,
                                    ModelMap model) {
 
         serviceGuidebook.insertRelationGuidebookSpots(listSpotId, selectedGuidebook);
-        selectedGuidebook = serviceGuidebook.findGuidebookbyId(selectedGuidebook.getId());
+
+        selectedGuidebook = serviceGuidebook.findGuidebookbyIsbn(selectedGuidebook.getIsbn13());
         model.put("selectedGuidebook", selectedGuidebook);
         model.put("step", "step3");
         return "newGuidebook";
     }
-
-
-//    @ModelAttribute("spotsLinkedToGuidebook")
-//    public List <Spot> getAttribute_SpotsLinkedToGuidebook(){
-//    return new ArrayList<>();
-//    }
-//
-
-
-
-
-
-
-
 }

@@ -89,7 +89,6 @@
     <br/>
 
 
-
     <h2>Étape 1: Saisie du code ISBN13</h2>
 
 
@@ -197,10 +196,10 @@
             <tbody>
             <c:forEach items="${ selectedGuidebook.spots}" var="spot">
                     <tr>
-                        <th>${ spot.nameSpot  }</th>
-                        <th>${ spot.nameArea  }</th>
-                        <th>${ spot.location.cityName } </th>
-                        <th>${ spot.location.departementName} (${spot.location.departementId})</th>
+                        <td>${ spot.nameSpot  }</td>
+                        <td>${ spot.nameArea  }</td>
+                        <td>${ spot.location.cityName } </td>
+                        <td>${ spot.location.departementName} (${spot.location.departementId})</td>
                     </tr>
             </c:forEach>
 
@@ -261,15 +260,15 @@
 
                         <c:forEach items="${ location.spots }" var="spot">
                             <tr>
-                                <th scope="col">
+                                <td scope="col">
                                     <div class="checkbox">
                                         <input type="checkbox" name="selectedSpots" value="${spot.id}">
                                     </div>
-                                </th>
-                                <th>${ spot.nameSpot  }</th>
-                                <th>${ spot.nameArea  }</th>
-                                <th>${ location.cityName } </th>
-                                <th>${ location.departementName} (${location.departementId})</th>
+                                </td>
+                                <td>${ spot.nameSpot  }</td>
+                                <td>${ spot.nameArea  }</td>
+                                <td>${ location.cityName } </td>
+                                <td>${ location.departementName} (${location.departementId})</td>
                             </tr>
                         </c:forEach>
                     </c:forEach>

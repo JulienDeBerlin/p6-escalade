@@ -87,7 +87,6 @@ public class ControllerAdmin {
         model.put("message", "guidebookUpdated");
         model.put("step", "guidebookSelected");
 
-
         return "adminGuidebooks";
     }
 

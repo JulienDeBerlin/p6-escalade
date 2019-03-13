@@ -41,6 +41,9 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
     @Autowired
     SpotCommentDao spotCommentDao;
 
+    @Autowired
+    SpotDaoImpl spotDao;
+
 
     /**
      * This method finds all the guidebooks matching with a single spot identified with its primary key.
@@ -109,6 +112,7 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
             String mySqlRequest = "select id from guidebook where isbn13 = ?";
             Guidebook selectedGuidebook = jdbcTemplate.queryForObject(mySqlRequest, new Object[]{isbn}, new BeanPropertyRowMapper<>(Guidebook.class));
             selectedGuidebook = findGuidebookById(selectedGuidebook.getId());
+            selectedGuidebook.setSpots(spotDao.findSpotsBasedOnGuidebookId(selectedGuidebook.getId()));
             return selectedGuidebook;
 
         } catch (EmptyResultDataAccessException e) {

@@ -146,31 +146,40 @@ public class ServiceLocation {
 
 
     /**
-     * This method takes as parameter a list of Location objects (incl. matching spot objects...) and a Guidebook object. It remove for each Location object and each
-     * matching spots all the spots already included in the spots matching with the Guidebook object.
-     * @param listLocations
-     * @param selectedGuidebook
-     * @return
+     * This method takes as input a list of Locations objects and removes all spots
+     * Each location may have many spots, each spot may have many guidebooks. The methods removes from the spot objects included in the location objects all the spots already included in the spots matching with the Guidebook object.
+     *
+     * @param listLocations a list of locations to be cleaned
+     * @param selectedGuidebook the spots that are already in this guidebook object will be removed from the list of locations
+     * @return the list of location after removal of the already linked spots.
      */
-    public List<Location> removeSpotsAlreadyLinked(List<Location> listLocations, Guidebook selectedGuidebook){
+    public List<Location> removeSpotsAlreadyLinked(List<Location> listLocations, Guidebook selectedGuidebook) {
 
-        List <Integer> spotIdFromSelectedGuidebook = new ArrayList<>();
-        for (Spot s: selectedGuidebook.getSpots()) {
-            spotIdFromSelectedGuidebook.add(s.getId());
-        }
+        // Check if some spots are already stored in the selectedGuidebook
+        if (selectedGuidebook.getSpots() == null) {
+            return listLocations;
+        } else {
 
-        for (Iterator<Location> i = listLocations.iterator(); i.hasNext(); ) {
-            Location location = i.next();
-            List<Spot> spots = location.getSpots();
+            // if, yes get a list of the Ids of the spots already linked to the selectedGuidebook
+            List<Integer> spotIdsMatchingWithSelectedGuidebook = new ArrayList<>();
+            for (Spot s : selectedGuidebook.getSpots()) {
+                spotIdsMatchingWithSelectedGuidebook.add(s.getId());
+            }
 
-            for (Iterator<Spot> j = spots.iterator(); j.hasNext(); ) {
-                Spot spot = j.next();
-                if ((spotIdFromSelectedGuidebook.contains(spot.getId()))){
-                    j.remove();
+            // the spot objects matching with these IDs are then removed from the original list of locations
+            for (Iterator<Location> i = listLocations.iterator(); i.hasNext(); ) {
+                Location location = i.next();
+                List<Spot> spots = location.getSpots();
+
+                for (Iterator<Spot> j = spots.iterator(); j.hasNext(); ) {
+                    Spot spot = j.next();
+                    if ((spotIdsMatchingWithSelectedGuidebook.contains(spot.getId()))) {
+                        j.remove();
+                    }
                 }
             }
+            return listLocations;
         }
-       return listLocations;
     }
 
 
