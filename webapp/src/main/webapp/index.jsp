@@ -196,7 +196,11 @@
         <div class="form-group">
             <label for="locationInputForTopo">Localisation</label>
             <input type="text" name="locationInputForTopo" class="form-control" id="locationInputForTopo"
-                   placeholder="Région, département, commune">
+                   placeholder="Région, département, commune" aria-describedby="inputLocationForTopoHelp">
+            <small id="inputLocationForTopoHelp" class="form-text text-muted">Les lieux pour lesquels des topos sont
+                répertoriés s'affichent automatiquement
+                lors de la saisie du texte
+            </small>
         </div>
 
         <div class="form-check">

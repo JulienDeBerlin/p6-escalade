@@ -8,13 +8,13 @@ public class Location {
     private int id;
     private String region;
     private String departementName;
-    private int departementId;
+    private String departementId;
     private String cityName;
     private String zipCode;
     private List<Spot> spots;
 
 
-    public Location(int id, String region, String departementName, int departementId, String cityName, String zipCode, List<Spot> spots) {
+    public Location(int id, String region, String departementName, String departementId, String cityName, String zipCode, List<Spot> spots) {
         this.id = id;
         this.region = region;
         this.departementName = departementName;
@@ -51,11 +51,11 @@ public class Location {
         this.departementName = departementName;
     }
 
-    public int getDepartementId() {
+    public String getDepartementId() {
         return departementId;
     }
 
-    public void setDepartementId(int departementId) {
+    public void setDepartementId(String departementId) {
         this.departementId = departementId;
     }
 

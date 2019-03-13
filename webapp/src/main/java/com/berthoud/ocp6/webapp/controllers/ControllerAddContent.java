@@ -45,11 +45,11 @@ public class ControllerAddContent {
 
     @RequestMapping(value = "addcontent/spot", method = RequestMethod.POST)
     public String displaysFormNewSpot (@RequestParam (value = "cityNameInput") String cityName,
-                           @RequestParam (value = "departementName") String departementName,
-                           @RequestParam (value = "departementId") int departementId,
-                           @RequestParam (value = "region") String region,
-                           @RequestParam (value = "codePostal") String zipCode,
-                            ModelMap model) {
+                                       @RequestParam (value = "departementName") String departementName,
+                                       @RequestParam(value = "departementId") String departementId,
+                                       @RequestParam (value = "region") String region,
+                                       @RequestParam (value = "codePostal") String zipCode,
+                                       ModelMap model) {
 
         Location locationDB = serviceLocation.findLocationByNameAndDepartement(cityName, departementName);
 
