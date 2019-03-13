@@ -1,6 +1,7 @@
 package com.berthoud.ocp6.model.bean;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Member {
 
@@ -103,5 +104,26 @@ public class Member {
                 ", phone='" + phone + '\'' +
                 ", dateMembership=" + dateMembership +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return id == member.id &&
+                Objects.equals(firstName, member.firstName) &&
+                Objects.equals(surname, member.surname) &&
+                Objects.equals(nickname, member.nickname) &&
+                Objects.equals(password, member.password) &&
+                Objects.equals(email, member.email) &&
+                Objects.equals(phone, member.phone) &&
+                Objects.equals(dateMembership, member.dateMembership);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, surname, nickname, password, email, phone, dateMembership);
     }
 }

@@ -81,7 +81,7 @@
     </nav>
 
 
-    <p><strong>LISTE DES TOPOS CORRESPONDANT À LA RECHERCHE "${locationInputForTopo}" </strong></p>
+    <p><strong>LISTE DES TOPOS CORRESPONDANT À LA LOCALISATION "${locationInputForTopo}" </strong></p>
 
 
     <c:forEach items="${guidebookListWithoutDuplicates }" var="guidebook">
@@ -106,7 +106,7 @@
         <p>
             <span> Nr. ISBN 13: <c:out value="${ guidebook.isbn13 }"/><br/></span>
             <span> Éditions: <c:out value="${ guidebook.publisher }"/><br/></span>
-            <span> Langue: <c:out value="${ guidebook.language}"/></span>
+            <span> Langue: <c:out value="${ guidebook.language}"/><br/></span>
             <span> Année de publication: <c:out value="${ guidebook.yearPublication}"/></span>
         </p>
 

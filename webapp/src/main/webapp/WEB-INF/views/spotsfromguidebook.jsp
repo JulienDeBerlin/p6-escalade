@@ -33,9 +33,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
-                <%--<li class="nav-item active">--%>
-                <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
-                <%--</li>--%>
+
                 <li class="nav-item">
                     <a class="nav-item nav-link active" >Les spots</a>
                 </li>
@@ -77,36 +75,99 @@
 
         </div>
     </nav>
-<p>VOICI LA LISTE DES SITES CORRESPONDANT AU TOPO ${selectedGuidebook.name}</p>
-
-<div>
-    <ul>
-        <c:forEach items="${ selectedGuidebook.spots }" var="spot" varStatus="status">
-
-            <p><strong> <c:out value="${ spot.location.region}"/> </strong></p>
-            <p><c:out value="${ spot.location.departementName }"/> (<c:out
-                    value="${ spot.location.departementId }"/>) </p>
-            <p><c:out value="${ spot.location.zipCode }"/> <c:out value="${ spot.location.cityName }"/></p>
-            <p><c:out value="${ spot.nameSpot } "/> <c:out value="${ spot.nameArea } "/>
-                <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">Afficher les topos
-                    correspondants</a></p>
-            <ul>
-                <c:forEach items="${spot.routes }" var="route">
-                    <li>Nom de la voie: <c:out value="${ route.name }"/> Cotation: <c:out value="${ route.rating }"/>
-                        Voie équipée: <c:out value="${ route.bolted }"/></li>
-                </c:forEach>
-            </ul>
 
 
-        <c:forEach items="${ spot.comments }" var="comment">
-            <p> Commentaire de <c:out value="${comment.member.nickname}"/> posté le <c:out value="${comment.date}"/></p>
-            <c:out value="${comment.comment}"/>
-        </c:forEach>
+    <p><strong> LISTE DES SITES CORRESPONDANT AU TOPO <br/>
+        <span class="font-italic">${selectedGuidebook.name}</span> ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor}
+    </strong></p>
 
-        </c:forEach>
+
+    <c:forEach items="${ selectedGuidebook.spots }" var="spot" varStatus="status">
+        <div style="background: lightgray;margin-top: 2em;margin-bottom: -2em ">
+
+            <c:out value="${ spot.location.departementName }"/> </br>
+            <c:out value="${ spot.location.zipCode }"/> <c:out value="${ spot.location.cityName }"/>
+        </div>
+
         <br/>
-    </ul>
-</div>
+        <div style=" margin-top: 2em ">
+            <c:if test="${ not empty spot.guidebooks}">
+                <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">
+                    <img src="${pageContext.request.contextPath}/resources/img/bookshelf.png"
+                         title="Afficher les topos correspondants"></a>
+            </c:if>
+
+            <a href="${pageContext.request.contextPath}/escalade/toNewComment?idSpotToBeCommented=${spot.id}"
+               title="Ajouter un commentaire">
+                <img src="${pageContext.request.contextPath}/resources/img/chat.png"></a>
+
+            <span> <strong> <c:out value="site: ${spot.nameSpot}"/>
+                    <c:if test="${ spot.nameArea != null}"><c:out value="/ secteur: ${spot.nameArea}"/>
+                    </c:if></strong> </span>
+        </div>
+
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nom de la voie</th>
+                <th scope="col">Cotation</th>
+                <th scope="col">Longueur</th>
+                <th scope="col">Voie équipée</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <c:forEach items="${spot.routes}" var="route">
+                <tr>
+                    <td>${route.name}</td>
+                    <td>${route.rating}</td>
+                    <td>${route.indexPitch}/${route.nbPitch} </td>
+                    <td><c:if test="${route.bolted==true}">oui</c:if>
+                        <c:if test="${route.bolted==false}">non</c:if>
+                    </td>
+                </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+
+
+        <div>
+            <c:if test="${ idSpotToBeCommented == spot.id}">
+                <form method="post" action="${pageContext.request.contextPath}/escalade/addComment">
+                    <div class="form-group">
+                        <label for="comment">Commentaire:</label>
+                        <textarea class="form-control" rows="5" id="comment" name="comment"
+                                  autofocus></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Valider le commentaire</button>
+                </form>
+            </c:if>
+
+            <c:forEach items="${ spot.comments }" var="comment">
+
+                <div>
+                    <c:if test="${user.email=='superadmin@admin.fr'}">
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/admin/deleteComment?commentId=${comment.id}">
+                            <img style="float: left"
+                                 src="${pageContext.request.contextPath}/resources/img/delete.png"
+                                 alt="delete" title="Supprimer le commentaire"/></a>
+                    </c:if>
+
+                    <span class="font-italic">
+                            <c:out value="\"${comment.comment}\""/>
+                        </span>
+
+                </div>
+
+                <p class="font-weight-normal"><c:out value=" ${comment.member.nickname}"/>,
+                    <c:out value="${comment.date}"/></p>
+
+            </c:forEach>
+        </div>
+
+    </c:forEach>
 
 </div>
 <jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>

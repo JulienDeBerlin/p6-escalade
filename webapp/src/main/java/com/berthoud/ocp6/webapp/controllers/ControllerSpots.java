@@ -62,14 +62,20 @@ public class ControllerSpots {
     public String getResultTopos(@RequestParam(value = "guidebookId") String guidebookId,
                                  ModelMap model) {
 
+        logger.info("enter method getResultTopos");
+
         Guidebook selectedGuidebook = serviceGuidebook.findGuidebookbyId(parseInt(guidebookId));
+        logger.info("after call method findGuidebookbyId");
+
         List<Spot> spotsForGuidebooks = serviceSpot.findSpotsBasedOnGuidebookId(Integer.parseInt(guidebookId));
+        logger.info("after call method findSpotsBasedOnGuidebookId");
+
         selectedGuidebook.setSpots(spotsForGuidebooks);
+
         model.put("selectedGuidebook", selectedGuidebook);
 
         return "spotsFromGuidebook";
     }
-
 
     @RequestMapping(value = "/displaySpots", method = RequestMethod.GET)
     public String getResultSpots(@SessionAttribute(value = "locationInput") String locationInput,
@@ -79,16 +85,26 @@ public class ControllerSpots {
                                  @SessionAttribute (value = "ratingMax") String ratingMax,
                                  @RequestParam(value = "idSpotToBeCommented") int idSpotToBeCommented,
                                  ModelMap model) {
+
+        logger.info("enter method getResultSpots");
+
         String alert;
 
         try {
+
             List<Location> resultLocations = serviceLocation.detailledInfoBasedOnLocation(locationInput);
+            logger.info("after call method detailledInfoBasedOnLocation");
+
             resultLocations = serviceLocation.filterLocations(resultLocations, onlySpotsWithBoltedRoutes, parseInt(ratingMin), parseInt(ratingMax));
+            logger.info("after call method filterLocations");
+
             model.put("resultLocations", resultLocations);
             model.put("idSpotToBeCommented", idSpotToBeCommented);
             model.put("locationInput", locationInput);
             alert = "ok";
             model.put("alert", alert);
+            logger.info("after attributes set in model");
+
             return "spots";
         }catch (Exception e){
             alert = "notFound";

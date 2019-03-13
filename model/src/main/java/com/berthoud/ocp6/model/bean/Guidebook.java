@@ -157,23 +157,24 @@ public class Guidebook {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Guidebook guidebook = (Guidebook) o;
-        return id == guidebook.id &&
-                yearPublication == guidebook.yearPublication &&
-                Objects.equals(isbn13, guidebook.isbn13) &&
-                Objects.equals(name, guidebook.name) &&
-                Objects.equals(publisher, guidebook.publisher) &&
-                Objects.equals(language, guidebook.language) &&
-                Objects.equals(summary, guidebook.summary) &&
-                Objects.equals(firstnameAuthor, guidebook.firstnameAuthor) &&
-                Objects.equals(SurnameAuthor, guidebook.SurnameAuthor) &&
-                Objects.equals(commentsGuidebook, guidebook.commentsGuidebook) &&
-                Objects.equals(memberLibrairies, guidebook.memberLibrairies) &&
-                Objects.equals(spots, guidebook.spots);
+        boolean b1 = (id == guidebook.id);
+        boolean b2 = yearPublication == guidebook.yearPublication;
+        boolean b3 = Objects.equals(isbn13, guidebook.isbn13);
+        boolean b4 = Objects.equals(name, guidebook.name);
+        boolean b5 = Objects.equals(publisher, guidebook.publisher);
+        boolean b6 = Objects.equals(language, guidebook.language);
+        boolean b7 = Objects.equals(summary, guidebook.summary);
+        boolean b8 = Objects.equals(firstnameAuthor, guidebook.firstnameAuthor);
+        boolean b9 = Objects.equals(SurnameAuthor, guidebook.SurnameAuthor);
+        boolean b10 = Objects.equals(commentsGuidebook, guidebook.commentsGuidebook);
+        boolean b11 = Objects.equals(memberLibrairies, guidebook.memberLibrairies);
+        boolean b12 = Objects.equals(spots, guidebook.spots);
+
+        return b1 && b2 && b3 && b4 && b5 && b6 && b7 && b7 && b8 && b9 && b10 && b11 && b12;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, isbn13, name, yearPublication, publisher, language, summary, firstnameAuthor, SurnameAuthor, commentsGuidebook, memberLibrairies, spots);
     }
-
 }

@@ -67,10 +67,13 @@ public class MemberLibrairy {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberLibrairy that = (MemberLibrairy) o;
-        return id == that.id &&
-                Objects.equals(member, that.member) &&
-                Objects.equals(guidebook, that.guidebook) &&
-                Objects.equals(bookings, that.bookings);
+        boolean b1 = (id == that.id);
+        boolean b2 = Objects.equals(member, that.member);
+        boolean b3 = Objects.equals(guidebook, that.guidebook);
+        boolean b4 = Objects.equals(bookings, that.bookings);
+
+        return b1 && b2 && b3 && b4;
+
     }
 
     @Override
