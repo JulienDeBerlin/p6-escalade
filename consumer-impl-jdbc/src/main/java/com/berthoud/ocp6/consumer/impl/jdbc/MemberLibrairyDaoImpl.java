@@ -156,17 +156,20 @@ public class MemberLibrairyDaoImpl extends AbstractDaoImpl implements MemberLibr
     }
 
     @Override
-    public Booking updateBooking(int bookingId) {
-        return null;
+    public void updateBooking(Booking b) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+        String SQL = "update booking set booked_by=?, date_from=?, date_until=?, email=?, phone=? where id=?";
+        jdbcTemplate.update(SQL, b.getBookedBy(), b.getDateFrom(), b.getDateUntil(), b.getEmail(),
+                b.getPhone(), b.getId());
     }
 
 
     @Override
     public Booking findBookingById(int bookingId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-
         String sqlRequest = "select * from booking where id = ?";
-        Booking selectedBooking = jdbcTemplate.queryForObject(sqlRequest, new Object[]{bookingId}, new BeanPropertyRowMapper<>(Booking.class));
-        return selectedBooking;
+        return jdbcTemplate.queryForObject(sqlRequest, new Object[]{bookingId}, new BeanPropertyRowMapper<>(Booking.class));
     }
+
+
 }

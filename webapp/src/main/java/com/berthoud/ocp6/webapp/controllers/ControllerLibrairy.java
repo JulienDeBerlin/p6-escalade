@@ -99,7 +99,7 @@ public class ControllerLibrairy {
         model.put("privateGuidebook", privateGuidebook);
         model.put("selectedGuidebook", selectedGuidebook);
 
-        logger.debug("Finisching  goToBookings");
+        logger.debug("Finishing  goToBookings");
 
         return "guidebookBookings";
     }
@@ -122,7 +122,6 @@ public class ControllerLibrairy {
         if (dateUntil.isBefore(dateFrom)) {
             model.put("message", "dateWrong");
             return "guidebookBookings";
-
         }
 
         if (periodAvailable) {
@@ -192,18 +191,31 @@ public class ControllerLibrairy {
                                 @RequestParam(value = "email") String email,
                                 @RequestParam(value = "phone") String phone,
                                 @SessionAttribute(value = "selectedBooking") Booking selectedBooking,
+                                @SessionAttribute(value = "privateGuidebook") MemberLibrairy privateGuidebook,
                                 ModelMap model) {
 
-        serviceMemberLibrairy.removeBooking(selectedBooking.getId());
-        model.remove("selectedBooking", selectedBooking);
+        LocalDate dateFrom = convertStringIntoDate(date_from);
+        LocalDate dateUntil = convertStringIntoDate(date_until);
+        boolean periodAvailable = serviceMemberLibrairy.periodBookingUpdateAvailable(privateGuidebook, selectedBooking, dateFrom, dateUntil);
 
-        model.put("booked_by", booked_by);
-        model.put("date_from", date_from);
-        model.put("date_until", date_until);
-        model.put("email", email);
-        model.put("phone", phone);
-
-        return "redirect:/escalade/memberArea/librairy/bookings";
+        if (dateUntil.isBefore(dateFrom)) {
+            model.put("message", "dateWrong");
+            return "guidebookBookings";
+        } else if (periodAvailable) {
+            Booking updatedBooking = new Booking();
+            updatedBooking.setBookedBy(booked_by);
+            updatedBooking.setDateFrom(dateFrom);
+            updatedBooking.setDateUntil(dateUntil);
+            updatedBooking.setEmail(email);
+            updatedBooking.setPhone(phone);
+            updatedBooking.setId(selectedBooking.getId());
+            serviceMemberLibrairy.updateBooking(updatedBooking);
+            model.put("guidebookId", privateGuidebook.getGuidebook().getId());
+            return "redirect:/escalade/memberArea/librairy/goToBookings";
+        } else {
+            model.put("message", "periodNotAvailable");
+            return "guidebookBookings";
+        }
     }
 
 

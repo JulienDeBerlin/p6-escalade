@@ -69,10 +69,10 @@ public class ServiceMemberLibrairy {
         memberLibrairy.removeBooking(bookingId);
     }
 
-//    @Transactional
-////    public Booking updateBooking(int bookingId){
-////        memberLibrairy.updateBooking(bookingId);
-////    }
+    @Transactional
+    public void updateBooking(Booking booking) {
+        memberLibrairy.updateBooking(booking);
+    }
 
 
     public Booking findBookingById(int bookingId){
@@ -91,6 +91,22 @@ public class ServiceMemberLibrairy {
         }
         return true;
     }
+
+
+    public boolean periodBookingUpdateAvailable(MemberLibrairy privateGuidebook, Booking selectedBooking, LocalDate newDateFrom, LocalDate newDateUntil) {
+        List<Booking> actualBookings = privateGuidebook.getBookings();
+        actualBookings.remove(selectedBooking);
+
+        if (periodBookingRequestAvailable(privateGuidebook, newDateFrom, newDateUntil)) {
+            actualBookings.add(selectedBooking);
+            return true;
+        } else {
+            actualBookings.add(selectedBooking);
+            return false;
+        }
+    }
+
+
 
     public List<MemberLibrairy> findAvailablePrivateGuidebooks(Guidebook selectedGuidebook, LocalDate date_from, LocalDate date_until){
         List<MemberLibrairy> listPrivateGuidebooks = memberLibrairy.findMemberLibrairyByGuidebookId(selectedGuidebook.getId());

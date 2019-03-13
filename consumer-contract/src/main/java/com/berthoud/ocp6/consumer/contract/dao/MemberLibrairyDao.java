@@ -16,7 +16,8 @@ public interface MemberLibrairyDao {
     MemberLibrairy findMemberLibrairy(Guidebook selectedGuidebook, Member user);
     Booking insertBooking(MemberLibrairy privateGuidebook, Booking booking);
     void removeBooking (int bookingId);
-    Booking updateBooking (int bookingId);
+
+    void updateBooking(Booking booking);
     Booking findBookingById (int bookingId);
 
 }

@@ -86,14 +86,14 @@
                     </li>
                 </c:if>
             </ul>
-
-
         </div>
     </nav>
 
     <h1>Gestion des réservations</h1>
-    <p> Titre du topo: ${selectedGuidebook.name}
-        <br/>Auteur: ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor}</p>
+    <p>
+        <span class="font-italic"> <strong> ${selectedGuidebook.name} </strong>  <br/> </span>
+        <span> <strong> ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor} </strong>  </span>
+    </p>
 
 
     <h3>Liste des réservations actuelles</h3>
@@ -140,9 +140,6 @@
 
     <c:if test="${action==null}">
 
-
-        <h3>Ajouter une nouvelle réservation</h3>
-
         <c:if test="${message=='periodNotAvailable'}">
             <p style="color: red"> Attention, le topo n'est pas disponible pour cette période!</p>
         </c:if>
@@ -150,6 +147,8 @@
         <c:if test="${message=='dateWrong'}">
             <p style="color: red"> Attention, la date de fin ne peut pas être antérieure à la date de début!</p>
         </c:if>
+
+        <h3>Ajouter une nouvelle réservation</h3>
 
         <form method="post" action="${pageContext.request.contextPath}/escalade/memberArea/librairy/bookings">
 
