@@ -54,10 +54,10 @@ public class ControllerLibrairy {
         String message;
         Guidebook selectedGuidebook = serviceGuidebook.findGuidebookbyIsbn(isbn13);
 
-        if (serviceMemberLibrairy.isAlredayListed(selectedGuidebook, guidebooksForLoan)) {
-            message = "alreadyListed";
-        } else if (guidebooksForLoan == null) {
+        if (selectedGuidebook == null) {
             message = "notFound";
+        } else if (serviceMemberLibrairy.isAlredayListed(selectedGuidebook, guidebooksForLoan)) {
+            message = "alreadyListed";
         } else {
             serviceMemberLibrairy.insertGuidebook(selectedGuidebook, user);
             message = "guidebookAdded";

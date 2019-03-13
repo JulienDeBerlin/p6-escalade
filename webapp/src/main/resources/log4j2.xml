@@ -22,7 +22,7 @@
         </Logger>
         <!--ci-dessus un logger spécifique pour la classe HelloController-->
 
-        <Logger name="org.springframework" level="OFF" additivity="false">
+        <Logger name="org.springframework" level="ALL" additivity="false">
             <AppenderRef ref="STDOUT"/>
         </Logger>
 

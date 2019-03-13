@@ -30,10 +30,17 @@ public class ServiceMemberLibrairy {
         memberLibrairy.removeGuidebook(selectedGuidebook, user);
     }
 
+    /**
+     * This method checks if the ID of a the selectedGuidebook is to be found among a list of guidebook objects
+     *
+     * @param selectedGuidebook
+     * @param listGuidebook
+     * @return
+     */
     public boolean isAlredayListed(Guidebook selectedGuidebook, List<Guidebook> listGuidebook) {
 
+        // Transform a list of Guidebook objects into a list of Guidebook ID:
         List<Integer> listIdGuidebooks = new ArrayList<>();
-
         for (Iterator<Guidebook> i = listGuidebook.iterator(); i.hasNext(); ) {
             Guidebook guidebook = i.next();
             listIdGuidebooks.add(guidebook.getId());
