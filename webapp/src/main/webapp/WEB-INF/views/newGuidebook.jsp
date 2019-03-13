@@ -210,28 +210,29 @@
         <h4>Compléter la liste</h4>
 
         <p> Pour cela vous devez d'abord vous assurer que les sites que vous souhaitez associer au topo sont référencés dans la base de
-            données et si ce n'est pas le cas les ajouter. <a href=${pageContext.request.contextPath}/escalade/addcontent/spot
-                                                       target="_blank">Cela ce passe ici.</a>
-
-
-        <p>Ensuite il suffit de saisir une localité et de sélectionner les sites à associer parmi la liste des propositions. </p>
-
-        <c:if test="${alert=='notFound'}">
-            <p style="color: red"> Attention, la localisation doit être choisie parmi la liste des propositions
-            </p>
-        </c:if>
+            données et si ce n'est pas le cas, <a href=${pageContext.request.contextPath}/escalade/addcontent/spot
+                                                  target="_blank">les ajouter.</a>
+            Ensuite il suffit de saisir une localité et de sélectionner les sites à associer parmi la liste des
+            propositions. </p>
 
         <form method="get" action="${pageContext.request.contextPath}/escalade/spotsForGuidebook">
 
             <div class="form-group">
-                <label for="locationSpotsForGuidebook">Entrer la localité des sites à associer au topo</label>
                 <input type="text" name="locationSpotsForGuidebook" class="form-control" id="locationSpotsForGuidebook"
-                       placeholder="Région, département, commune">
+                       placeholder="Région, département, commune" aria-describedby="inputLocationHelp">
+                <small id="inputLocationHelp" class="form-text text-muted">Les lieux disponibles s'affichent
+                    automatiquement lors de la saisie du texte
+                </small>
+
             </div>
 
             <button type="submit" class="btn btn-primary">Valider</button>
         </form>
 
+        <c:if test="${alert=='notFound'}">
+            <p style="color: red"> Attention, la localisation doit être choisie parmi la liste des propositions
+            </p>
+        </c:if>
 
         <c:if test="${alert=='noSpot'}">
             <p style="color: red">La recherche n'a donné aucun résultat</p>

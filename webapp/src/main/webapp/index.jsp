@@ -133,7 +133,12 @@
         <div class="form-group">
             <label for="locationInput">Localisation</label>
             <input type="text" name="locationInput" class="form-control" id="locationInput"
+                   aria-describedby="inputLocationHelp"
                    placeholder="Région, département, commune">
+            <small id="inputLocationHelp" class="form-text text-muted">Les lieux disponibles s'affichent automatiquement
+                lors de la saisie du texte
+            </small>
+
         </div>
 
         <div class="form-group">

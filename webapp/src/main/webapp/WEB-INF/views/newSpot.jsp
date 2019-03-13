@@ -103,9 +103,8 @@
 
         <label for="codePostal">Code postal</label>
         <input type="text" name="codePostal" class="form-control" id="codePostal" aria-describedby="codePostalHelp">
-        <small id="codePostalHelp" class="form-text text-muted">Le code postal est déduit automatiquement de choix de la
-            commune. Dans le cas de communes avec plusieurs codes postaux, il peut être nécessaire de corriger le code
-            postal affiché.
+        <small id="codePostalHelp" class="form-text text-muted">Le code postal s'affiche automatiquement.
+            Dans le cas de communes disposant de plusieurs codes postaux, il peut être nécessaire de le corriger.
         </small>
 
 
@@ -197,7 +196,7 @@
         <c:if test="${message == 'ok'}">
             <p style="color: green"> La route a bien été ajoutée!</p> <br/>
         </c:if>
-        <p>Ajouter une nouvelle route ou longueur pour ce site/secteur:</p>
+        <p>Ajouter une nouvelle voie ou longueur pour ce site/secteur:</p>
 
 
 

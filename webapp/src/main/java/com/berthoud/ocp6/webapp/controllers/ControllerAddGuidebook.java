@@ -5,7 +5,6 @@ import com.berthoud.ocp6.business.ServiceLocation;
 import com.berthoud.ocp6.business.ServiceSpot;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
-import com.berthoud.ocp6.model.bean.Member;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +29,19 @@ public class ControllerAddGuidebook {
     @Autowired
     ServiceSpot serviceSpot;
 
+
+    /**
+     * The controler checks if a member is logged in the session. If yes, the page "newGuidebook" is displayed.
+     * If no, the user is redirected to the login page.
+     *
+     * @param model ///
+     * @return login- or newGuidebook-page
+     */
     @RequestMapping(value = "addcontent/guidebook", method = RequestMethod.GET)
     public String goToAddGuidebook (ModelMap model) {
         if (model.containsAttribute("user")) {
             return "newGuidebook";
-        }
-        else {
+        } else {
             String message = "onlyMembers";
             model.put("message", message);
             model.put("jspAfterLogin", "newGuidebook");
@@ -44,6 +50,15 @@ public class ControllerAddGuidebook {
     }
 
 
+    /**
+     * In order to register a new guidebook in the DB, the first step is to enter its ISBN nb.
+     * This controller checks if the ISBN matches with a guidebook already stored in the DB.
+     * If yes, it means that this guidebook has already been referenced. It is still possible to link it to further spots (step 3)
+     * If no, the guidebook has to be referenced first (step 2)
+     * @param isbn13 the ISBN number entered by the user
+     * @param model ///
+     * @return newGuidebook-page (at step 2 or 3)
+     */
     @RequestMapping(value = "addcontent/guidebook/isbn")
     public String testIsbn (@RequestParam(value = "isbn13") String isbn13,
                             ModelMap model) {
@@ -66,7 +81,12 @@ public class ControllerAddGuidebook {
         return "newGuidebook";
     }
 
-
+    /**
+     * This controller is used for referencing a new guidebook (step2 of the process).
+     * All the details of the guidebooks entered by the user in the form are retrieved by the controller and put in a Guidebook bean.
+     * which is then inserted in the DB.
+     * @return back to the newGuidebook-page
+     */
     @RequestMapping(value = "addcontent/guidebook", method = RequestMethod.POST)
     public String saveDetailsGuidebook (@RequestParam (value = "name") String name,
                                         @RequestParam (value = "firstnameAuthor") String firstnameAuthor,
@@ -96,10 +116,20 @@ public class ControllerAddGuidebook {
         return "newGuidebook";
     }
 
+
+    /**
+     * This controller is used for linking spots to the guidebook (step 3 of the process).The linking works like this:
+     * 1/ based on the location input entered by the user, a list of Locations is generated (with included objects like spots)
+     * 2/ the spots that are already linked to the guidebook are removed from the list
+     * @param locationSpotsForGuidebook the location input entered by the user.
+     * @param selectedGuidebook the guidebook the user is willing to link spots to
+     * @param model ///
+     * @return
+     */
     @RequestMapping(value = "/spotsForGuidebook", method = RequestMethod.GET)
     public String displaySpots (@RequestParam (value = "locationSpotsForGuidebook") String locationSpotsForGuidebook,
-                                     @ModelAttribute (value = "selectedGuidebook") Guidebook selectedGuidebook,
-                                     ModelMap model) {
+                                @ModelAttribute(value = "selectedGuidebook") Guidebook selectedGuidebook,
+                                ModelMap model) {
         try {
             List<Location> listMatchingLocations = serviceLocation.detailledInfoBasedOnLocation(locationSpotsForGuidebook);
             listMatchingLocations = serviceLocation.removeSpotsAlreadyLinked(listMatchingLocations, selectedGuidebook);
@@ -107,7 +137,7 @@ public class ControllerAddGuidebook {
 
             model.put("listMatchingLocations", listMatchingLocations);
 
-            if (noSpot == true){
+            if (noSpot){
                 model.put("alert", "noSpot");
             }else {
                 model.put("alert", "ok");
@@ -122,6 +152,13 @@ public class ControllerAddGuidebook {
     }
 
 
+    /**
+     * This controller is used for linking spots to the guidebook. The spots selected by the user are link to the guidebook
+     * @param selectedGuidebook the guidebook the user is willing to link spots to
+     * @param listSpotId the list of the Ids of the spots selected by the user
+     * @param model ///
+     * @return
+     */
     @RequestMapping(value = "/spotsForGuidebook", method = RequestMethod.POST)
     public String addSpotstoGuide (@ModelAttribute (value = "selectedGuidebook") Guidebook selectedGuidebook,
                                    @RequestParam (value = "selectedSpots") List<Integer> listSpotId,
