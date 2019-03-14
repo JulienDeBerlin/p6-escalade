@@ -86,7 +86,7 @@
 
     <c:forEach items="${guidebookListWithoutDuplicates }" var="guidebook">
         <p style="margin-top: 2em">
-            <a href="${pageContext.request.contextPath}/escalade/spots?guidebookId=${guidebook.id}">
+            <a href="${pageContext.request.contextPath}/escalade/spotsFromGuidebook?guidebookIdForSpots=${guidebook.id}">
                 <img src="${pageContext.request.contextPath}/resources/img/mountain.png"
                      title="Afficher les sites correspondants" alt="Les sites">
             </a>

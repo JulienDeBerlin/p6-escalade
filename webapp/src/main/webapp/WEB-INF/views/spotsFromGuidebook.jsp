@@ -97,7 +97,7 @@
                          title="Afficher les topos correspondants"></a>
             </c:if>
 
-            <a href="${pageContext.request.contextPath}/escalade/toNewComment?idSpotToBeCommented=${spot.id}"
+            <a href="${pageContext.request.contextPath}/escalade/toNewCommentForSpotFromGuidebook?idSpotToBeCommented=${spot.id}"
                title="Ajouter un commentaire">
                 <img src="${pageContext.request.contextPath}/resources/img/chat.png"></a>
 
@@ -139,7 +139,10 @@
                         <label for="comment">Commentaire:</label>
                         <textarea class="form-control" rows="5" id="comment" name="comment"
                                   autofocus></textarea>
+                        <input type="hidden" name="redirect" value="displaySpotsFomGuidebook">
                     </div>
+
+
                     <button type="submit" class="btn btn-primary">Valider le commentaire</button>
                 </form>
             </c:if>

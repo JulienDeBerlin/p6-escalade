@@ -31,7 +31,7 @@ public class ControllerAddGuidebook {
 
 
     /**
-     * The controler checks if a member is logged in the session. If yes, the page "newGuidebook" is displayed.
+     * This controller-method checks if a member is logged in the session. If yes, the page "newGuidebook" is displayed.
      * If no, the user is redirected to the login page.
      *
      * @param model ///
@@ -52,7 +52,7 @@ public class ControllerAddGuidebook {
 
     /**
      * In order to register a new guidebook in the DB, the first step is to enter its ISBN nb.
-     * This controller checks if the ISBN matches with a guidebook already stored in the DB.
+     * This controller-method checks if the ISBN matches with a guidebook already stored in the DB.
      * If yes, it means that this guidebook has already been referenced. It is still possible to link it to further spots (step 3)
      * If no, the guidebook has to be referenced first (step 2)
      * @param isbn13 the ISBN number entered by the user
@@ -82,7 +82,7 @@ public class ControllerAddGuidebook {
     }
 
     /**
-     * This controller is used for referencing a new guidebook (step2 of the process).
+     * This controller-method is used for referencing a new guidebook (step2 of the process).
      * All the details of the guidebooks entered by the user in the form are retrieved by the controller and put in a Guidebook bean.
      * which is then inserted in the DB.
      * @return back to the newGuidebook-page
@@ -118,7 +118,7 @@ public class ControllerAddGuidebook {
 
 
     /**
-     * This controller is used for linking spots to the guidebook (step 3 of the process).The linking works like this:
+     * This controller-method is used for linking spots to the guidebook (step 3 of the process).The linking works like this:
      * 1/ based on the location input entered by the user, a list of Locations is generated (with included objects like spots)
      * 2/ the spots that are already linked to the guidebook are removed from the list
      * @param locationSpotsForGuidebook the location input entered by the user.
@@ -153,7 +153,7 @@ public class ControllerAddGuidebook {
 
 
     /**
-     * This controller is used for linking spots to the guidebook. The spots selected by the user are link to the guidebook
+     * TThis controller-method is used for linking spots to the guidebook. The spots selected by the user are link to the guidebook
      * @param selectedGuidebook the guidebook the user is willing to link spots to
      * @param listSpotId the list of the Ids of the spots selected by the user
      * @param model ///

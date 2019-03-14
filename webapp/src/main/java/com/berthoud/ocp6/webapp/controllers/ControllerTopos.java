@@ -51,13 +51,11 @@ public class ControllerTopos {
 
             model.put("locationInputForTopo", locationInputForTopo);
             model.put("guidebookListWithoutDuplicates", guidebookListWithoutDuplicates);
-            alert = "ok";
-            model.put("alertTopo", alert);
+            model.put("alertTopo", "ok");
             return "topos";
 
         } catch (Exception e){
-            alert = "notFound";
-            model.put("alertTopo", alert);
+            model.put("alertTopo", "notFound");
             return "index";
         }
     }
@@ -67,7 +65,7 @@ public class ControllerTopos {
 
         Spot selectedSpot = serviceSpot.findSpotBasedOnId(parseInt(spotId));
 
-        String locationInputForTopo = selectedSpot.getNameSpot();
+        String locationInputForTopo = "Site " + selectedSpot.getNameSpot() + " ,secteur " + selectedSpot.getNameArea();
         List<Guidebook> guidebooks = selectedSpot.getGuidebooks();
 
         model.put("locationInputForTopo", locationInputForTopo);
