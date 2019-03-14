@@ -133,10 +133,10 @@
         <div class="form-group">
             <label for="locationInput">Localisation</label>
             <input type="text" name="locationInput" class="form-control" id="locationInput"
-                   aria-describedby="inputLocationHelp"
+                   aria-describedby="inputLocationHelp" required
                    placeholder="Région, département, commune">
             <small id="inputLocationHelp" class="form-text text-muted">Les lieux disponibles s'affichent automatiquement
-                lors de la saisie du texte
+                lors de la saisie du texte. Choisissez parmi les propositions.
             </small>
 
         </div>
@@ -198,8 +198,7 @@
             <input type="text" name="locationInputForTopo" class="form-control" id="locationInputForTopo"
                    placeholder="Région, département, commune" aria-describedby="inputLocationForTopoHelp">
             <small id="inputLocationForTopoHelp" class="form-text text-muted">Les lieux pour lesquels des topos sont
-                répertoriés s'affichent automatiquement
-                lors de la saisie du texte
+                répertoriés s'affichent automatiquement lors de la saisie du texte. Choisissez parmi les propositions.
             </small>
         </div>
 
@@ -264,9 +263,17 @@
     $(function () {
         $("#locationInput, #locationInputForTopo").autocomplete({
             minLength: 2,
-            source: '${pageContext.request.contextPath}/escalade/get_location_list'
+            source: '${pageContext.request.contextPath}/escalade/get_location_list',
+
+            change: function (event, ui) {
+                if (!ui.item) {
+                    this.value = '';
+                }
+            }
+
         });
     });
+
 
 </script>
 

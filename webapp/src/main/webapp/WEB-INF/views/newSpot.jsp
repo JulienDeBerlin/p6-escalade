@@ -97,19 +97,22 @@
             <label for="cityNameInput">Indiquez la commune dans laquelle se trouve le site à ajouter ou
                 compléter</label>
             <input type="text" name="cityNameInput" class="form-control" id="cityNameInput"
+                   aria-describedby="cityNameHelp"
                    placeholder="Chamonix-Mont-Blanc..." required>
-
+            <small id="cityNameHelp" class="form-text text-muted">Saisissez les premières lettres de la ville et
+                choisissez parmi les propositions affichées.
+            </small>
             <input type="hidden" name="region" class="form-control" id="region">
             <input type="hidden" name="departementName" class="form-control" id="departementName">
             <input type="hidden" name="departementId" class="form-control" id="departementId">
+        </div>
 
+        <div class="form-group">
             <label for="codePostal">Code postal</label>
             <input type="text" name="codePostal" class="form-control" id="codePostal" aria-describedby="codePostalHelp">
             <small id="codePostalHelp" class="form-text text-muted">Le code postal s'affiche automatiquement.
                 Dans le cas de communes disposant de plusieurs codes postaux, il peut être nécessaire de le corriger.
             </small>
-
-
         </div>
 
         <button type="submit" class="btn btn-primary">Valider la localisation</button>
@@ -297,6 +300,7 @@
                 return false;
             },
 
+
             select: function (event, ui) {
                 $("#cityNameInput").val(ui.item.value);
                 $("#region").val(ui.item.region);
@@ -304,6 +308,13 @@
                 $("#departementId").val(ui.item.departementId);
                 $("#codePostal").val(ui.item.codesPostal);
                 return false;
+            },
+
+
+            change: function (event, ui) {
+                if (!ui.item) {
+                    this.value = '';
+                }
             }
         })
     });
