@@ -4,8 +4,8 @@ import com.berthoud.ocp6.consumer.contract.dao.MemberDao;
 import com.berthoud.ocp6.model.bean.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -17,6 +17,7 @@ public class ServiceLogin {
 
     /**
      * Get a list of all Member objects
+     *
      * @return
      */
     public List<Member> getAllMembers() {
@@ -26,15 +27,17 @@ public class ServiceLogin {
 
     /**
      * Find a Member object based on its email address
+     *
      * @param inputEmail
      * @return
      */
-    public Member findMemberByEmail (String inputEmail){
+    public Member findMemberByEmail(String inputEmail) {
         return memberDao.findMemberByEmail(inputEmail);
     }
 
     /**
      * This method checks if the password entered by the user matches with the email entered.
+     *
      * @param inputPassword
      * @param member
      * @return
@@ -44,5 +47,10 @@ public class ServiceLogin {
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public int updatePassword(Member member) {
+        return memberDao.updatePassword(member);
     }
 }

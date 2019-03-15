@@ -33,6 +33,10 @@ public class ControllerLogin {
 
     private static final Logger logger = LogManager.getLogger();
 
+    /**
+     * @param jspAfterLogin this param indicates what should be displayed after a successfull login.
+     * @param model         //
+     */
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String displayloginPage(@RequestParam(value = "afterLogin") String jspAfterLogin,
                                    ModelMap model) {
@@ -40,52 +44,66 @@ public class ControllerLogin {
         return "login";
     }
 
-
+    /**
+     * @param inputEmail    //
+     * @param inputPassword //
+     * @param jspAfterLogin this param indicates what should be displayed after a successfull login.
+     * @param model         //
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String checkPassword(@RequestParam(value = "email") String inputEmail,
                                 @RequestParam(value = "password") String inputPassword,
                                 @RequestParam(value = "afterLogin") String jspAfterLogin,
                                 ModelMap model) {
-        String message;
+
         Member user = serviceLogin.findMemberByEmail(inputEmail);
 
         if (user == null) {
-            message = "memberNotFound";
-            model.put("message", message);
+            model.put("message", "memberNotFound");
             model.put("jspAfterLogin", jspAfterLogin);
             return "login";
         }
 
         if (serviceLogin.checkPassword(inputPassword, user)) {
             model.put("user", user);
-
             logger.info("quitte checkPassword");
             logger.info(model);
             return jspAfterLogin;
 
         } else {
-            message = "wrongPassword";
-            model.put("message", message);
+            model.put("message", "wrongPassword");
             model.put("jspAfterLogin", jspAfterLogin);
             return "login";
         }
-
-
     }
 
+    /**
+     * This controller-method remove the session attributes listed in the @SessionAttributes annotation above and redirect to the index
+     *
+     * @param model  //
+     * @param status //
+     * @return index.jsp
+     */
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logout(ModelMap model,
-                         SessionStatus status,
-                         @ModelAttribute(value = "message") String message) {
+                         SessionStatus status) {
 
         status.setComplete();
         logger.info("quitte logout et retourne à l'index");
         logger.info(model);
-        model.put("message", message);
-
         return "redirect:/index.jsp";
     }
 
+    /**
+     * This controller-method is used to display the member-area-page with the guidebooks owned by the logged member.
+     *
+     * @param model   //
+     * @param user    //
+     * @param message This param is used to display message informing about the success or unsuccess of some actions undertaken by the user
+     *                (like deleting member account...). The value of the message is retrieve from the methods redirecting to this controller.
+     * @return espaceMember.jsp, the member-area-page
+     */
     @RequestMapping(value = "/login/espaceMembre", method = RequestMethod.GET)
     public String goToMemberArea(ModelMap model,
                                  @SessionAttribute(value = "user") Member user,
@@ -103,21 +121,20 @@ public class ControllerLogin {
     }
 
     @RequestMapping(value = "/login/resetPassword", method = RequestMethod.POST)
-    public String resetPassword(
-            @RequestParam(value = "password1") String password1,
-            @RequestParam(value = "password2") String password2,
-            ModelMap model) {
+    public String resetPassword(@RequestParam(value = "password1") String password1,
+                                @RequestParam(value = "password2") String password2,
+                                @SessionAttribute(value = "user") Member user,
+                                ModelMap model) {
 
         if (password1.equals(password2)) {
-            model.put("message", "ok");
-
-//        method changePassword still to be written
-
+            user.setPassword(password1);
+            if (serviceLogin.updatePassword(user) == 1) {
+                model.put("message", "ok");
+            }
         } else {
             model.put("action", "resetPassword");
             model.put("message", "password2different");
         }
-
         return "espaceMembre";
     }
 
@@ -128,6 +145,7 @@ public class ControllerLogin {
         model.put("jspAfterLogin", jspAfterLogin);
         return "newMember";
     }
+
 
     @RequestMapping(value = "/newMember", method = RequestMethod.POST)
     public String createNewMemberAccount(@RequestParam(value = "afterLogin") String jspAfterLogin,
@@ -192,7 +210,6 @@ public class ControllerLogin {
             model.put("message", "checkboxNotChecked");
             return ("redirect:/escalade/login/espaceMembre");
         }
-
     }
 
 }

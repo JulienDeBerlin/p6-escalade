@@ -40,13 +40,24 @@ public class ControllerAdmin {
 
     private static final Logger logger = LogManager.getLogger();
 
-
+    /**
+     * This controller-method is used to display the page dedicated to the moderation of referenced guidebooks (update or delete items)
+     *
+     * @return adminGuidebooks.jsp
+     */
     @RequestMapping(value = "/admin/guidebooks", method = RequestMethod.GET)
     public String goToAdminGuidebooks() {
         return "adminGuidebooks";
     }
 
 
+    /**
+     * This controller-methods check the ISBN number entered by the administrator and retrieve from the DB the matching guidebook
+     *
+     * @param isbn13 the isbn number of the guidebook to be edited
+     * @param model  //
+     * @return adminGuidebooks.jsp
+     */
     @RequestMapping(value = "/admin/guidebooks/isbn", method = RequestMethod.GET)
     public String checkIsbn(@RequestParam(value = "isbn13") String isbn13,
                             ModelMap model) {
@@ -105,6 +116,15 @@ public class ControllerAdmin {
     }
 
 
+    /**
+     * Each guidebook is linked to the spots it describes. This controller-method is used to delete an existing ling between a guidebook
+     * and a spot.
+     *
+     * @param isbn13 the isbn number of the guidebook to be edited
+     * @param spotId the ID of the spot whose link with the guidebook should be deleted
+     * @param model  //
+     * @return adminGuidebooks.jsp
+     */
     @RequestMapping(value = "/admin/guidebooks/deleteLinkGuidebookSpot", method = RequestMethod.GET)
     public String deleteLinkGuidebookSpot(@RequestParam(value = "isbn13") String isbn13,
                                           @RequestParam(value = "spotId") int spotId,
@@ -131,17 +151,27 @@ public class ControllerAdmin {
         return ("redirect:/escalade/displaySpots?idSpotToBeCommented=0");
     }
 
-
-
+    /**
+     * This controller-method is used to display the page dedicated to the moderation of referenced spots and routes (update or delete items)
+     *
+     * @return adminSpots.jsp
+     */
     @RequestMapping(value = "/admin/spots", method = RequestMethod.GET)
     public String gotToAdminSpots() {
         return "adminSpots";
     }
 
 
+    /**
+     * This controller-method is used in the process of updating (or deleting) a spot of a route. It saves the name of the city where
+     * the spot to be edited is located
+     *
+     * @param locationInput the city where the spot to be edited is located.
+     * @param model         //
+     * @return the request is then redirected to another controller-method in charge of displaying the adminSpots.jsp
+     */
     @RequestMapping(value = "admin/spots/locationInput", method = RequestMethod.POST)
     public String saveParamLocationInput(@RequestParam(value = "locationInput") String locationInput,
-//                                         @RequestParam (value = "step") String step,
                                          ModelMap model) {
 
         model.put("locationInput", locationInput);
@@ -149,7 +179,14 @@ public class ControllerAdmin {
         return "redirect:locationInput/displaySpot";
     }
 
-
+    /**
+     * This controller-method is used to display the spots-admin-page, where the admin can edit spots and routes.
+     *
+     * @param locationInput the city where the spot to be edited is located.
+     * @param step          this attribute is used to hide or display some part of the JSP, depending on which step of the editing-process has been reached.
+     * @param model         //
+     * @return adminSpots.jsp
+     */
     @RequestMapping(value = "admin/spots/locationInput/displaySpot")
     public String displaySpots(@SessionAttribute(value = "locationInput") String locationInput,
                                @RequestParam(value = "step") String step,
@@ -164,7 +201,6 @@ public class ControllerAdmin {
         } catch (Exception e) {
             logger.info(e);
         }
-
         return "adminSpots";
     }
 
@@ -195,7 +231,13 @@ public class ControllerAdmin {
         return "redirect:locationInput/displaySpot";
     }
 
-
+    /**
+     * This controller-method is used to display the routes matching to the selected spot, in order to edit these routes
+     *
+     * @param spotId the id of the spot whose routes should be edited
+     * @param model  //
+     * @return the request is then redirected to another controller-method in charge of displaying the adminSpots.jsp
+     */
     @RequestMapping(value = "admin/spots/accessRoute", method = RequestMethod.POST)
     public String accessRoute(@RequestParam(value = "spotId") int spotId,
                               ModelMap model) {

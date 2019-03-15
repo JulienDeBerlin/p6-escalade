@@ -96,6 +96,15 @@ public class MemberDaoImpl extends AbstractDaoImpl implements MemberDao {
         String sqlRequest = "delete from member where id = ?";
         jdbcTemplate.update(sqlRequest, memberId);
     }
+
+    @Override
+    public int updatePassword(Member member) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String SQL = "update member set password = ? where id = ?";
+        return jdbcTemplate.update(SQL, member.getPassword(), member.getId());
+
+    }
 }
 
 
