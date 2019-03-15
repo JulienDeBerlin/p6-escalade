@@ -1,7 +1,10 @@
 package com.berthoud.ocp6.webapp.controllers;
 
 import com.berthoud.ocp6.business.*;
-import com.berthoud.ocp6.model.bean.*;
+import com.berthoud.ocp6.model.bean.Guidebook;
+import com.berthoud.ocp6.model.bean.Location;
+import com.berthoud.ocp6.model.bean.Route;
+import com.berthoud.ocp6.model.bean.Spot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,21 +42,21 @@ public class ControllerAdmin {
 
 
     @RequestMapping(value = "/admin/guidebooks", method = RequestMethod.GET)
-    public String goToAdminGuidebooks (){
+    public String goToAdminGuidebooks() {
         return "adminGuidebooks";
     }
 
 
     @RequestMapping(value = "/admin/guidebooks/isbn", method = RequestMethod.GET)
-    public String checkIsbn (@RequestParam(value = "isbn13") String isbn13,
-                             ModelMap model){
+    public String checkIsbn(@RequestParam(value = "isbn13") String isbn13,
+                            ModelMap model) {
 
 
         Guidebook selectedGuidebook = serviceGuidebook.findGuidebookbyIsbn(isbn13);
-        if ( selectedGuidebook == null){
+        if (selectedGuidebook == null) {
             model.put("message", "notFound");
 
-        } else{
+        } else {
             model.put("selectedGuidebook", selectedGuidebook);
             model.put("step", "guidebookSelected");
         }
@@ -62,15 +65,15 @@ public class ControllerAdmin {
 
 
     @RequestMapping(value = "/admin/guidebooks/update", method = RequestMethod.POST)
-    public String updateGuidebook (@RequestParam (value = "isbn13") String isbn13,
-                                   @RequestParam (value = "name") String name,
-                                   @RequestParam (value = "firstnameAuthor") String firstnameAuthor,
-                                   @RequestParam (value = "surnameAuthor") String surnameAuthor,
-                                   @RequestParam (value = "yearPublication") short yearPublication,
-                                   @RequestParam (value = "publisher") String publisher,
-                                   @RequestParam (value = "language") String language,
-                                   @RequestParam (value = "summary") String summary,
-                                   ModelMap model){
+    public String updateGuidebook(@RequestParam(value = "isbn13") String isbn13,
+                                  @RequestParam(value = "name") String name,
+                                  @RequestParam(value = "firstnameAuthor") String firstnameAuthor,
+                                  @RequestParam(value = "surnameAuthor") String surnameAuthor,
+                                  @RequestParam(value = "yearPublication") short yearPublication,
+                                  @RequestParam(value = "publisher") String publisher,
+                                  @RequestParam(value = "language") String language,
+                                  @RequestParam(value = "summary") String summary,
+                                  ModelMap model) {
 
         Guidebook selectedGuidebook = serviceGuidebook.findGuidebookbyIsbn(isbn13);
         selectedGuidebook.setName(name);
@@ -92,8 +95,8 @@ public class ControllerAdmin {
 
 
     @RequestMapping(value = "/admin/guidebooks/delete", method = RequestMethod.POST)
-    public String deleteGuidebook (@RequestParam (value = "isbn13") String isbn13,
-                                   ModelMap model){
+    public String deleteGuidebook(@RequestParam(value = "isbn13") String isbn13,
+                                  ModelMap model) {
 
         serviceGuidebook.deleteGuidebook(serviceGuidebook.findGuidebookbyIsbn(isbn13));
         model.put("message", "guidebookDeleted");
@@ -103,9 +106,9 @@ public class ControllerAdmin {
 
 
     @RequestMapping(value = "/admin/guidebooks/deleteLinkGuidebookSpot", method = RequestMethod.GET)
-    public String deleteLinkGuidebookSpot (@RequestParam (value = "isbn13") String isbn13,
-                                           @RequestParam (value = "spotId") int spotId,
-                                           ModelMap model){
+    public String deleteLinkGuidebookSpot(@RequestParam(value = "isbn13") String isbn13,
+                                          @RequestParam(value = "spotId") int spotId,
+                                          ModelMap model) {
 
         Guidebook selectedGuidebook = serviceGuidebook.findGuidebookbyIsbn(isbn13);
 
@@ -128,13 +131,7 @@ public class ControllerAdmin {
         return ("redirect:/escalade/displaySpots?idSpotToBeCommented=0");
     }
 
-    @RequestMapping(value = "admin/delete/memberAccount", method = RequestMethod.POST)
-    public String deleteMemberAccount(@RequestParam(value = "userId") int userId) {
 
-        serviceMember.deleteMemberAccount(userId);
-
-        return ("redirect:/escalade/logout");
-    }
 
     @RequestMapping(value = "/admin/spots", method = RequestMethod.GET)
     public String gotToAdminSpots() {

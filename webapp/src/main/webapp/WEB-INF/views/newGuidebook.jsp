@@ -210,8 +210,9 @@
         <h4>Compléter la liste</h4>
 
         <p> Pour cela vous devez d'abord vous assurer que les sites que vous souhaitez associer au topo sont référencés dans la base de
-            données et si ce n'est pas le cas, <a href=${pageContext.request.contextPath}/escalade/addcontent/spot
-                                                  target="_blank">les ajouter.</a>
+            données et si ce n'est pas le cas, <a
+                    href=${pageContext.request.contextPath}/escalade/addcontent/spot/checkCityInput
+                    target="_blank">les ajouter.</a>
             Ensuite il suffit de saisir une localité et de sélectionner les sites à associer parmi la liste des
             propositions. </p>
 

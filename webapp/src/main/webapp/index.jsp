@@ -102,6 +102,11 @@
         </div>
     </div>
 
+    <c:if test="${message == 'memberAccountDeleted'}">
+        <p style="color: green">Le compte a bien été supprimé </p>
+    </c:if>
+
+
 
     <h1 id="leProjet">LE PROJET</h1>
 
@@ -217,7 +222,8 @@
     <h1 id="Contribuez">CONTRIBUEZ!</h1>
 
     <div>
-        <a href="${pageContext.request.contextPath}/escalade/addcontent/spot">Référencez un spot ou une voie</a>
+        <a href="${pageContext.request.contextPath}/escalade/addcontent/spot/checkCityInput">Référencez un spot ou une
+            voie</a>
     </div>
 
     <div>

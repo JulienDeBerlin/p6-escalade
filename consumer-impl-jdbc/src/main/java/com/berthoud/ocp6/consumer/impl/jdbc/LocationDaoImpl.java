@@ -2,6 +2,8 @@ package com.berthoud.ocp6.consumer.impl.jdbc;
 
 import com.berthoud.ocp6.consumer.contract.dao.LocationDao;
 import com.berthoud.ocp6.model.bean.Location;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -29,6 +31,10 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
     @Autowired
     SpotDaoImpl spotDao;
 
+
+    private static final Logger logger = LogManager.getLogger();
+
+
     /**
      * Finds Location object based on Id (Primary key of table "Location")
      * @param locationInput the id (= colomn "id" in SQL table)
@@ -47,13 +53,12 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
      * Finds a list of Location objects, based on one of the information contained in SQL table "Location"
      *
      * @param locationInput is the input entered by the user formated as follows: "location (category)" i.e.
-     *                      "Auvergne-Rhône-Alpes (région)"
+     *                      "Auvergne-Rhône-Alpes (région)" ou encore "Courchevel (ville du département: Savoie)"
      * @return
      */
     @Override
-    public List<Location> findLocationsByTableColomn(String locationInput) throws Exception {
+    public List<Location> findLocationsByTableColomn(String locationInput) {
 
-        try {
             String colomnInTableLocation = getColomnInTableLocation(locationInput);
             String cleanedLocation = cleanedLocation(locationInput);
             JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
@@ -77,9 +82,6 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
 
             return myResults;
 
-        } catch (Exception e) {
-            throw e;
-        }
     }
 
 
@@ -95,7 +97,6 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
                 return myRequest;
 
     }
-
 
     /**
      * From a string formatted as "location (category)", extracts "location"

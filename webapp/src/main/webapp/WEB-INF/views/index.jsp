@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<c:redirect url="/index.jsp#${anchor}"/>
+<c:redirect url="/index.jsp?#${anchor}"/>
 
 </body>
 </html>

@@ -10,7 +10,7 @@ public interface LocationDao {
 
     Location findLocationByNameAndDepartement(String cityName, String departementName);
 
-    List<Location> findLocationsByTableColomn(String locationInput) throws Exception;
+    List<Location> findLocationsByTableColomn(String locationInput);
 
 
     List <String> getLocationProposals(String query);

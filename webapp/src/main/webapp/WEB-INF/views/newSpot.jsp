@@ -91,7 +91,7 @@
     <h2>Étape 1: choix de la localisation</h2>
 
 
-    <form method="post" action="${pageContext.request.contextPath}/escalade/addcontent/spot">
+    <form method="post" action="${pageContext.request.contextPath}/escalade/addcontent/spot/checkCityInput">
 
         <div class="form-group">
             <label for="cityNameInput">Indiquez la commune dans laquelle se trouve le site à ajouter ou
@@ -133,7 +133,7 @@
 
         <h4 class="font-italic">Référencer un nouveau site/secteur</h4>
 
-        <form method="post" action="${pageContext.request.contextPath}/escalade/addcontent/newSpot">
+        <form method="post" action="${pageContext.request.contextPath}/escalade/addcontent/addNewSpot">
             <div class="form-group">
                 <label for="nameSpot">Nom du site</label>
                 <input type="text" name="nameSpot" class="form-control" id="nameSpot">

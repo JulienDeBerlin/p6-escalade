@@ -91,24 +91,18 @@ public class ControllerSpots {
 
         logger.info("enter method displaySpots");
 
-        try {
+        List<Location> resultLocations = serviceLocation.detailledInfoBasedOnLocation(locationInput);
+        logger.info("after call method detailledInfoBasedOnLocation");
 
-            List<Location> resultLocations = serviceLocation.detailledInfoBasedOnLocation(locationInput);
-            logger.info("after call method detailledInfoBasedOnLocation");
+        resultLocations = serviceLocation.filterLocations(resultLocations, onlySpotsWithBoltedRoutes, parseInt(ratingMin), parseInt(ratingMax));
+        logger.info("after call method filterLocations");
 
-            resultLocations = serviceLocation.filterLocations(resultLocations, onlySpotsWithBoltedRoutes, parseInt(ratingMin), parseInt(ratingMax));
-            logger.info("after call method filterLocations");
+        model.put("resultLocations", resultLocations);
+        model.put("idSpotToBeCommented", idSpotToBeCommented);
+        model.put("locationInput", locationInput);
+        model.put("alert", "ok");
+        return "spots";
 
-            model.put("resultLocations", resultLocations);
-            model.put("idSpotToBeCommented", idSpotToBeCommented);
-            model.put("locationInput", locationInput);
-            model.put("alert", "ok");
-            return "spots";
-
-        } catch (Exception e) {
-            model.put("alert", "notFound");
-            return "index";
-        }
     }
 
 

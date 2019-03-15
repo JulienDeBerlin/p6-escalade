@@ -42,8 +42,6 @@ public class ControllerTopos {
                                  @RequestParam (value = "loanRequired", required =false) boolean loanRequired,
                                 ModelMap model){
 
-        String alert;
-
         try{
             List<Location> resultLocations =serviceLocation.detailledInfoBasedOnLocation(locationInputForTopo);
             List<Guidebook> guidebookListWithoutDuplicates = serviceLocation.editGuidebookListWithoutDuplicate(resultLocations);

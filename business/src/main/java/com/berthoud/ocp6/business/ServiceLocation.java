@@ -5,6 +5,8 @@ import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
 import com.berthoud.ocp6.model.bean.Spot;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,7 @@ public class ServiceLocation {
     private ServiceGuidebook serviceGuidebook;
 
 
+    private static final Logger logger = LogManager.getLogger();
 
 
     /**
@@ -36,7 +39,8 @@ public class ServiceLocation {
      * @param locationInput the location input entered by the user
      * @return
      */
-    public List<Location> detailledInfoBasedOnLocation(String locationInput) throws Exception{
+    public List<Location> detailledInfoBasedOnLocation(String locationInput) {
+
        return locationDao.findLocationsByTableColomn(locationInput);
     }
 
@@ -194,6 +198,7 @@ public class ServiceLocation {
         }
         return true;
     }
+
 
 }
 

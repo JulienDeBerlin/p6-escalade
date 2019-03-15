@@ -90,8 +90,8 @@
 
     <h1>Emprunter un topo</h1>
 
-    <p> Titre du topo: ${selectedGuidebook.name}
-        <br/>Auteur: ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor}</p>
+    <p><strong> <span class="font-italic"> ${selectedGuidebook.name} </span>
+        <br/> <span> ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor} </span> </strong></p>
 
     <form method="post" action="${pageContext.request.contextPath}/escalade/memberArea/librairy/loan/checkDates">
 
@@ -111,12 +111,15 @@
             <input type="date" name="date_until" class="form-control" id="date_until" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Valider la nouvelle réservation</button>
-
+        <button type="submit" class="btn btn-primary">Valider</button>
     </form>
 
+    <br/>
+
     <c:if test="${privateGuidebooks!=null}">
-        <h3>Pour la période indiquée, ce topo est disponible auprès des membres suivants:</h3>
+        <h3>Pour la période indiquée, ce topo est disponible auprès des membres suivants</h3>
+        <br/>
+        <p>Veuillez prendre contact avec l'un d'entre-eux</p>
     </c:if>
 
     <c:if test="${empty privateGuidebooks && privateGuidebooks!=null}">
@@ -124,8 +127,10 @@
     </c:if>
 
     <c:forEach items="${ privateGuidebooks }" var="ownerGuidebook">
-        <p> ${ownerGuidebook.member.firstName} ${ownerGuidebook.member.surname}
-            <br/>Contact:${ownerGuidebook.member.email} / Tel: ${ownerGuidebook.member.phone} </p>
+        <ul>
+            <li> <span> ${ownerGuidebook.member.firstName} ${ownerGuidebook.member.surname} /
+             ${ownerGuidebook.member.email} / Tel: ${ownerGuidebook.member.phone} </span></li>
+        </ul>
     </c:forEach>
 
 

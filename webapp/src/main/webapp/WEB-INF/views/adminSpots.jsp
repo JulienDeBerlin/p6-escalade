@@ -170,13 +170,6 @@
                                 Supprimer
                             </button>
                         </div>
-
-                            <%--<div class="col">--%>
-                            <%--<a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/bookings/delete?bookingId=${booking.id}">--%>
-                            <%--<img src="${pageContext.request.contextPath}/resources/img/delete.png" alt="delete"/>--%>
-                            <%--</a>--%>
-                            <%--</div>--%>
-
                     </div>
                 </form>
 

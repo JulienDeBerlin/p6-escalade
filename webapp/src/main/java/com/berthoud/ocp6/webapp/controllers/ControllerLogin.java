@@ -12,13 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import static com.berthoud.ocp6.business.Utils.firstLetterUpperCase;
 
 import java.util.List;
 
+import static com.berthoud.ocp6.business.Utils.firstLetterUpperCase;
 
 
-@SessionAttributes (value = {"user", "guidebooksForLoan",  "selectedGuidebook", "test"})
+@SessionAttributes(value = {"user", "guidebooksForLoan", "selectedGuidebook", "test"})
 @Controller
 public class ControllerLogin {
 
@@ -34,59 +34,62 @@ public class ControllerLogin {
     private static final Logger logger = LogManager.getLogger();
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String displayloginPage(@RequestParam (value = "afterLogin") String jspAfterLogin,
-                                   ModelMap model){
-        model.put("jspAfterLogin",jspAfterLogin );
+    public String displayloginPage(@RequestParam(value = "afterLogin") String jspAfterLogin,
+                                   ModelMap model) {
+        model.put("jspAfterLogin", jspAfterLogin);
         return "login";
     }
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String checkPassword(@RequestParam (value = "email") String inputEmail,
-                                @RequestParam (value = "password") String inputPassword,
-                                @RequestParam (value = "afterLogin") String jspAfterLogin,
+    public String checkPassword(@RequestParam(value = "email") String inputEmail,
+                                @RequestParam(value = "password") String inputPassword,
+                                @RequestParam(value = "afterLogin") String jspAfterLogin,
                                 ModelMap model) {
         String message;
         Member user = serviceLogin.findMemberByEmail(inputEmail);
 
-        if (user==null){
-            message="memberNotFound";
+        if (user == null) {
+            message = "memberNotFound";
             model.put("message", message);
-            model.put("jspAfterLogin",jspAfterLogin );
+            model.put("jspAfterLogin", jspAfterLogin);
             return "login";
         }
 
-        if (serviceLogin.checkPassword(inputPassword, user)){
-            model.put ("user", user);
+        if (serviceLogin.checkPassword(inputPassword, user)) {
+            model.put("user", user);
 
             logger.info("quitte checkPassword");
             logger.info(model);
             return jspAfterLogin;
 
-        }else {
-            message="wrongPassword";
+        } else {
+            message = "wrongPassword";
             model.put("message", message);
-            model.put("jspAfterLogin",jspAfterLogin );
+            model.put("jspAfterLogin", jspAfterLogin);
             return "login";
         }
-
 
 
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(ModelMap model, SessionStatus status){
+    public String logout(ModelMap model,
+                         SessionStatus status,
+                         @ModelAttribute(value = "message") String message) {
+
         status.setComplete();
         logger.info("quitte logout et retourne à l'index");
         logger.info(model);
-        return "index";
+        model.put("message", message);
+
+        return "redirect:/index.jsp";
     }
 
     @RequestMapping(value = "/login/espaceMembre", method = RequestMethod.GET)
     public String goToMemberArea(ModelMap model,
-                                 @SessionAttribute (value = "user") Member user,
-                                 @ModelAttribute (value = "message") String message)
-    {
+                                 @SessionAttribute(value = "user") Member user,
+                                 @ModelAttribute(value = "message") String message) {
         List<Guidebook> guidebooksForLoan = serviceGuidebook.getGuidebooksForLoan(user);
         model.put("guidebooksForLoan", guidebooksForLoan);
         model.put("message", message);
@@ -101,16 +104,16 @@ public class ControllerLogin {
 
     @RequestMapping(value = "/login/resetPassword", method = RequestMethod.POST)
     public String resetPassword(
-            @RequestParam (value = "password1") String password1,
-            @RequestParam (value = "password2") String password2,
+            @RequestParam(value = "password1") String password1,
+            @RequestParam(value = "password2") String password2,
             ModelMap model) {
 
-        if (password1.equals(password2)){
+        if (password1.equals(password2)) {
             model.put("message", "ok");
 
 //        method changePassword still to be written
 
-        } else{
+        } else {
             model.put("action", "resetPassword");
             model.put("message", "password2different");
         }
@@ -120,23 +123,22 @@ public class ControllerLogin {
 
 
     @RequestMapping(value = "/newMember", method = RequestMethod.GET)
-    public String displaysFormNewMember(@RequestParam (value = "afterLogin") String jspAfterLogin,
-                                        ModelMap model)
-    {
-        model.put("jspAfterLogin",jspAfterLogin );
+    public String displaysFormNewMember(@RequestParam(value = "afterLogin") String jspAfterLogin,
+                                        ModelMap model) {
+        model.put("jspAfterLogin", jspAfterLogin);
         return "newMember";
     }
 
     @RequestMapping(value = "/newMember", method = RequestMethod.POST)
-    public String createNewMemberAccount(@RequestParam (value = "afterLogin") String jspAfterLogin,
-                                         @RequestParam (value = "firstName") String firstName,
-                                         @RequestParam (value = "surname") String surname,
-                                         @RequestParam (value = "nickname") String nickname,
-                                         @RequestParam (value = "email") String email,
-                                         @RequestParam (value = "phone") String phone,
-                                         @RequestParam (value = "password") String password,
+    public String createNewMemberAccount(@RequestParam(value = "afterLogin") String jspAfterLogin,
+                                         @RequestParam(value = "firstName") String firstName,
+                                         @RequestParam(value = "surname") String surname,
+                                         @RequestParam(value = "nickname") String nickname,
+                                         @RequestParam(value = "email") String email,
+                                         @RequestParam(value = "phone") String phone,
+                                         @RequestParam(value = "password") String password,
                                          ModelMap model
-                                         ) {
+    ) {
 
         if (serviceMember.isEmailValid(email) && serviceMember.isNicknameValid(nickname)) {
             Member newMemberWithoutKey = new Member();
@@ -162,12 +164,12 @@ public class ControllerLogin {
             model.put("phone", phone);
             model.put("password", password);
 
-            if (!serviceMember.isEmailValid(email)){
-                email="";
+            if (!serviceMember.isEmailValid(email)) {
+                email = "";
                 model.put("email", email);
             }
-            if (!serviceMember.isNicknameValid(nickname)){
-                nickname="";
+            if (!serviceMember.isNicknameValid(nickname)) {
+                nickname = "";
                 model.put("nickname", nickname);
             }
 
@@ -177,8 +179,20 @@ public class ControllerLogin {
     }
 
 
+    @RequestMapping(value = "admin/delete/memberAccount", method = RequestMethod.POST)
+    public String deleteMemberAccount(@RequestParam(value = "userId") int userId,
+                                      @RequestParam(value = "deleteMemberAccount", required = false) boolean checkboxValue,
+                                      ModelMap model) {
 
+        if (checkboxValue) {
+            serviceMember.deleteMemberAccount(userId);
+            model.put("message", "memberAccountDeleted");
+            return ("redirect:/escalade/logout");
+        } else {
+            model.put("message", "checkboxNotChecked");
+            return ("redirect:/escalade/login/espaceMembre");
+        }
 
-
+    }
 
 }

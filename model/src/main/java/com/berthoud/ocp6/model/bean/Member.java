@@ -1,5 +1,6 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,12 +13,12 @@ public class Member {
     private String password;
     private String email;
     private String phone;
-    private Date dateMembership;
+    private LocalDate dateMembership;
 
     public Member() {
     }
 
-    public Member(int id, String firstName, String surname, String nickname, String password, String email, String phone, Date dateMembership) {
+    public Member(int id, String firstName, String surname, String nickname, String password, String email, String phone, LocalDate dateMembership) {
         this.id = id;
         this.firstName = firstName;
         this.surname = surname;
@@ -84,11 +85,11 @@ public class Member {
         this.phone = phone;
     }
 
-    public Date getDateMembership() {
+    public LocalDate getDateMembership() {
         return dateMembership;
     }
 
-    public void setDateMembership(Date dateMembership) {
+    public void setDateMembership(LocalDate dateMembership) {
         this.dateMembership = dateMembership;
     }
 

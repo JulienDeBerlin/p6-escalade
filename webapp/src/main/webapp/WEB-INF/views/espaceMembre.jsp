@@ -6,11 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><html>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>High</title>
     <link href="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/css/bootstrap.min.css"
           rel="stylesheet"/>
@@ -19,8 +20,13 @@
 <body>
 
 <style type="text/css">
-    body {padding-top: 70px;}
-    h1 {padding-top: 50px;}
+    body {
+        padding-top: 70px;
+    }
+
+    h1 {
+        padding-top: 50px;
+    }
 </style>
 
 
@@ -38,25 +44,28 @@
                 <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
                 <%--</li>--%>
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/redirect?anchor=lesSpots" >Les spots</a>
+                    <a class="nav-item nav-link"
+                       href="${pageContext.request.contextPath}/escalade/redirect?anchor=lesSpots">Les spots</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/redirect?anchor=lesTopos">Les topos</a>
+                    <a class="nav-item nav-link"
+                       href="${pageContext.request.contextPath}/escalade/redirect?anchor=lesTopos">Les topos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/redirect?anchor=Contribuez">Contribuez</a>
+                    <a class="nav-item nav-link"
+                       href="${pageContext.request.contextPath}/escalade/redirect?anchor=Contribuez">Contribuez</a>
                 </li>
 
-                    <c:if test="${user.email=='superadmin@admin.fr'}">
-                        <li class="nav-item">
-                            <a class="nav-item nav-link"
-                               href="${pageContext.request.contextPath}/escalade/redirect?anchor=Moderation">Moderation</a>
-                        </li>
-                    </c:if>
+                <c:if test="${user.email=='superadmin@admin.fr'}">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/redirect?anchor=Moderation">Moderation</a>
+                    </li>
+                </c:if>
 
             </ul>
 
-            <ul class="navbar-nav" >
+            <ul class="navbar-nav">
                 <c:if test="${empty user}">
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -69,10 +78,11 @@
                         <p>Bienvenue ${user.nickname}</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link active" >Espace Membre</a>
+                        <a class="nav-item nav-link active">Espace Membre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se déconnecter</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se
+                            déconnecter</a>
                     </li>
                 </c:if>
             </ul>
@@ -82,140 +92,171 @@
     </nav>
 
 
-<h1>ESPACE MEMBRE</h1>
-
-    <h2>Coordonnées</h2>
-<ul>
-    <li>Prénom: ${user.firstName} (non public)</li>
-    <li>Nom: ${user.surname} (non public)</li>
-    <li>Pseudo: ${user.nickname} </li>
-    <li>Email: ${user.email}</li>
-    <li>Télephone: ${user.phone}</li>
-    <li>Membre depuis: ${user.dateMembership}</li>
-</ul>
-
-<c:if test="${message!='password2different' && message!='ok'}">
-<a href="${pageContext.request.contextPath}/escalade/login/resetPassword"> Changer le mot de passe</a>
-</c:if>
-
-<c:if test="${message=='password2different'}">
-    <p style="color: red">Erreur de saisie, les mots de passe ne sont pas identiques!</p>
-</c:if>
-
-<c:if test="${message=='ok'}">
-    <p style="color: green">Le mot de passe a bien été changé. </p>
-</c:if>
-
-
-<c:if test="${action=='resetPassword'}">
-
+    <h1>ESPACE MEMBRE</h1>
 
     <br/>
 
-    <form method="post" action="${pageContext.request.contextPath}/escalade/login/resetPassword">
+    <div>
+        <h2>Coordonnées</h2>
 
-        <div class="form-group" >
-            <label for="password1">Choisissez un mot de passe</label>
-            <input type="password" name="password1" class="form-control" id="password1" placeholder="monadresse@exemple.fr">
-        </div>
+        <p>
+            <span> ${user.firstName} ${user.surname}</span> <br/>
+            <span> Membre depuis ${user.dateMembership}</span> <br/>
+            <span> Pseudo: ${user.nickname} </span> <br/>
+            <span> Email: ${user.email} / Télephone: ${user.phone}</span>
 
-        <div class="form-group">
-            <label for="password2">Saisissez à nouveau le mot de passe</label>
-            <input type="password" name="password2" class="form-control" id="password2">
-        </div>
+        </p>
 
-        <button type="submit" class="btn btn-primary">Changer le mot de passe</button>
-    </form>
+        <p>
+        <p>
+            <a href="${pageContext.request.contextPath}/escalade/login/resetPassword">
+                <img src="${pageContext.request.contextPath}/resources/img/lock.png" title="Changer le mot de passe">
+            </a>
+        </p>
+        <c:if test="${message=='password2different'}">
+            <p style="color: red">Erreur de saisie, les mots de passe ne sont pas identiques!</p>
+        </c:if>
 
-</c:if>
-
-    <h4>Supprimer mon compte </h4>
-
-    <form method="post" action="${pageContext.request.contextPath}/escalade//admin/delete/memberAccount">
-
-        <div class="form-check">
-            <input type="checkbox" name="deleteMemberAccount" id="deleteMemberAccount"
-                   class="form-check-input">
-            <label class="form-check-label" for="deleteMemberAccount" style="color: red">
-                Je souhaite supprimer mon compte. Toutes les informations personnelles seront perdues.
-                </br> Attention, cette action est irréversible!
-            </label>
-            <input type="hidden" name="userId" value="${user.id}">
-
-        </div>
-
-        <button type="submit" class="btn btn-danger">Supprimer</button>
-
-    </form>
-
-    <h2 id="librairy">Ma bibliothèque </h2>
-    <h4>Liste des topos que je propose au prêt:</h4>
+        <c:if test="${message=='ok'}">
+            <p style="color: green">Le mot de passe a bien été changé. </p>
+        </c:if>
 
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Titre</th>
-            <th scope="col">Auteur</th>
-            <th scope="col">Date publication</th>
-            <th scope="col">Gérer les réservations</th>
-            <th scope="col">Supprimer de la bibliothèque</th>
+        <c:if test="${action=='resetPassword'}">
 
-        </tr>
-        </thead>
 
-        <tbody>
-        <c:forEach items="${guidebooksForLoan }" var="guidebook">
+            <br/>
+
+            <form method="post" action="${pageContext.request.contextPath}/escalade/login/resetPassword">
+
+                <div class="form-group">
+                    <label for="password1">Choisissez un nouveau mot de passe</label>
+                    <input type="password" name="password1" class="form-control" id="password1">
+                </div>
+
+                <div class="form-group">
+                    <label for="password2">Saisissez à nouveau le mot de passe</label>
+                    <input type="password" name="password2" class="form-control" id="password2">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Changer le mot de passe</button>
+            </form>
+
+        </c:if>
+
+        </p>
+
+    </div>
+
+
+    <div>
+        <h2 id="librairy" style="margin-top: 2em">Ma bibliothèque </h2>
+
+        <p>
+        <h4>Liste des topos que je propose au prêt:</h4>
+
+        <table class="table">
+            <thead>
             <tr>
-                <td>${ guidebook.name} (ISBN ${ guidebook.isbn13})</td>
-                <td>${ guidebook.firstnameAuthor} ${guidebook.surnameAuthor}</td>
-                <td>${ guidebook.yearPublication} </td>
-                <td><a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/goToBookings?guidebookId=${guidebook.id}"> <img src="${pageContext.request.contextPath}/resources/img/logoGestionResa.png"
-                                     alt="réservation"/> </a></td>
-                <td><a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/delete?guidebookId=${guidebook.id}"> <img src="${pageContext.request.contextPath}/resources/img/delete.png" alt="delete"/>
-                </a></td>
+                <th scope="col">Titre</th>
+                <th scope="col">Auteur</th>
+                <th scope="col">Date publication</th>
+                <th scope="col">Gérer les réservations</th>
+                <th scope="col">Supprimer de la bibliothèque</th>
+
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
 
-    <c:if test="${message == 'guidebookRemoved'}" >
-        <p style="color: green"> Le topo a bien été supprimé de la liste.</p>
-    </c:if>
+            <tbody>
+            <c:forEach items="${guidebooksForLoan }" var="guidebook">
+                <tr>
+                    <td>${ guidebook.name} (ISBN ${ guidebook.isbn13})</td>
+                    <td>${ guidebook.firstnameAuthor} ${guidebook.surnameAuthor}</td>
+                    <td>${ guidebook.yearPublication} </td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/goToBookings?guidebookId=${guidebook.id}">
+                            <img src="${pageContext.request.contextPath}/resources/img/logoGestionResa.png"
+                                 alt="réservation"/> </a></td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/delete?guidebookId=${guidebook.id}">
+                            <img src="${pageContext.request.contextPath}/resources/img/delete.png" alt="delete"/>
+                        </a></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
-    <h4>Ajouter un topo à la liste</h4>
+        <c:if test="${message == 'guidebookRemoved'}">
+            <p style="color: green"> Le topo a bien été supprimé de la liste.</p>
+        </c:if>
 
-    <c:if test="${message == 'guidebookAdded'}" >
-        <p style="color: green">Le topo a bien été ajouté à la liste.</p>
-    </c:if>
+        </p>
 
-    <c:if test="${message == 'notFound'}" >
-        <p style="color: red"> Ce topo n'est pas encore référencé. <a href="${pageContext.request.contextPath}/escalade/addcontent/guidebook">Vous pouvez le faire en cliquant ici.</a></p>
-    </c:if>
+        <p>
+        <h4>Ajouter un topo à la liste</h4>
 
-    <c:if test="${message == 'alreadyListed'}" >
-        <p style="color: green"> Le topo est déjà présent dans votre bibliothèque.</p>
-    </c:if>
+        <c:if test="${message == 'guidebookAdded'}">
+            <p style="color: green">Le topo a bien été ajouté à la liste.</p>
+        </c:if>
 
-    <form method="post" action="${pageContext.request.contextPath}/escalade/memberArea/librairy/isbn">
+        <c:if test="${message == 'notFound'}">
+            <p style="color: red"> Ce topo n'est pas encore référencé. <a
+                    href="${pageContext.request.contextPath}/escalade/addcontent/guidebook">Vous pouvez le faire en
+                cliquant
+                ici.</a></p>
+        </c:if>
 
-        <div class="form-group">
-            <label for="isbn13">Saisissez le numéro ISBN13 du topo</label>
-            <input type="text" name="isbn13" class="form-control" id="isbn13" aria-describedby="helpIsbn" pattern="\d{13}" required>
-            <small id="helpIsbn" class="form-text text-muted">Combinaison de 13 chiffres, sans tirets</small>
-        </div>
+        <c:if test="${message == 'alreadyListed'}">
+            <p style="color: green"> Le topo est déjà présent dans votre bibliothèque.</p>
+        </c:if>
 
-        <button type="submit" class="btn btn-primary">Proposer ce topo au prêt</button>
-    </form>
+        <form method="post" action="${pageContext.request.contextPath}/escalade/memberArea/librairy/isbn">
+
+            <div class="form-group">
+                <label for="isbn13">Saisissez le numéro ISBN13 du topo</label>
+                <input type="text" name="isbn13" class="form-control" id="isbn13" aria-describedby="helpIsbn"
+                       pattern="\d{13}" required>
+                <small id="helpIsbn" class="form-text text-muted">Combinaison de 13 chiffres, sans tirets</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </form>
+
+        </p>
+
+    </div>
+
+    <div>
+        <h2 style="margin-top: 2em">Supprimer mon compte </h2>
+
+        <form method="post" action="${pageContext.request.contextPath}/escalade/admin/delete/memberAccount">
+
+            <div class="form-check">
+                <input type="checkbox" name="deleteMemberAccount" id="deleteMemberAccount"
+                       class="form-check-input">
+                <label class="form-check-label" for="deleteMemberAccount">
+                    Je souhaite supprimer mon compte. Attention, cette action est irréversible!
+                </label>
+                <input type="hidden" name="userId" value="${user.id}">
+            </div>
+
+            <c:if test="${message == 'checkboxNotChecked'}">
+                <p style="color: red">Pour supprimer le compte, veuillez cocher la case. </p>
+            </c:if>
+
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+
+        </form>
+    </div>
 
 </div>
 
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
+<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
 
 <script>
-    $('.navbar-nav>li>a').on('click', function(){
+    $('.navbar-nav>li>a').on('click', function () {
         $('.navbar-collapse').collapse('hide');
     });
 </script>
