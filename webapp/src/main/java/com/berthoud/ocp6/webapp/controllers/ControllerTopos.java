@@ -54,7 +54,7 @@ public class ControllerTopos {
 
         } catch (Exception e){
             model.put("alertTopo", "notFound");
-            return "index";
+            return "redirect:/index.jsp";
         }
     }
 
