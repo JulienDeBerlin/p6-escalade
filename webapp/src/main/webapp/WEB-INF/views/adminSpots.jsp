@@ -115,56 +115,57 @@
 
         <br/>
 
-        <form>
-            <div class="form-row">
+        <%--<form>--%>
+        <%--<div class="form-row">--%>
 
-                <div class="col">
-                    <input type="text" class="form-control" value="nom du site" readonly disabled>
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" value="secteur" readonly disabled>
-                </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-primary" disabled>Modifier</button>
-                </div>
+        <%--<div class="form-group col-md-5">--%>
+        <%--<input type="text" class="form-control" value="nom du site" readonly disabled>--%>
+        <%--</div>--%>
+        <%--<div class="form-group col-md-4">--%>
+        <%--<input type="text" class="form-control" value="secteur" readonly disabled>--%>
+        <%--</div>--%>
+        <%--<div class="form-group col-md-1">--%>
+        <%--<button type="submit" class="btn btn-primary" disabled>Modifier</button>--%>
+        <%--</div>--%>
 
-                <div class="col">
-                    <button type="submit" class="btn btn-success" formaction="" disabled>Les voies</button>
-                </div>
+        <%--<div class="form-group col-md-1">--%>
+        <%--<button type="submit" class="btn btn-success" formaction="" disabled>Les voies</button>--%>
+        <%--</div>--%>
 
-                <div class="col">
-                    <button type="submit" class="btn btn-danger" formaction="" disabled>Supprimer</button>
-                </div>
+        <%--<div class="form-group col-md-1">--%>
+        <%--<button type="submit" class="btn btn-danger" formaction="" disabled>Supprimer</button>--%>
+        <%--</div>--%>
 
-            </div>
+        <%--</div>--%>
 
-        </form>
+        <%--</form>--%>
 
         <c:forEach items="${selectedLocations }" var="location">
             <c:forEach items="${location.spots }" var="spot">
                 <form method="post" action="${pageContext.request.contextPath}/escalade/admin/spots/update">
                     <div class="form-row">
-                        <div class="col">
+                        <div class="form-group col-md-6">
                             <input type="text" class="form-control" id="nameSpot" name="nameSpot"
-                                   value="${spot.nameSpot}">
-                            <input type="hidden" class="form-control" id="spotId" name="spotId" value="${spot.id}">
+                                   value="${spot.nameSpot}" required>
+                            <input type="hidden" class="form-control" id="spotId" name="spotId" value="${spot.id}"
+                                   aria-describedby="nameSpotHelp">
+                            <small id="nameSpotHelp" class="form-text text-muted">Nom du site</small>
                         </div>
-                        <div class="col">
+                        <div class="form-group col-md-6">
                             <input type="text" class="form-control" id="nameArea" name="nameArea"
                                    value="${spot.nameArea}">
+                            <small id="inputLocationHelp" class="form-text text-muted">Nom du secteur (facultatif)
+                            </small>
                         </div>
-                        <div class="col">
-                            <button type="submit" class="btn btn-primary">Modifier</button>
-                        </div>
+                    </div>
 
-                        <div class="col">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <button type="submit" class="btn btn-primary">Modifier</button>
                             <button type="submit" class="btn btn-success"
                                     formaction="${pageContext.request.contextPath}/escalade/admin/spots/accessRoute">Les
                                 voies
                             </button>
-                        </div>
-
-                        <div class="col">
                             <button type="submit" class="btn btn-danger"
                                     formaction="${pageContext.request.contextPath}/escalade/admin/spots/delete">
                                 Supprimer
@@ -192,73 +193,91 @@
 
         <br/>
 
-        <form>
-            <div class="form-row">
+        <%--<form>--%>
+        <%--<div class="form-row">--%>
 
-                <div class="col">
-                    <input type="text" class="form-control" value="nom de la voie" readonly disabled>
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" value="nb pitchs" readonly disabled>
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" value="index pitch" readonly disabled>
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" value="cotation" readonly disabled>
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control" value="voie équipée?" readonly disabled>
-                </div>
+        <%--<div class="col">--%>
+        <%--<input type="text" class="form-control" value="nom de la voie" readonly disabled>--%>
+        <%--</div>--%>
+        <%--<div class="col">--%>
+        <%--<input type="text" class="form-control" value="nb pitchs" readonly disabled>--%>
+        <%--</div>--%>
+        <%--<div class="col">--%>
+        <%--<input type="text" class="form-control" value="index pitch" readonly disabled>--%>
+        <%--</div>--%>
+        <%--<div class="col">--%>
+        <%--<input type="text" class="form-control" value="cotation" readonly disabled>--%>
+        <%--</div>--%>
+        <%--<div class="col">--%>
+        <%--<input type="text" class="form-control" value="voie équipée?" readonly disabled>--%>
+        <%--</div>--%>
 
-                <div class="col">
-                    <button type="submit" class="btn btn-primary" disabled>Modifier</button>
-                </div>
+        <%--<div class="col">--%>
+        <%--<button type="submit" class="btn btn-primary" disabled>Modifier</button>--%>
+        <%--</div>--%>
 
-                <div class="col">
-                    <button type="submit" class="btn btn-danger" formaction="" disabled>Supprimer</button>
-                </div>
+        <%--<div class="col">--%>
+        <%--<button type="submit" class="btn btn-danger" formaction="" disabled>Supprimer</button>--%>
+        <%--</div>--%>
 
-            </div>
+        <%--</div>--%>
 
-        </form>
+        <%--</form>--%>
 
 
         <c:forEach items="${selectedSpot.routes }" var="route">
 
             <form method="post" action="${pageContext.request.contextPath}/escalade/admin/routes/update">
+
                 <div class="form-row">
 
-                    <div class="col">
-                        <input type="text" class="form-control" value="${route.name}" name="name">
+                    <div class="form-group col-md-4">
+                        <input type="text" class="form-control" value="${route.name}" name="name"
+                               aria-describedby="nameHelp" required>
+                        <small id="nameHelp" class="form-text text-muted">Nom de la voie</small>
                         <input type="hidden" class="form-control" value="${route.id}" name="id">
-
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" value="${route.nbPitch}" name="nbPitch">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" value="${route.indexPitch}" name="indexPitch">
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" value="${route.rating}" name="rating">
-                    </div>
-                    <div class="col">
-                        <input type="checkbox" class="form-control"
-                               <c:if test="${route.bolted==true}">checked</c:if> name="bolted">
                     </div>
 
-                    <div class="col">
+                    <div class="form-group col-md-2">
+                        <input type="text" class="form-control" value="${route.nbPitch}" name="nbPitch"
+                               aria-describedby="nbPitchHelp" required>
+                        <small id="nbPitchHelp" class="form-text text-muted">Nb de longueurs</small>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <input type="text" class="form-control" value="${route.indexPitch}" name="indexPitch"
+                               aria-describedby="indexPitch" required>
+                        <small id="indexPitch" class="form-text text-muted">Index de cette longueur</small>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <input type="text" class="form-control" value="${route.rating}" name="rating"
+                               aria-describedby="rating" required>
+                        <small id="rating" class="form-text text-muted">Cotation</small>
+                    </div>
+
+                    <div class="form-group col-md-2">
+
+                        <input class="form-control" type="checkbox"
+                               <c:if test="${route.bolted==true}">checked</c:if> name="bolted"
+                               aria-describedby="boltedHelp">
+                        <small id="boltedHelp" class="form-text text-muted text-center">Voie équipée</small>
+
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
                         <button type="submit" class="btn btn-primary">Modifier</button>
-                    </div>
-
-                    <div class="col">
                         <button type="submit" class="btn btn-danger"
-                                formaction="${pageContext.request.contextPath}/escalade/admin/routes/delete">Supprimer
+                                formaction="${pageContext.request.contextPath}/escalade/admin/routes/delete">
+                            Supprimer
                         </button>
                     </div>
 
                 </div>
+
             </form>
 
         </c:forEach>
@@ -276,9 +295,15 @@
 <script>
 
     $(function () {
-        $("#locationInput").autocomplete({
+        $("#locationInput, #locationInputForTopo").autocomplete({
             minLength: 2,
-            source: '${pageContext.request.contextPath}/escalade/autocomplete/citiesForUpdateSpots'
+            source: '${pageContext.request.contextPath}/escalade/autocomplete/citiesForUpdateSpots',
+
+            change: function (event, ui) {
+                if (!ui.item) {
+                    this.value = '';
+                }
+            }
         });
     });
 
@@ -287,3 +312,6 @@
 
 </body>
 </html>
+
+
+

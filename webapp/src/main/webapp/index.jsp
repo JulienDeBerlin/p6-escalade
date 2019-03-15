@@ -102,8 +102,14 @@
         </div>
     </div>
 
-    <c:if test="${message == 'memberAccountDeleted'}">
+    <c:if test="${message=='memberAccountDeleted'}">
         <p style="color: green">Le compte a bien été supprimé </p>
+    </c:if>
+
+
+    <c:if test="${alertTopo=='notFound'}">
+        <p style="color: red"> Attention, la localisation doit être choisie parmi la liste des propositions
+        </p>
     </c:if>
 
 
@@ -201,7 +207,7 @@
         <div class="form-group">
             <label for="locationInputForTopo">Localisation</label>
             <input type="text" name="locationInputForTopo" class="form-control" id="locationInputForTopo"
-                   placeholder="Région, département, commune" aria-describedby="inputLocationForTopoHelp">
+                   placeholder="Région, département, commune" aria-describedby="inputLocationForTopoHelp" required>
             <small id="inputLocationForTopoHelp" class="form-text text-muted">Les lieux pour lesquels des topos sont
                 répertoriés s'affichent automatiquement lors de la saisie du texte. Choisissez parmi les propositions.
             </small>
@@ -222,7 +228,7 @@
     <h1 id="Contribuez">CONTRIBUEZ!</h1>
 
     <div>
-        <a href="${pageContext.request.contextPath}/escalade/addcontent/spot/checkCityInput">Référencez un spot ou une
+        <a href="${pageContext.request.contextPath}/escalade/addcontent/spot">Référencez un spot ou une
             voie</a>
     </div>
 
