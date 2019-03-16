@@ -8,6 +8,7 @@
 
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <html>
 
 <head>
@@ -101,7 +102,7 @@
 
         <p>
             <span> ${user.firstName} ${user.surname}</span> <br/>
-            <span> Membre depuis ${user.dateMembership}</span> <br/>
+            <span> Membre depuis le <javatime:format value="${user.dateMembership}" pattern="dd/MM/uuuu"/></span> <br/>
             <span> Pseudo: ${user.nickname} </span> <br/>
             <span> Email: ${user.email} / Télephone: ${user.phone}</span>
 

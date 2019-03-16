@@ -35,47 +35,52 @@ public class ServiceLocation {
 
 
     /**
-     * Finds the full location details (incl. matching spots and routes) based on location
+     * Based on the location input entered by the user, this method retrieves a list of location objects (incl. matching spots and routes...)
+     * Exemple: User enters "Auvergne" ---> this method finds all locations of the DB set in Auvergne
+     * with all matching spots, routes, guidebooks and commnents
+     *
      * @param locationInput the location input entered by the user
-     * @return
+     * @return a list of location objects
      */
     public List<Location> detailledInfoBasedOnLocation(String locationInput) {
 
-       return locationDao.findLocationsByTableColomn(locationInput);
+        return locationDao.findLocationsByTableColomn(locationInput);
     }
 
 
     /**
-     * This method takes a list of Locations as parameter and for each location and each spot remove the routes that don't
-     * fulfil the research criteria (level too low or route not bolted) and remove the locations with no remaining spot after filtering.
-     * @param locations
-     * @param onlyBoltedRoutes
+     * This method takes a list of Locations as parameter and for each spot of each location remove the routes that don't
+     * fulfil the research criteria (level too low or route not bolted).
+     *
+     * @param locations        the list of locations to be filtered
+     * @param onlyBoltedRoutes is true if unbolted routes should be removed
      * @param levelMin
      * @param levelMax
      * @return
      */
-    public List<Location> filterLocations(List<Location> locations, boolean onlyBoltedRoutes, int levelMin, int levelMax){
+    public List<Location> filterLocations(List<Location> locations, boolean onlyBoltedRoutes, int levelMin, int levelMax) {
 
         for (Iterator<Location> i = locations.iterator(); i.hasNext(); ) {
             Location location = i.next();
             List<Spot> spots = location.getSpots();
             serviceSpot.filterSpots(spots, onlyBoltedRoutes, levelMin, levelMax);
-            if (spots.isEmpty()){
-                i.remove();
-            }
+//            if (spots.isEmpty()) {
+////                i.remove();
+////            }
         }
-     return locations;
+        return locations;
     }
 
 
     /**
-     * This method take as input a list of Location objects and remove from the list the objects whose matching Guidebook object do not
+     * This method takes as input a list of Location objects and remove from the list the Guidebook objects that do not
      * fulfil the "loanRequired" - requirement
-     * @param locations the input list of locations
+     *
+     * @param locations    the input list of locations
      * @param loanRequired is true if user want to display only guidebook available for loan
-     * @return
+     * @return the filtered list of locations
      */
-    public List<Location> filterLocationsForTopos (List<Location> locations, boolean loanRequired) {
+    public List<Location> filterLocationsForTopos(List<Location> locations, boolean loanRequired) {
         for (Iterator<Location> i = locations.iterator(); i.hasNext(); ) {
             Location location = i.next();
             List<Spot> spots = location.getSpots();
@@ -90,9 +95,10 @@ public class ServiceLocation {
     }
 
     /**
-     * This method takes a list of Location objects and return a list of matching Guidebook objects without any duplicates.
-     * @param locations
-     * @return
+     * This method takes a list of Location objects and returns a list of matching Guidebook objects without any duplicates.
+     *
+     * @param locations the list of locations (cities)
+     * @return a list of all guidebooks, without any duplicates, linked to the different spots set in the locations.
      */
     public List<Guidebook> editGuidebookListWithoutDuplicate(List<Location> locations) {
 
@@ -118,7 +124,7 @@ public class ServiceLocation {
         return guidebooksWithoutRepetition;
     }
 
-    public List<String>  getLocationProposals( String query){
+    public List<String> getLocationProposals(String query) {
         return locationDao.getLocationProposals(query);
     }
 
@@ -128,10 +134,10 @@ public class ServiceLocation {
     }
 
 
-    public Location findLocationByNameAndDepartement( String cityName, String departementName){
+    public Location findLocationByNameAndDepartement(String cityName, String departementName) {
         try {
             return locationDao.findLocationByNameAndDepartement(cityName, departementName);
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
@@ -140,11 +146,11 @@ public class ServiceLocation {
     @Transactional
     public Spot insertLocationAndItsSpot(Location location, Spot spot) {
 
-            Location newLocationWithKey = locationDao.insertLocation(location);
-            spot.setLocation(newLocationWithKey);
-            Spot newSpotwithKey = spotDao.insertSpot(spot);
-            newSpotwithKey.setLocation(newLocationWithKey);
-            return newSpotwithKey;
+        Location newLocationWithKey = locationDao.insertLocation(location);
+        spot.setLocation(newLocationWithKey);
+        Spot newSpotwithKey = spotDao.insertSpot(spot);
+        newSpotwithKey.setLocation(newLocationWithKey);
+        return newSpotwithKey;
 
     }
 
@@ -153,7 +159,7 @@ public class ServiceLocation {
      * This method takes as input a list of Locations objects and removes all spots
      * Each location may have many spots, each spot may have many guidebooks. The methods removes from the spot objects included in the location objects all the spots already included in the spots matching with the Guidebook object.
      *
-     * @param listLocations a list of locations to be cleaned
+     * @param listLocations     a list of locations to be cleaned
      * @param selectedGuidebook the spots that are already in this guidebook object will be removed from the list of locations
      * @return the list of location after removal of the already linked spots.
      */

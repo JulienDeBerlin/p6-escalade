@@ -52,10 +52,8 @@ public class ServiceMemberLibrairy {
         return false;
     }
 
-    public MemberLibrairy getMemberLibrairy(Guidebook selectedGuidebook, Member user){
-        MemberLibrairy privateLibrairy;
-        privateLibrairy = memberLibrairy.findMemberLibrairy(selectedGuidebook, user);
-        return  privateLibrairy;
+    public MemberLibrairy getMemberLibrairyItem(Guidebook selectedGuidebook, Member user) {
+        return memberLibrairy.findMemberLibrairy(selectedGuidebook, user);
     }
 
 

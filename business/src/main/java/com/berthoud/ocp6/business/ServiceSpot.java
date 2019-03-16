@@ -27,6 +27,7 @@ public class ServiceSpot {
      * @param spots            the list of spots to be filtered
      * @param onlyBoltedRoutes true if filter is activated
      * @param levelMin         only routes with level = or > to levelMin remain
+     * @param levelMax         only routes with level = or < to levelMin remain
      * @return
      */
     public List<Spot> filterSpots(List<Spot> spots, boolean onlyBoltedRoutes, int levelMin, int levelMax) {

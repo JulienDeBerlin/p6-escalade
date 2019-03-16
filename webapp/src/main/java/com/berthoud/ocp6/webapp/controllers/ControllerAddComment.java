@@ -109,7 +109,7 @@ public class ControllerAddComment {
      */
     @RequestMapping(value = "/addComment", method = RequestMethod.POST)
     public String addComment(@RequestParam(value = "comment") String comment,
-                             @RequestParam(value = "redirect") String redirect,
+                             @ModelAttribute(value = "redirect") String redirect,
                              @SessionAttribute(value = "user") Member user,
                              @SessionAttribute(value = "selectedSpot") Spot spotToBeCommented,
                              ModelMap model) {

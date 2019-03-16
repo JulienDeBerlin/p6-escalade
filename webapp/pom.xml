@@ -95,6 +95,10 @@
             <artifactId>jackson-core</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>net.sargue</groupId>
+            <artifactId>java-time-jsptags</artifactId>
+        </dependency>
 
     </dependencies>
 

@@ -7,6 +7,7 @@
 --%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <html>
 <head>
     <meta charset="UTF-8"/>
@@ -178,7 +179,7 @@
                         </div>
 
                         <p class="font-weight-normal"><c:out value=" ${comment.member.nickname}"/>,
-                            <c:out value="${comment.date}"/></p>
+                            <javatime:format value="${comment.date}" pattern="dd/MM/uuuu"/></p>
 
                     </c:forEach>
                 </div>

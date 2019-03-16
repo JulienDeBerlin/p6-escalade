@@ -1,7 +1,10 @@
 package com.berthoud.ocp6.consumer.impl.jdbc;
 
 import com.berthoud.ocp6.consumer.contract.dao.MemberLibrairyDao;
-import com.berthoud.ocp6.model.bean.*;
+import com.berthoud.ocp6.model.bean.Booking;
+import com.berthoud.ocp6.model.bean.Guidebook;
+import com.berthoud.ocp6.model.bean.Member;
+import com.berthoud.ocp6.model.bean.MemberLibrairy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,7 +18,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -49,7 +51,7 @@ public class MemberLibrairyDaoImpl extends AbstractDaoImpl implements MemberLibr
 
         String sqlRequest = "select * from member_librairy where member_librairy.guidebook_id = ?";
         List<MemberLibrairy> memberLibrairies = jdbcTemplate.query
-                (sqlRequest, new Object[]{guidebookId},  new MemberLibrairyMapper());
+                (sqlRequest, new Object[]{guidebookId}, new MemberLibrairyMapper());
 
         for (Iterator<MemberLibrairy> i = memberLibrairies.iterator(); i.hasNext(); ) {
             MemberLibrairy privateGuidebook = i.next();
@@ -77,11 +79,11 @@ public class MemberLibrairyDaoImpl extends AbstractDaoImpl implements MemberLibr
 
         String sqlQuery = "insert into member_librairy(member_id, guidebook_id) values (:member_id, :guidebook_id)";
 
-        SqlParameterSource sqlParameterSource= new MapSqlParameterSource();
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         ((MapSqlParameterSource) sqlParameterSource).addValue("member_id", user.getId());
         ((MapSqlParameterSource) sqlParameterSource).addValue("guidebook_id", selectedGuidebook.getId());
 
-        jdbcTemplate.update(sqlQuery,sqlParameterSource, holder, new String[]{"id"});
+        jdbcTemplate.update(sqlQuery, sqlParameterSource, holder, new String[]{"id"});
 
         int id = holder.getKey().intValue();
         ml.setId(id);
@@ -130,15 +132,15 @@ public class MemberLibrairyDaoImpl extends AbstractDaoImpl implements MemberLibr
         String sqlQuery = "insert into booking(booked_by, date_from, date_until, email, phone, member_librairy_id) " +
                 "values (:booked_by, :date_from, :date_until, :email, :phone, :member_librairy_id)";
 
-        SqlParameterSource sqlParameterSource= new MapSqlParameterSource();
-        ((MapSqlParameterSource) sqlParameterSource).addValue("booked_by", booking.getBookedBy());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("date_from", booking.getDateFrom());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("date_until", booking.getDateUntil());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("email", booking.getEmail());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("phone", booking.getPhone());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("member_librairy_id", privateGuidebook.getId());
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("booked_by", booking.getBookedBy());
+        sqlParameterSource.addValue("date_from", booking.getDateFrom());
+        sqlParameterSource.addValue("date_until", booking.getDateUntil());
+        sqlParameterSource.addValue("email", booking.getEmail());
+        sqlParameterSource.addValue("phone", booking.getPhone());
+        sqlParameterSource.addValue("member_librairy_id", privateGuidebook.getId());
 
-        jdbcTemplate.update(sqlQuery,sqlParameterSource, holder, new String[]{"id"});
+        jdbcTemplate.update(sqlQuery, sqlParameterSource, holder, new String[]{"id"});
 
         int id = holder.getKey().intValue();
         booking.setId(id);

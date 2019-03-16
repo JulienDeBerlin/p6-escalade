@@ -17,8 +17,6 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
-import static com.berthoud.ocp6.business.Utils.convertStringIntoDate;
-
 
 @SessionAttributes(value = {"user", "guidebooksForLoan", "privateGuidebook",
         "selectedGuidebook", "selectedBooking"})
@@ -33,6 +31,14 @@ public class ControllerLibrairy {
     private static final Logger logger = LogManager.getLogger();
 
 
+    /**
+     * This controller-method is used when the user wants to propose a guidebook for loan. It checks if the user is logged in,
+     * if yes, the request is redirected to {@link ControllerLogin#goToMemberArea(ModelMap, Member, String)}
+     * if no, the login-page is displayed
+     *
+     * @param model //
+     * @return login.jsp or redirection to member area
+     */
     @RequestMapping(value = "memberArea/librairy", method = RequestMethod.GET)
     public String goToLibrairy(ModelMap model) {
         if (model.containsAttribute("user")) {
@@ -45,6 +51,15 @@ public class ControllerLibrairy {
         }
     }
 
+    /**
+     * This controller-method is used when a member registers a guidebook for loan.
+     *
+     * @param isbn13            the isbn number of the guidebook
+     * @param user              the member
+     * @param guidebooksForLoan the list of the guidebooks the user already offer for loan
+     * @param model             //
+     * @return redirection to {@link ControllerLogin#goToMemberArea(ModelMap, Member, String)}
+     */
     @RequestMapping(value = "memberArea/librairy/isbn", method = RequestMethod.POST)
     public String addBookToLibrairy(@RequestParam(value = "isbn13") String isbn13,
                                     @SessionAttribute(value = "user") Member user,
@@ -67,7 +82,15 @@ public class ControllerLibrairy {
         return "redirect:/escalade/login/espaceMembre";
     }
 
-
+    /**
+     * This controller-method removes a guidebook from the user's librairy when the user doesn't want to offer it for loan
+     * anymore.
+     *
+     * @param IdGuidebookToBeDeleted the id of the guidebook that should be removed from the librairy
+     * @param user                   the member
+     * @param model                  //
+     * @return redirection to {@link ControllerLogin#goToMemberArea(ModelMap, Member, String)}
+     */
     @RequestMapping(value = "memberArea/librairy/delete", method = RequestMethod.GET)
     public String removeGuidebookFromLibrairy(@RequestParam(value = "guidebookId") int IdGuidebookToBeDeleted,
                                               @SessionAttribute(value = "user") Member user,
@@ -81,7 +104,14 @@ public class ControllerLibrairy {
 
     }
 
-
+    /**
+     * With this controller-method the user has access to the details of the bookings for a selected guidebook of his librairy.
+     *
+     * @param GuidebookId the id of the selected guidebook
+     * @param user        the member
+     * @param model       //
+     * @return guidebookBookings.jsp, the page dedicated to the booking management
+     */
     @RequestMapping(value = "memberArea/librairy/goToBookings", method = RequestMethod.GET)
     public String goToBookings(@RequestParam(value = "guidebookId") int GuidebookId,
                                @SessionAttribute(value = "user") Member user,
@@ -93,7 +123,7 @@ public class ControllerLibrairy {
 
         logger.debug("entering getMemberLibrairy ");
 
-        MemberLibrairy privateGuidebook = serviceMemberLibrairy.getMemberLibrairy(selectedGuidebook, user);
+        MemberLibrairy privateGuidebook = serviceMemberLibrairy.getMemberLibrairyItem(selectedGuidebook, user);
         Collections.sort(privateGuidebook.getBookings());
 
         model.put("privateGuidebook", privateGuidebook);
@@ -105,6 +135,20 @@ public class ControllerLibrairy {
     }
 
 
+    /**
+     * With this controller-method the user can register a new booking for a selected guidebook of his librairy.
+     *
+     * @param booked_by        name of the member who want to borrow the guidebook
+     * @param date_from        beginning of the loan
+     * @param date_until       end of the loan
+     * @param email            //
+     * @param phone            //
+     * @param user             the member who makes the loan
+     * @param privateGuidebook the guidebook the member offer for loan
+     * @param model            //
+     * @return guidebookBookings.jsp, the page dedicated to the booking management if the booking is not possible. In case of success,
+     * the request is redirected to {@link #goToBookings(int, Member, ModelMap)}, in order for the updated booking to be displayed.
+     */
     @RequestMapping(value = "memberArea/librairy/bookings")
     public String insertBooking(@ModelAttribute(value = "booked_by") String booked_by,
                                 @ModelAttribute(value = "date_from") String date_from,
@@ -115,8 +159,8 @@ public class ControllerLibrairy {
                                 @SessionAttribute(value = "privateGuidebook") MemberLibrairy privateGuidebook,
                                 ModelMap model) {
 
-        LocalDate dateFrom = convertStringIntoDate(date_from);
-        LocalDate dateUntil = convertStringIntoDate(date_until);
+        LocalDate dateFrom = LocalDate.parse(date_from);
+        LocalDate dateUntil = LocalDate.parse(date_until);
         boolean periodAvailable = serviceMemberLibrairy.periodBookingRequestAvailable(privateGuidebook, dateFrom, dateUntil);
 
         if (dateUntil.isBefore(dateFrom)) {
@@ -147,6 +191,17 @@ public class ControllerLibrairy {
         }
     }
 
+
+    /**
+     * With the controller-method a member can delete a booking for one of his guidebooks. It first removes the booking
+     * from the private guidebook and then reload the updated private guidebook
+     *
+     * @param bookingId         the id of the booking to be deleted
+     * @param selectedGuidebook //
+     * @param user              //
+     * @param model             //
+     * @return guidebookBookings.jsp, the page dedicated to the booking management
+     */
     @RequestMapping(value = "memberArea/librairy/bookings/delete", method = RequestMethod.GET)
     public String removeBookingFromList(@RequestParam(value = "bookingId") int bookingId,
                                         @ModelAttribute(value = "selectedGuidebook") Guidebook selectedGuidebook,
@@ -156,14 +211,21 @@ public class ControllerLibrairy {
         serviceMemberLibrairy.removeBooking(bookingId);
         model.put("message", "bookingRemoved");
 
-        MemberLibrairy privateGuidebook = serviceMemberLibrairy.getMemberLibrairy(selectedGuidebook, user);
+        MemberLibrairy privateGuidebook = serviceMemberLibrairy.getMemberLibrairyItem(selectedGuidebook, user);
         model.put("privateGuidebook", privateGuidebook);
+
 
         return "guidebookBookings";
 
     }
 
-
+    /**
+     * This controller-method is responsible for the update of one guidebook-booking.
+     *
+     * @param bookingId the id of the booking to be updated
+     * @param model     //
+     * @return
+     */
     @RequestMapping(value = "memberArea/librairy/bookings/update", method = RequestMethod.GET)
     public String updateBooking(@RequestParam(value = "bookingId") int bookingId,
                                 ModelMap model) {
@@ -183,8 +245,25 @@ public class ControllerLibrairy {
 
     }
 
+    /**
+     * This controller-method is used for updating a booking. The period of loan of the updated booking is checked for validity.
+     * If it's ok, the booking is updated and the request redirected to {@link #goToBookings(int, Member, ModelMap)},
+     * in order for the updated booking to be displayed
+     *
+     * @param booked_by        name of the member who want to borrow the guidebook
+     * @param date_from        beginning of the loan
+     * @param date_until       end of the loan
+     * @param email            //
+     * @param phone            //
+     * @param selectedBooking  the booking to be updated
+     * @param privateGuidebook the guidebook the member offer for loan
+     * @param model            //
+     * @return If success: redirected to {@link #goToBookings(int, Member, ModelMap)}, in order for the
+     * updated booking to be displayed, otherwise display of an alert on the same guidebookBookings.jsp
+     */
 
     @RequestMapping(value = "memberArea/librairy/bookings/update", method = RequestMethod.POST)
+
     public String updateBooking(@RequestParam(value = "booked_by") String booked_by,
                                 @RequestParam(value = "date_from") String date_from,
                                 @RequestParam(value = "date_until") String date_until,
@@ -194,8 +273,8 @@ public class ControllerLibrairy {
                                 @SessionAttribute(value = "privateGuidebook") MemberLibrairy privateGuidebook,
                                 ModelMap model) {
 
-        LocalDate dateFrom = convertStringIntoDate(date_from);
-        LocalDate dateUntil = convertStringIntoDate(date_until);
+        LocalDate dateFrom = LocalDate.parse(date_from);
+        LocalDate dateUntil = LocalDate.parse(date_until);
         boolean periodAvailable = serviceMemberLibrairy.periodBookingUpdateAvailable(privateGuidebook, selectedBooking, dateFrom, dateUntil);
 
         if (dateUntil.isBefore(dateFrom)) {
@@ -219,9 +298,17 @@ public class ControllerLibrairy {
     }
 
 
+    /**
+     * This controller-method takes as input the id of the guidebook the user would like to book.
+     * It displays a booking form for this guidebook.
+     *
+     * @param guidebookId the id of the guidebook the user would like to book
+     * @param model       //
+     * @return
+     */
     @RequestMapping(value = "memberArea/librairy/loan", method = RequestMethod.GET)
-    public String goToLoan(@RequestParam(value = "guidebookId") int guidebookId,
-                           ModelMap model) {
+    public String displayBookingForm(@RequestParam(value = "guidebookId") int guidebookId,
+                                     ModelMap model) {
         if (model.containsAttribute("user")) {
             Guidebook selectedGuidebook = serviceGuidebook.findGuidebookbyId(guidebookId);
             model.put("selectedGuidebook", selectedGuidebook);
@@ -234,31 +321,34 @@ public class ControllerLibrairy {
         }
     }
 
-    @RequestMapping(value = "memberArea/librairy/loan/checkDates", method = RequestMethod.POST)
-    public String goToLoan(@RequestParam(value = "date_from") String date_from,
-                           @RequestParam(value = "date_until") String date_until,
-                           @SessionAttribute(value = "selectedGuidebook") Guidebook selectedGuidebook,
-                           ModelMap model) {
 
-        LocalDate dateFrom = convertStringIntoDate(date_from);
-        LocalDate dateUntil = convertStringIntoDate(date_until);
+    /**
+     * @param date_from
+     * @param date_until
+     * @param selectedGuidebook
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "memberArea/librairy/loan/checkDates", method = RequestMethod.POST)
+    public String displayBookingForm(@RequestParam(value = "date_from") String date_from,
+                                     @RequestParam(value = "date_until") String date_until,
+                                     @SessionAttribute(value = "selectedGuidebook") Guidebook selectedGuidebook,
+                                     ModelMap model) {
+
+        LocalDate dateFrom = LocalDate.parse(date_from);
+        LocalDate dateUntil = LocalDate.parse(date_until);
 
         if (dateUntil.isBefore(dateFrom)) {
             model.put("message", "dateWrong");
             return "loan";
-        } else{
-           List<MemberLibrairy> privateGuidebooks =
-                   serviceMemberLibrairy.findAvailablePrivateGuidebooks(selectedGuidebook,dateFrom, dateUntil);
+        } else {
+            List<MemberLibrairy> privateGuidebooks =
+                    serviceMemberLibrairy.findAvailablePrivateGuidebooks(selectedGuidebook, dateFrom, dateUntil);
             model.put("privateGuidebooks", privateGuidebooks);
         }
 
         return "loan";
     }
-
-
-
-
-
 }
 
 

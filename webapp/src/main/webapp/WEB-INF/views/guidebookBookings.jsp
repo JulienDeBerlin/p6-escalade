@@ -8,6 +8,8 @@
 
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
+
 <html>
 
 <head>
@@ -121,10 +123,12 @@
         <c:forEach items="${privateGuidebook.bookings }" var="booking">
             <tr>
                 <td>${ booking.bookedBy}</td>
-                <td>${ booking.dateFrom}</td>
-                <td>${ booking.dateUntil} </td>
+                <td><javatime:format value="${booking.dateFrom}" pattern="dd/MM/uuuu"/></td>
+                <td><javatime:format value="${booking.dateUntil}" pattern="dd/MM/uuuu"/></td>
                 <td>${ booking.email} </td>
                 <td>${ booking.phone} </td>
+
+
                 <td>
                     <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/bookings/update?bookingId=${booking.id}">
                         <img src="${pageContext.request.contextPath}/resources/img/modify.png" alt="modifier"/> </a>
