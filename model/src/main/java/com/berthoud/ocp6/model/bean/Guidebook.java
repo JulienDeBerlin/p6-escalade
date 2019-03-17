@@ -13,13 +13,12 @@ public class Guidebook implements Comparable<Guidebook> {
     private String summary;
     private String firstnameAuthor;
     private String SurnameAuthor;
-    private List<GuidebookComment> commentsGuidebook;
     private List <MemberLibrairy> memberLibrairies;
     private List <Spot> spots;
 
 
     public Guidebook(int id, String isbn13, String name, short yearPublication, String publisher, String language, String summary,
-                     String firstnameAuthor, String surnameAuthor, List<GuidebookComment> commentsGuidebook,
+                     String firstnameAuthor, String surnameAuthor,
                      List<MemberLibrairy> memberLibrairies, List<Spot> spots) {
         this.id = id;
         this.isbn13 = isbn13;
@@ -30,7 +29,6 @@ public class Guidebook implements Comparable<Guidebook> {
         this.summary = summary;
         this.firstnameAuthor = firstnameAuthor;
         SurnameAuthor = surnameAuthor;
-        this.commentsGuidebook = commentsGuidebook;
         this.memberLibrairies = memberLibrairies;
         this.spots = spots;
     }
@@ -110,14 +108,6 @@ public class Guidebook implements Comparable<Guidebook> {
         SurnameAuthor = surnameAuthor;
     }
 
-    public List<GuidebookComment> getCommentsGuidebook() {
-        return commentsGuidebook;
-    }
-
-    public void setCommentsGuidebook(List<GuidebookComment> commentsGuidebook) {
-        this.commentsGuidebook = commentsGuidebook;
-    }
-
     public List<MemberLibrairy> getMemberLibrairies() {
         return memberLibrairies;
     }
@@ -146,7 +136,6 @@ public class Guidebook implements Comparable<Guidebook> {
                 ", summary='" + summary + '\'' +
                 ", firstnameAuthor='" + firstnameAuthor + '\'' +
                 ", SurnameAuthor='" + SurnameAuthor + '\'' +
-                ", commentsGuidebook=" + commentsGuidebook +
                 ", memberLibrairies=" + memberLibrairies +
                 ", spots=" + spots +
                 '}';
@@ -166,16 +155,15 @@ public class Guidebook implements Comparable<Guidebook> {
         boolean b7 = Objects.equals(summary, guidebook.summary);
         boolean b8 = Objects.equals(firstnameAuthor, guidebook.firstnameAuthor);
         boolean b9 = Objects.equals(SurnameAuthor, guidebook.SurnameAuthor);
-        boolean b10 = Objects.equals(commentsGuidebook, guidebook.commentsGuidebook);
         boolean b11 = Objects.equals(memberLibrairies, guidebook.memberLibrairies);
         boolean b12 = Objects.equals(spots, guidebook.spots);
 
-        return b1 && b2 && b3 && b4 && b5 && b6 && b7 && b7 && b8 && b9 && b10 && b11 && b12;
+        return b1 && b2 && b3 && b4 && b5 && b6 && b7 && b7 && b8 && b9 && b11 && b12;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, isbn13, name, yearPublication, publisher, language, summary, firstnameAuthor, SurnameAuthor, commentsGuidebook, memberLibrairies, spots);
+        return Objects.hash(id, isbn13, name, yearPublication, publisher, language, summary, firstnameAuthor, SurnameAuthor, memberLibrairies, spots);
     }
 
 

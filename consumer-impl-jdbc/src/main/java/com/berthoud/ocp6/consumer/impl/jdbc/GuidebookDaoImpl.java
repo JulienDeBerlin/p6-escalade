@@ -30,9 +30,6 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
     private static final Logger logger = LogManager.getLogger();
 
     @Autowired
-    GuidebookCommentDaoImpl commentGuidebookDao;
-
-    @Autowired
     MemberLibrairyDaoImpl memberLibrairyDao;
 
     @Autowired
@@ -62,7 +59,6 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
 
         for (Iterator<Guidebook> i = resultGuidebooks.iterator(); i.hasNext(); ) {
             Guidebook guidebook = i.next();
-            guidebook.setCommentsGuidebook(commentGuidebookDao.findCommentGuidebooksByGuidebookId(guidebook.getId()));
             guidebook.setMemberLibrairies(memberLibrairyDao.findMemberLibrairyByGuidebookId(guidebook.getId()));
         }
 
