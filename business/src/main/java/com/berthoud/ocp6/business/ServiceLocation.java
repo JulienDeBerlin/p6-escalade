@@ -5,6 +5,7 @@ import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
 import com.berthoud.ocp6.model.bean.Guidebook;
 import com.berthoud.ocp6.model.bean.Location;
 import com.berthoud.ocp6.model.bean.Spot;
+import com.berthoud.ocp6.model.bean.SpotComment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,6 +31,9 @@ public class ServiceLocation {
 
     @Autowired
     private ServiceGuidebook serviceGuidebook;
+
+    @Autowired
+    private ServiceSpotComment serviceSpotComment;
 
 
     private static final Logger logger = LogManager.getLogger();
@@ -204,6 +209,45 @@ public class ServiceLocation {
         }
         return true;
     }
+
+
+    /**
+     * This method sorts the locations contained in a list by ascending order of the zip codes.
+     * It further calls the sorting methods, that sort the object-attributes contained in a Location:
+     * - spots are sorted by alphabetical order of the nameSpot
+     * - comments are sorted by date, from the latest till the oldest
+     * - routes are sorted by ascending order of their name
+     *
+     * @param locations the list of locations to be sorted
+     * @return the sorted list of location
+     */
+    public List<Location> sortLocations(List<Location> locations) {
+
+        if (locations != null) {
+            Collections.sort(locations);
+
+            for (Iterator<Location> i = locations.iterator(); i.hasNext(); ) {
+                Location location = i.next();
+                List<Spot> spots = location.getSpots();
+
+                serviceSpot.sortSpots(spots);
+
+                for (Iterator<Spot> j = spots.iterator(); j.hasNext(); ) {
+                    Spot spot = j.next();
+                    List<SpotComment> spotComments = spot.getComments();
+
+                    serviceSpotComment.sortSpotComments(spotComments);
+
+                }
+            }
+        }
+        return locations;
+    }
+
+
+
+
+
 
 
 }

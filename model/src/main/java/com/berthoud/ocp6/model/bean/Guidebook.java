@@ -3,7 +3,7 @@ package com.berthoud.ocp6.model.bean;
 import java.util.List;
 import java.util.Objects;
 
-public class Guidebook {
+public class Guidebook implements Comparable<Guidebook> {
     private int id;
     private String isbn13;
     private String name;
@@ -176,5 +176,12 @@ public class Guidebook {
     @Override
     public int hashCode() {
         return Objects.hash(id, isbn13, name, yearPublication, publisher, language, summary, firstnameAuthor, SurnameAuthor, commentsGuidebook, memberLibrairies, spots);
+    }
+
+
+    @Override
+    public int compareTo(Guidebook o) {
+        int comp = this.getName().compareTo(o.getName());
+        return comp > 0 ? 1 : comp < 0 ? -1 : 0;
     }
 }

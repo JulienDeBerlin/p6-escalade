@@ -109,6 +109,8 @@ public class ControllerLogin {
                                  @SessionAttribute(value = "user") Member user,
                                  @ModelAttribute(value = "message") String message) {
         List<Guidebook> guidebooksForLoan = serviceGuidebook.getGuidebooksForLoan(user);
+        serviceGuidebook.sortGuidebooks(guidebooksForLoan);
+
         model.put("guidebooksForLoan", guidebooksForLoan);
         model.put("message", message);
         return "espaceMembre";

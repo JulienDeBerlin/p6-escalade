@@ -3,7 +3,7 @@ package com.berthoud.ocp6.model.bean;
 import java.util.Objects;
 import java.time.LocalDate;
 
-public class SpotComment {
+public class SpotComment implements Comparable<SpotComment> {
 
     private int id;
     private String comment;
@@ -89,5 +89,10 @@ public class SpotComment {
     @Override
     public int hashCode() {
         return Objects.hash(id, comment, date, spot, member);
+    }
+
+    @Override
+    public int compareTo(SpotComment o) {
+        return this.getDate().isAfter(o.getDate()) ? -1 : this.getDate().isBefore(o.getDate()) ? 1 : 0;
     }
 }

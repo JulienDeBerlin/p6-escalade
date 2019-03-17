@@ -124,7 +124,7 @@ public class ControllerLibrairy {
         logger.debug("entering getMemberLibrairy ");
 
         MemberLibrairy privateGuidebook = serviceMemberLibrairy.getMemberLibrairyItem(selectedGuidebook, user);
-        Collections.sort(privateGuidebook.getBookings());
+        serviceMemberLibrairy.sortBooking(privateGuidebook.getBookings());
 
         model.put("privateGuidebook", privateGuidebook);
         model.put("selectedGuidebook", selectedGuidebook);

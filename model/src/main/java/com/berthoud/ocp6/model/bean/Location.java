@@ -3,7 +3,7 @@ package com.berthoud.ocp6.model.bean;
 import java.util.List;
 import java.util.Objects;
 
-public class Location {
+public class Location implements Comparable<Location> {
 
     private int id;
     private String region;
@@ -113,6 +113,13 @@ public class Location {
     @Override
     public int hashCode() {
         return Objects.hash(id, region, departementName, departementId, cityName, zipCode, spots);
+    }
+
+
+    @Override
+    public int compareTo(Location o) {
+        int comp = this.getZipCode().compareTo(o.getZipCode());
+        return comp > 0 ? 1 : comp < 0 ? -1 : 0;
     }
 }
 

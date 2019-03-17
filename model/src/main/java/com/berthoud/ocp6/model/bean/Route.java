@@ -2,7 +2,7 @@ package com.berthoud.ocp6.model.bean;
 
 import java.util.Objects;
 
-public class Route {
+public class Route implements Comparable<Route> {
 
     private int id;
     private String name;
@@ -113,5 +113,12 @@ public class Route {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, nbPitch, indexPitch, rating, bolted, spot);
+    }
+
+
+    @Override
+    public int compareTo(Route o) {
+        int comp = this.getName().compareTo(o.getName());
+        return comp > 0 ? 1 : comp < 0 ? -1 : 0;
     }
 }

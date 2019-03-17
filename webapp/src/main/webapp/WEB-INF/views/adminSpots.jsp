@@ -96,8 +96,12 @@
         <div class="form-group">
             <label for="locationInput">Indiquez la commune dans laquelle se trouve le site à supprimer/modifier</label>
             <input type="text" name="locationInput" class="form-control" id="locationInput"
+                   aria-describedby="locationInputHelp"
                    placeholder="Chamonix-Mont-Blanc..." required>
             <input type="hidden" name="step" value="step1">
+            <small id="locationInputHelp" class="form-text text-muted">Les lieux disponibles s'affichent automatiquement
+                lors de la saisie du texte. Choisissez parmi les propositions.
+            </small>
         </div>
 
         <button type="submit" class="btn btn-primary">Valider la localisation</button>

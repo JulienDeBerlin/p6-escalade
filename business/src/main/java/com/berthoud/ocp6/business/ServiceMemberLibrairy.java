@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -116,6 +117,19 @@ public class ServiceMemberLibrairy {
             }
         }
         return listPrivateGuidebooks;
+    }
+
+    /**
+     * This method sort the bookings contained in a list by ascending order of the date of the beginning of the booking.
+     *
+     * @param bookings the list to be sorted
+     * @return the sorted list
+     */
+    public List<Booking> sortBooking(List<Booking> bookings) {
+        if (bookings != null) {
+            Collections.sort(bookings);
+        }
+        return bookings;
     }
 
 

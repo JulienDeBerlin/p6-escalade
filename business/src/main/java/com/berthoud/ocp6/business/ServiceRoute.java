@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
+
 
 @Component
 public class ServiceRoute {
@@ -38,6 +41,19 @@ public class ServiceRoute {
     @Transactional
     public void deleteRoute(int routeId) {
         routeDao.deleteRoute(routeId);
+    }
+
+    /**
+     * This method sorts the routes contained in a list by ascending order of their name.
+     *
+     * @param routes
+     * @return
+     */
+    public List<Route> sortRoutes(List<Route> routes) {
+        if (routes != null) {
+            Collections.sort(routes);
+        }
+        return routes;
     }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -103,6 +104,19 @@ public class ServiceGuidebook {
     @Transactional
     public void deleteGuidebook(Guidebook selectedGuidebook) {
         guidebookDao.deleteGuidebook(selectedGuidebook);
+    }
+
+    /**
+     * This method sort the guidebooks contained in a list by ascending order of their name.
+     *
+     * @param guidebooks the list to be sorted
+     * @return the sorted list
+     */
+    public List<Guidebook> sortGuidebooks(List<Guidebook> guidebooks) {
+        if (guidebooks != null) {
+            Collections.sort(guidebooks);
+        }
+        return guidebooks;
     }
 }
 

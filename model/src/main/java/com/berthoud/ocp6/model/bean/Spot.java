@@ -3,7 +3,7 @@ package com.berthoud.ocp6.model.bean;
 import java.util.List;
 import java.util.Objects;
 
-public class Spot {
+public class Spot implements Comparable<Spot> {
 
     private int id;
     private String nameSpot;
@@ -112,5 +112,22 @@ public class Spot {
     @Override
     public int hashCode() {
         return Objects.hash(id, nameSpot, nameArea, location, routes, guidebooks, comments);
+    }
+
+
+    @Override
+    public int compareTo(Spot o) {
+        int comp = this.getNameSpot().compareTo(o.getNameSpot());
+
+        if (o.getNameArea() == null) {
+            o.setNameArea("1");
+        }
+
+        if (this.getNameArea() == null) {
+            this.setNameArea("1");
+        }
+
+        int comp2 = this.getNameArea().compareTo(o.getNameArea());
+        return comp > 0 ? 1 : comp < 0 ? -1 : comp2 > 0 ? 1 : comp2 < 0 ? -1 : 0;
     }
 }

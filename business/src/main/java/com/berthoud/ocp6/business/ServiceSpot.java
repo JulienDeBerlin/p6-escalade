@@ -3,10 +3,12 @@ package com.berthoud.ocp6.business;
 import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
 import com.berthoud.ocp6.model.bean.Route;
 import com.berthoud.ocp6.model.bean.Spot;
+import com.berthoud.ocp6.model.bean.SpotComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,6 +20,9 @@ public class ServiceSpot {
 
     @Autowired
     SpotDao spotDao;
+
+    @Autowired
+    ServiceSpotComment serviceSpotComment;
 
 
     /**
@@ -53,6 +58,7 @@ public class ServiceSpot {
 
     /**
      * The method returns a full Spot object based on its id
+     *
      * @param spotId
      * @return
      */
@@ -81,6 +87,30 @@ public class ServiceSpot {
 
     public List<Spot> findSpotsBasedOnGuidebookId(int guidebookId) {
         return spotDao.findSpotsBasedOnGuidebookId(guidebookId);
+    }
+
+
+    /**
+     * This method sorts the spots contained in a list by ascending order of the nameSpots.
+     * It further calls the sorting methods that sort the object-attributes contained in a Location:
+     * - comments are sorted by date, from the latest till the oldest
+     * - routes are sorted by ascending order of their name
+     *
+     * @param spots the list to be sorted
+     * @return the sorted list
+     */
+    public List<Spot> sortSpots(List<Spot> spots) {
+
+        if (spots != null) {
+            Collections.sort(spots);
+
+            for (Iterator<Spot> j = spots.iterator(); j.hasNext(); ) {
+                Spot spot = j.next();
+                serviceSpotComment.sortSpotComments(spot.getComments());
+                serviceRoute.sortRoutes(spot.getRoutes());
+            }
+        }
+        return spots;
     }
 
 

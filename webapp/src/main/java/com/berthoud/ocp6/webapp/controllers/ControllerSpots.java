@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -97,12 +98,13 @@ public class ControllerSpots {
         resultLocations = serviceLocation.filterLocations(resultLocations, onlySpotsWithBoltedRoutes, parseInt(ratingMin), parseInt(ratingMax));
         logger.info("after call method filterLocations");
 
+        serviceLocation.sortLocations(resultLocations);
+
         model.put("resultLocations", resultLocations);
         model.put("idSpotToBeCommented", idSpotToBeCommented);
         model.put("locationInput", locationInput);
         model.put("alert", "ok");
         return "spots";
-
     }
 
 

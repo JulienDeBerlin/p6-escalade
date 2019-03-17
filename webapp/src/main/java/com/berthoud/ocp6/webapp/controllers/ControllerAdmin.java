@@ -194,6 +194,8 @@ public class ControllerAdmin {
 
         try {
             List<Location> selectedLocations = serviceLocation.detailledInfoBasedOnLocation(locationInput);
+            serviceLocation.sortLocations(selectedLocations);
+
             model.put("step", step);
             model.put("locationInput", locationInput);
             model.put("selectedLocations", selectedLocations);
@@ -243,6 +245,8 @@ public class ControllerAdmin {
                               ModelMap model) {
 
         Spot selectedSpot = serviceSpot.findSpotBasedOnId(spotId);
+        serviceRoute.sortRoutes(selectedSpot.getRoutes());
+
         model.put("selectedSpot", selectedSpot);
         model.put("step", "step3");
 
@@ -271,6 +275,8 @@ public class ControllerAdmin {
         serviceRoute.updateRoute(routeUpdated);
 
         selectedSpot = serviceSpot.findSpotBasedOnId(selectedSpot.getId());
+        serviceRoute.sortRoutes(selectedSpot.getRoutes());
+
         model.put("selectedSpot", selectedSpot);
         model.put("step", "step3");
 
@@ -285,6 +291,8 @@ public class ControllerAdmin {
 
         serviceRoute.deleteRoute(id);
         selectedSpot = serviceSpot.findSpotBasedOnId(selectedSpot.getId());
+        serviceRoute.sortRoutes(selectedSpot.getRoutes());
+
         model.put("selectedSpot", selectedSpot);
         model.put("step", "step3");
 

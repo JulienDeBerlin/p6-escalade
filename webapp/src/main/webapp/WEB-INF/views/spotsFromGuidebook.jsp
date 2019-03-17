@@ -159,15 +159,14 @@
                                  alt="delete" title="Supprimer le commentaire"/></a>
                     </c:if>
 
-                    <span class="font-italic">
+                    <small class="text-muted"><c:out value=" ${comment.member.nickname}"/>,
+                        <javatime:format value="${comment.date}" pattern="dd/MM/uuuu"/></small>
+
+                    <p class="font-italic">
                             <c:out value="\"${comment.comment}\""/>
-                        </span>
+                    </p>
 
                 </div>
-
-                <p class="font-weight-normal"><c:out value=" ${comment.member.nickname}"/>,
-                    <javatime:format value="${comment.date}" pattern="dd/MM/uuuu"/></p>
-
             </c:forEach>
         </div>
 
