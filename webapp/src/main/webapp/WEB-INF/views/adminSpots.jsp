@@ -150,17 +150,29 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <input type="text" class="form-control" id="nameSpot" name="nameSpot"
-                                   value="${spot.nameSpot}" required>
-                            <input type="hidden" class="form-control" id="spotId" name="spotId" value="${spot.id}"
-                                   aria-describedby="nameSpotHelp">
+                                   value="${spot.nameSpot}" aria-describedby="nameSpotHelp" required>
                             <small id="nameSpotHelp" class="form-text text-muted">Nom du site</small>
+                            <input type="hidden" class="form-control" id="spotId" name="spotId" value="${spot.id}">
                         </div>
                         <div class="form-group col-md-6">
                             <input type="text" class="form-control" id="nameArea" name="nameArea"
+                                   aria-describedby="nameAreaHelp"
                                    value="${spot.nameArea}">
-                            <small id="inputLocationHelp" class="form-text text-muted">Nom du secteur (facultatif)
+                            <small id="nameAreaHelp" class="form-text text-muted">Nom du secteur (facultatif)
                             </small>
                         </div>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-12">
+                                <%--<input type="text" class="form-control" id="spotAccess" name="spotAccess" aria-describedby="accessHelp"--%>
+                                <%--value="${spot.access}">--%>
+                            <textarea class="form-control" name="spotAccess"
+                                      aria-describedby="accessHelp">${spot.access} </textarea>
+                            <small id="accessHelp" class="form-text text-muted">Accès au site</small>
+                        </div>
+
                     </div>
 
                     <div class="form-row">

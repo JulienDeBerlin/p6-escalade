@@ -114,6 +114,7 @@ public class ControllerAddContent {
     @RequestMapping(value = "addcontent/addNewSpot", method = RequestMethod.POST)
     public String addNewSpot(@RequestParam(value = "nameSpot") String nameSpot,
                              @RequestParam(value = "nameArea") String nameArea,
+                             @RequestParam(value = "spotAccess") String access,
                              @RequestParam(value = "comment") String comment,
                              @SessionAttribute(value = "selectedLocation") Location selectedLocation,
                              @SessionAttribute(value = "selectedLocationToBeStored") boolean selectedLocationToBeStored,
@@ -123,6 +124,7 @@ public class ControllerAddContent {
         Spot newSpotWithoutKey = new Spot();
         newSpotWithoutKey.setNameSpot(nameSpot);
         newSpotWithoutKey.setNameArea(nameArea);
+        newSpotWithoutKey.setAccess(access);
         Spot newSpotWithKey;
 
         if (!selectedLocationToBeStored) {

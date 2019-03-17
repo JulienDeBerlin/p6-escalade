@@ -105,6 +105,8 @@
             <span> <strong> <c:out value="site: ${spot.nameSpot}"/>
                     <c:if test="${ spot.nameArea != null}"><c:out value="/ secteur: ${spot.nameArea}"/>
                     </c:if></strong> </span>
+
+            <p> ${spot.access}</p>
         </div>
 
 

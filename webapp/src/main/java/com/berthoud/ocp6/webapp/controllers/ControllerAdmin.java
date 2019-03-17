@@ -211,12 +211,14 @@ public class ControllerAdmin {
     public String updateSpot(@RequestParam(value = "spotId") int spotId,
                              @RequestParam(value = "nameSpot") String nameSpot,
                              @RequestParam(value = "nameArea") String nameArea,
+                             @RequestParam(value = "spotAccess") String spotAccess,
                              ModelMap model) {
 
         Spot spotUpdated = new Spot();
         spotUpdated.setId(spotId);
         spotUpdated.setNameSpot(nameSpot);
         spotUpdated.setNameArea(nameArea);
+        spotUpdated.setAccess(spotAccess);
         serviceSpot.updateSpot(spotUpdated);
 
         model.put("step", "step2");

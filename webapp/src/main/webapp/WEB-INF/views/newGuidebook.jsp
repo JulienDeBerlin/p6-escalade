@@ -302,12 +302,21 @@
 
 
 <script>
-    $(function() {
-        $( "#locationSpotsForGuidebook" ).autocomplete({
+
+    $(function () {
+        $("#locationInput, #locationInputForTopo").autocomplete({
             minLength: 2,
-            source: '${pageContext.request.contextPath}/escalade/get_location_list' ,
+            source: '${pageContext.request.contextPath}/escalade/get_location_list',
+
+            change: function (event, ui) {
+                if (!ui.item) {
+                    this.value = '';
+                }
+            }
+
         });
     });
+
 
 </script>
 

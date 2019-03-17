@@ -109,7 +109,8 @@
 
         <div class="form-group">
             <label for="codePostal">Code postal</label>
-            <input type="text" name="codePostal" class="form-control" id="codePostal" aria-describedby="codePostalHelp">
+            <input type="text" name="codePostal" class="form-control" id="codePostal" aria-describedby="codePostalHelp"
+                   required>
             <small id="codePostalHelp" class="form-text text-muted">Le code postal s'affiche automatiquement.
                 Dans le cas de communes disposant de plusieurs codes postaux, il peut être nécessaire de le corriger.
             </small>
@@ -136,13 +137,19 @@
         <form method="post" action="${pageContext.request.contextPath}/escalade/addcontent/addNewSpot">
             <div class="form-group">
                 <label for="nameSpot">Nom du site</label>
-                <input type="text" name="nameSpot" class="form-control" id="nameSpot">
+                <input type="text" name="nameSpot" class="form-control" id="nameSpot" required>
             </div>
 
             <div class="form-group">
                 <label for="nameArea">Nom du secteur (facultatif)</label>
                 <input type="text" name="nameArea" class="form-control" id="nameArea">
             </div>
+
+            <div class="form-group">
+                <label for="nameArea">Accès au site</label>
+                <textarea class="form-control" name="spotAccess" required></textarea>
+            </div>
+
 
             <div class="form-group">
                 <label for="comment">Commentaire:</label>
@@ -226,23 +233,22 @@
 
             <div class="form-group">
                 <label for="newRoute">Nom de la voie:</label>
-                <input type="text" name="name" class="form-control" id="newRoute">
+                <input type="text" name="name" class="form-control" id="newRoute" required>
             </div>
 
             <div class="form-group">
                 <label for="newRoute">Nombre de longueurs: </label>
-                <input type="number" name="nbPitch" class="form-control" id="nbPitch">
+                <input type="number" name="nbPitch" class="form-control" id="nbPitch" required>
             </div>
 
             <div class="form-group">
-                <label for="indexPitch">Si plusieurs longueurs, indiquez la position de la longueur actuellement
-                    référencée:</label>
-                <input type="number" name="indexPitch" class="form-control" id="indexPitch">
+                <label for="indexPitch">Indiquez l'index de la longueur actuellement référencée:</label>
+                <input type="number" name="indexPitch" class="form-control" id="indexPitch" required>
             </div>
 
             <div class="form-group">
                 <label for="rating">Cotation:</label>
-                <input type="text" name="rating" class="form-control" id="rating">
+                <input type="text" name="rating" class="form-control" id="rating" required>
             </div>
 
             <div class="form-group">
