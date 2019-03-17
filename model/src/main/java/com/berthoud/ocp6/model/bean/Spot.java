@@ -8,15 +8,17 @@ public class Spot implements Comparable<Spot> {
     private int id;
     private String nameSpot;
     private String nameArea;
+    private String access;
     private Location location;
     private List<Route> routes;
     private List<Guidebook> guidebooks;
     private List<SpotComment> comments;
 
-    public Spot(int id, String nameSpot, String nameArea, Location location, List<Route> routes, List<Guidebook> guidebooks, List<SpotComment> comments) {
+    public Spot(int id, String nameSpot, String nameArea, String access, Location location, List<Route> routes, List<Guidebook> guidebooks, List<SpotComment> comments) {
         this.id = id;
         this.nameSpot = nameSpot;
         this.nameArea = nameArea;
+        this.access = access;
         this.location = location;
         this.routes = routes;
         this.guidebooks = guidebooks;
@@ -82,12 +84,21 @@ public class Spot implements Comparable<Spot> {
         this.comments = comments;
     }
 
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
+    }
+
     @Override
     public String toString() {
         return "Spot{" +
                 "id=" + id +
                 ", nameSpot='" + nameSpot + '\'' +
                 ", nameArea='" + nameArea + '\'' +
+                ", access='" + access + '\'' +
                 ", location=" + location +
                 ", routes=" + routes +
                 ", guidebooks=" + guidebooks +
@@ -103,6 +114,7 @@ public class Spot implements Comparable<Spot> {
         return id == spot.id &&
                 Objects.equals(nameSpot, spot.nameSpot) &&
                 Objects.equals(nameArea, spot.nameArea) &&
+                Objects.equals(access, spot.access) &&
                 Objects.equals(location, spot.location) &&
                 Objects.equals(routes, spot.routes) &&
                 Objects.equals(guidebooks, spot.guidebooks) &&
@@ -111,9 +123,8 @@ public class Spot implements Comparable<Spot> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameSpot, nameArea, location, routes, guidebooks, comments);
+        return Objects.hash(id, nameSpot, nameArea, access, location, routes, guidebooks, comments);
     }
-
 
     @Override
     public int compareTo(Spot o) {
