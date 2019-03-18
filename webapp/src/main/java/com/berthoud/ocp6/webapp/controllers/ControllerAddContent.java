@@ -32,7 +32,7 @@ public class ControllerAddContent {
      * @param model //
      * @return newSpot.jsp, the view dedicated to the referencing of new spots and routes or login.jsp
      */
-    @RequestMapping(value = "addcontent/spot", method = RequestMethod.GET)
+    @RequestMapping(value = "/addcontent/spot", method = RequestMethod.GET)
     public String goToAddSpot(ModelMap model) {
         if (model.containsAttribute("user")) {
             return "newSpot";
@@ -64,7 +64,7 @@ public class ControllerAddContent {
      * @param model           //
      * @return newSpot.jsp, the view dedicated to the referencing of new spots and routes
      */
-    @RequestMapping(value = "addcontent/spot/checkCityInput", method = RequestMethod.POST)
+    @RequestMapping(value = "/addcontent/spot/checkCityInput", method = RequestMethod.POST)
     public String checkCityInput(@RequestParam(value = "cityNameInput") String cityName,
                                  @RequestParam(value = "departementName") String departementName,
                                  @RequestParam(value = "departementId") String departementId,
@@ -111,7 +111,7 @@ public class ControllerAddContent {
      * @param model                      //
      * @return newSpot.jsp, the view dedicated to the referencing of new spots and routes
      */
-    @RequestMapping(value = "addcontent/addNewSpot", method = RequestMethod.POST)
+    @RequestMapping(value = "/addcontent/addNewSpot", method = RequestMethod.POST)
     public String addNewSpot(@RequestParam(value = "nameSpot") String nameSpot,
                              @RequestParam(value = "nameArea") String nameArea,
                              @RequestParam(value = "spotAccess") String access,
@@ -160,7 +160,7 @@ public class ControllerAddContent {
      * @param model          //
      * @return
      */
-    @RequestMapping(value = "addcontent/formNewRoute", method = RequestMethod.POST)
+    @RequestMapping(value = "/addcontent/formNewRoute", method = RequestMethod.POST)
     public String displaysFormNewRoute(@RequestParam(value = "selectedSpot") int IdSelectedSpot,
                                        ModelMap model) {
 
@@ -184,7 +184,7 @@ public class ControllerAddContent {
      * @param model        //
      * @return
      */
-    @RequestMapping(value = "addcontent/newRoute", method = RequestMethod.POST)
+    @RequestMapping(value = "/addcontent/newRoute", method = RequestMethod.POST)
     public String displaysFormNewRoute(@RequestParam(value = "name") String nameRoute,
                                        @RequestParam(value = "nbPitch") byte nbPitch,
                                        @RequestParam(value = "indexPitch") byte indexPitch,

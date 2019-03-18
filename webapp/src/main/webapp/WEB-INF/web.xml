@@ -25,7 +25,6 @@
   </filter-mapping>
 
 
-
   <!--Le listener indique à tomcat de charger le contexte d'application Spring, selon...-->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

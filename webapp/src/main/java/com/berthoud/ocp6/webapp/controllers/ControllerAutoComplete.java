@@ -40,7 +40,7 @@ public class ControllerAutoComplete {
      * @param query this is the input text entered by the user in the autocomplete field
      * @return JSON with the locations matching with the query.
      */
-    @RequestMapping(value = "autocomplete/citiesForUpdateSpots", method = RequestMethod.GET)
+    @RequestMapping(value = "/autocomplete/citiesForUpdateSpots", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getCityProposalsForUpdateSpots(@RequestParam("term") String query) {
         List<String> locationProposals = serviceLocation.getCityProposalsForUpdateSpots(query);

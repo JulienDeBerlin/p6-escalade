@@ -39,7 +39,7 @@ public class ControllerLibrairy {
      * @param model //
      * @return login.jsp or redirection to member area
      */
-    @RequestMapping(value = "memberArea/librairy", method = RequestMethod.GET)
+    @RequestMapping(value = "/memberArea/librairy", method = RequestMethod.GET)
     public String goToLibrairy(ModelMap model) {
         if (model.containsAttribute("user")) {
             return "redirect:/escalade/login/espaceMembre";
@@ -60,7 +60,7 @@ public class ControllerLibrairy {
      * @param model             //
      * @return redirection to {@link ControllerLogin#goToMemberArea(ModelMap, Member, String)}
      */
-    @RequestMapping(value = "memberArea/librairy/isbn", method = RequestMethod.POST)
+    @RequestMapping(value = "/memberArea/librairy/isbn", method = RequestMethod.POST)
     public String addBookToLibrairy(@RequestParam(value = "isbn13") String isbn13,
                                     @SessionAttribute(value = "user") Member user,
                                     @SessionAttribute(value = "guidebooksForLoan") List<Guidebook> guidebooksForLoan,
@@ -91,7 +91,7 @@ public class ControllerLibrairy {
      * @param model                  //
      * @return redirection to {@link ControllerLogin#goToMemberArea(ModelMap, Member, String)}
      */
-    @RequestMapping(value = "memberArea/librairy/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/memberArea/librairy/delete", method = RequestMethod.GET)
     public String removeGuidebookFromLibrairy(@RequestParam(value = "guidebookId") int IdGuidebookToBeDeleted,
                                               @SessionAttribute(value = "user") Member user,
                                               ModelMap model) {
@@ -112,7 +112,7 @@ public class ControllerLibrairy {
      * @param model       //
      * @return guidebookBookings.jsp, the page dedicated to the booking management
      */
-    @RequestMapping(value = "memberArea/librairy/goToBookings", method = RequestMethod.GET)
+    @RequestMapping(value = "/memberArea/librairy/goToBookings", method = RequestMethod.GET)
     public String goToBookings(@RequestParam(value = "guidebookId") int GuidebookId,
                                @SessionAttribute(value = "user") Member user,
                                ModelMap model) {
@@ -149,7 +149,7 @@ public class ControllerLibrairy {
      * @return guidebookBookings.jsp, the page dedicated to the booking management if the booking is not possible. In case of success,
      * the request is redirected to {@link #goToBookings(int, Member, ModelMap)}, in order for the updated booking to be displayed.
      */
-    @RequestMapping(value = "memberArea/librairy/bookings")
+    @RequestMapping(value = "/memberArea/librairy/bookings")
     public String insertBooking(@ModelAttribute(value = "booked_by") String booked_by,
                                 @ModelAttribute(value = "date_from") String date_from,
                                 @ModelAttribute(value = "date_until") String date_until,
@@ -202,7 +202,7 @@ public class ControllerLibrairy {
      * @param model             //
      * @return guidebookBookings.jsp, the page dedicated to the booking management
      */
-    @RequestMapping(value = "memberArea/librairy/bookings/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/memberArea/librairy/bookings/delete", method = RequestMethod.GET)
     public String removeBookingFromList(@RequestParam(value = "bookingId") int bookingId,
                                         @ModelAttribute(value = "selectedGuidebook") Guidebook selectedGuidebook,
                                         @ModelAttribute(value = "user") Member user,
@@ -226,7 +226,7 @@ public class ControllerLibrairy {
      * @param model     //
      * @return
      */
-    @RequestMapping(value = "memberArea/librairy/bookings/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/memberArea/librairy/bookings/update", method = RequestMethod.GET)
     public String updateBooking(@RequestParam(value = "bookingId") int bookingId,
                                 ModelMap model) {
 
@@ -262,7 +262,7 @@ public class ControllerLibrairy {
      * updated booking to be displayed, otherwise display of an alert on the same guidebookBookings.jsp
      */
 
-    @RequestMapping(value = "memberArea/librairy/bookings/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/memberArea/librairy/bookings/update", method = RequestMethod.POST)
 
     public String updateBooking(@RequestParam(value = "booked_by") String booked_by,
                                 @RequestParam(value = "date_from") String date_from,
@@ -306,7 +306,7 @@ public class ControllerLibrairy {
      * @param model       //
      * @return
      */
-    @RequestMapping(value = "memberArea/librairy/loan", method = RequestMethod.GET)
+    @RequestMapping(value = "/memberArea/librairy/loan", method = RequestMethod.GET)
     public String displayBookingForm(@RequestParam(value = "guidebookId") int guidebookId,
                                      ModelMap model) {
         if (model.containsAttribute("user")) {
@@ -329,7 +329,7 @@ public class ControllerLibrairy {
      * @param model
      * @return
      */
-    @RequestMapping(value = "memberArea/librairy/loan/checkDates", method = RequestMethod.POST)
+    @RequestMapping(value = "/memberArea/librairy/loan/checkDates", method = RequestMethod.POST)
     public String displayBookingForm(@RequestParam(value = "date_from") String date_from,
                                      @RequestParam(value = "date_until") String date_until,
                                      @SessionAttribute(value = "selectedGuidebook") Guidebook selectedGuidebook,

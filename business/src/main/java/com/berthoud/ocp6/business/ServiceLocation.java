@@ -129,11 +129,25 @@ public class ServiceLocation {
         return guidebooksWithoutRepetition;
     }
 
+    /**
+     * This method retrieves from the DB a list of Locations whose attributes (region, departement_name,
+     * city_name or zip_code) contain the query.
+     * Is used for autocomplete fields.
+     *
+     * @param query the letter-combinaison entered by the user in the autocomplete field
+     * @return a list of Locations contained in the DB and matching with the query.
+     */
     public List<String> getLocationProposals(String query) {
         return locationDao.getLocationProposals(query);
     }
 
-
+    /**
+     * This method retrieves from the DB a list of Locations whose city_name or zip_code contains the query.
+     * Is used for autocomplete fields.
+     *
+     * @param query the letter-combinaison entered by the user in the autocomplete field
+     * @return a list of Locations contained in the DB and matching with the query.
+     */
     public List<String> getCityProposalsForUpdateSpots(String query) {
         return locationDao.getCityProposalsForUpdateSpots(query);
     }
@@ -148,6 +162,13 @@ public class ServiceLocation {
     }
 
 
+    /**
+     * This method insert in the DB one location and its spot.
+     *
+     * @param location //
+     * @param spot     //
+     * @return
+     */
     @Transactional
     public Spot insertLocationAndItsSpot(Location location, Spot spot) {
 
@@ -198,6 +219,12 @@ public class ServiceLocation {
     }
 
 
+    /**
+     * This method takes as input a list of Locations and check if a spot is containeed in one of the location object.
+     *
+     * @param listLocations the input list of locations
+     * @return true if none of the item of the list contains a spot, false otherwise.
+     */
     public boolean testIfNoSpot(List<Location> listLocations) {
 
         for (Iterator<Location> i = listLocations.iterator(); i.hasNext(); ) {
@@ -243,11 +270,6 @@ public class ServiceLocation {
         }
         return locations;
     }
-
-
-
-
-
 
 
 }

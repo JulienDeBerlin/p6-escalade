@@ -13,26 +13,38 @@ public class ServiceMember {
     MemberDao memberDao;
 
     @Transactional
-    public Member insertNewMember(Member member){
+    public Member insertNewMember(Member member) {
         return memberDao.insertNewMember(member);
-    }
-
-
-    public boolean isEmailValid(String email){
-        if (memberDao.findMemberByEmail(email)==null){
-            return true;
-        }else return false;
-    }
-
-    public boolean isNicknameValid(String nickname){
-        if (memberDao.findMemberbyNickname(nickname)==null){
-            return true;
-        }else return false;
     }
 
     @Transactional
     public void deleteMemberAccount(int memberId) {
         memberDao.deleteMemberAccount(memberId);
     }
+
+    /**
+     * This method checks in the DB if an email if available for member registration, meaning not already used by another member
+     *
+     * @param email the email to be checked
+     * @return true if the email is not used yet, false otherwise
+     */
+    public boolean isEmailAvailable(String email) {
+        if (memberDao.findMemberByEmail(email) == null) {
+            return true;
+        } else return false;
+    }
+
+    /**
+     * This method checks in the DB if a nickname if available for member registration, meaning not already used by another member
+     *
+     * @param nickname the nickname to be checked
+     * @return true if the nickname is not used yet, false otherwise
+     */
+    public boolean isNicknameAvailable(String nickname) {
+        if (memberDao.findMemberbyNickname(nickname) == null) {
+            return true;
+        } else return false;
+    }
+
 
 }

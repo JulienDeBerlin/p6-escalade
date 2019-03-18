@@ -144,7 +144,7 @@ public class ControllerAdmin {
     }
 
 
-    @RequestMapping(value = "admin/deleteComment", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/deleteComment", method = RequestMethod.GET)
     public String deleteComment(@RequestParam(value = "commentId") int commentId) {
 
         serviceSpotComment.deleteComment(commentId);
@@ -170,7 +170,7 @@ public class ControllerAdmin {
      * @param model         //
      * @return the request is then redirected to another controller-method in charge of displaying the adminSpots.jsp
      */
-    @RequestMapping(value = "admin/spots/locationInput", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/spots/locationInput", method = RequestMethod.POST)
     public String saveParamLocationInput(@RequestParam(value = "locationInput") String locationInput,
                                          ModelMap model) {
 
@@ -187,7 +187,7 @@ public class ControllerAdmin {
      * @param model         //
      * @return adminSpots.jsp
      */
-    @RequestMapping(value = "admin/spots/locationInput/displaySpot")
+    @RequestMapping(value = "/admin/spots/locationInput/displaySpot")
     public String displaySpots(@SessionAttribute(value = "locationInput") String locationInput,
                                @RequestParam(value = "step") String step,
                                ModelMap model) {
@@ -207,7 +207,7 @@ public class ControllerAdmin {
     }
 
 
-    @RequestMapping(value = "admin/spots/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/spots/update", method = RequestMethod.POST)
     public String updateSpot(@RequestParam(value = "spotId") int spotId,
                              @RequestParam(value = "nameSpot") String nameSpot,
                              @RequestParam(value = "nameArea") String nameArea,
@@ -227,7 +227,7 @@ public class ControllerAdmin {
     }
 
 
-    @RequestMapping(value = "admin/spots/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/spots/delete", method = RequestMethod.POST)
     public String deleteSpot(@RequestParam(value = "spotId") int spotId) {
 
         serviceSpot.deleteSpot(spotId);
@@ -242,7 +242,7 @@ public class ControllerAdmin {
      * @param model  //
      * @return the request is then redirected to another controller-method in charge of displaying the adminSpots.jsp
      */
-    @RequestMapping(value = "admin/spots/accessRoute", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/spots/accessRoute", method = RequestMethod.POST)
     public String accessRoute(@RequestParam(value = "spotId") int spotId,
                               ModelMap model) {
 
@@ -256,7 +256,7 @@ public class ControllerAdmin {
     }
 
 
-    @RequestMapping(value = "admin/routes/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/routes/update", method = RequestMethod.POST)
     public String updateRoute(@RequestParam(value = "name") String name,
                               @RequestParam(value = "id") int id,
                               @RequestParam(value = "nbPitch") byte nbPitch,
@@ -286,7 +286,7 @@ public class ControllerAdmin {
     }
 
 
-    @RequestMapping(value = "admin/routes/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/routes/delete", method = RequestMethod.POST)
     public String deleteRoute(@RequestParam(value = "id") int id,
                               @SessionAttribute(value = "selectedSpot") Spot selectedSpot,
                               ModelMap model) {

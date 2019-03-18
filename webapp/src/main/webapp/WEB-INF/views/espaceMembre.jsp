@@ -132,7 +132,8 @@
 
                 <div class="form-group">
                     <label for="password1">Choisissez un nouveau mot de passe</label>
-                    <input type="password" name="password1" class="form-control" id="password1">
+                    <input type="password" name="password1" class="form-control" id="password1" onfocus="this.value=''"
+                           autofocus>
                 </div>
 
                 <div class="form-group">

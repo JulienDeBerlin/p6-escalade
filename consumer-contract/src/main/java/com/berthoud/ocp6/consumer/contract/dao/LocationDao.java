@@ -12,7 +12,6 @@ public interface LocationDao {
 
     List<Location> findLocationsByTableColomn(String locationInput);
 
-
     List <String> getLocationProposals(String query);
 
     List<String> getCityProposalsForUpdateSpots(String query);

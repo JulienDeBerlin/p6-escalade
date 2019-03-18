@@ -13,5 +13,8 @@
         <module name="webapp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="consumer" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>

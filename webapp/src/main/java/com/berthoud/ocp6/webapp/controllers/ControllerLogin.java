@@ -160,7 +160,7 @@ public class ControllerLogin {
                                          ModelMap model
     ) {
 
-        if (serviceMember.isEmailValid(email) && serviceMember.isNicknameValid(nickname)) {
+        if (serviceMember.isEmailAvailable(email) && serviceMember.isNicknameAvailable(nickname)) {
             Member newMemberWithoutKey = new Member();
             newMemberWithoutKey.setFirstName(firstLetterUpperCase(firstName));
             newMemberWithoutKey.setSurname(firstLetterUpperCase(surname));
@@ -184,11 +184,11 @@ public class ControllerLogin {
             model.put("phone", phone);
             model.put("password", password);
 
-            if (!serviceMember.isEmailValid(email)) {
+            if (!serviceMember.isEmailAvailable(email)) {
                 email = "";
                 model.put("email", email);
             }
-            if (!serviceMember.isNicknameValid(nickname)) {
+            if (!serviceMember.isNicknameAvailable(nickname)) {
                 nickname = "";
                 model.put("nickname", nickname);
             }
@@ -199,7 +199,7 @@ public class ControllerLogin {
     }
 
 
-    @RequestMapping(value = "admin/delete/memberAccount", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/delete/memberAccount", method = RequestMethod.POST)
     public String deleteMemberAccount(@RequestParam(value = "userId") int userId,
                                       @RequestParam(value = "deleteMemberAccount", required = false) boolean checkboxValue,
                                       ModelMap model) {

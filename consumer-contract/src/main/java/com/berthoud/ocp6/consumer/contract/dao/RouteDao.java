@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface RouteDao {
     List<Route> findRoutesBasedOnSpot(int spotId);
+
     Route insertRoute(Route route);
 
     void updateRoute(Route route);

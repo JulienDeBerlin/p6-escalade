@@ -11,13 +11,19 @@ import java.util.List;
 public interface MemberLibrairyDao {
 
     List<MemberLibrairy> findMemberLibrairyByGuidebookId(int GuidebookId);
+
     MemberLibrairy insertGuidebook(Guidebook selectedGuidebook, Member user);
+
     void removeGuidebook(Guidebook selectedGuidebook, Member user);
+
     MemberLibrairy findMemberLibrairy(Guidebook selectedGuidebook, Member user);
+
     Booking insertBooking(MemberLibrairy privateGuidebook, Booking booking);
-    void removeBooking (int bookingId);
+
+    void removeBooking(int bookingId);
 
     void updateBooking(Booking booking);
-    Booking findBookingById (int bookingId);
+
+    Booking findBookingById(int bookingId);
 
 }

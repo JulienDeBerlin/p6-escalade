@@ -44,6 +44,7 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
 
     /**
      * This method finds all the guidebooks matching with a single spot identified with its primary key.
+     *
      * @param spotId
      * @return
      */
@@ -83,7 +84,12 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
         return selectedGuidebook;
     }
 
-
+    /**
+     * This method find all guidebooks owned by a member.
+     *
+     * @param member the member whose guidebooks are being searched
+     * @return the list of guidebooks owned by the member
+     */
     @Override
     public List<Guidebook> getGuidebooksForLoan(Member member) {
 
@@ -94,7 +100,7 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
                 "(select guidebook_id from member_librairy " +
                 "where member_id = ?)";
 
-        List <Guidebook> guidebooksForLoan = jdbcTemplate.query(sqlRequest, new Object[]{member.getId()},
+        List<Guidebook> guidebooksForLoan = jdbcTemplate.query(sqlRequest, new Object[]{member.getId()},
                 new BeanPropertyRowMapper<>(Guidebook.class));
         return guidebooksForLoan;
     }
@@ -126,17 +132,17 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
         String sqlQuery = "insert into guidebook(isbn13, name, year_publication, publisher, language, summary, firstname_author, surname_author)" +
                 " values (:isbn13, :name, :year_publication, :publisher, :language, :summary, :firstname_author, :surname_author)";
 
-        SqlParameterSource sqlParameterSource= new MapSqlParameterSource();
-        ((MapSqlParameterSource) sqlParameterSource).addValue("isbn13", g.getIsbn13());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("name", g.getName());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("year_publication", g.getYearPublication());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("publisher", g.getPublisher());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("language", g.getLanguage());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("summary", g.getSummary());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("firstname_author", g.getFirstnameAuthor());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("surname_author", g.getSurnameAuthor());
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("isbn13", g.getIsbn13());
+        sqlParameterSource.addValue("name", g.getName());
+        sqlParameterSource.addValue("year_publication", g.getYearPublication());
+        sqlParameterSource.addValue("publisher", g.getPublisher());
+        sqlParameterSource.addValue("language", g.getLanguage());
+        sqlParameterSource.addValue("summary", g.getSummary());
+        sqlParameterSource.addValue("firstname_author", g.getFirstnameAuthor());
+        sqlParameterSource.addValue("surname_author", g.getSurnameAuthor());
 
-        jdbcTemplate.update(sqlQuery,sqlParameterSource, holder, new String[]{"id"});
+        jdbcTemplate.update(sqlQuery, sqlParameterSource, holder, new String[]{"id"});
 
         int id = holder.getKey().intValue();
         g.setId(id);
@@ -152,7 +158,7 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         String sqlQuery = "insert into association_spot_guidebook(spot_id, guidebook_id) values (?,?)";
 
-        for ( Integer i : listSpotId) {
+        for (Integer i : listSpotId) {
             jdbcTemplate.update(sqlQuery, i, guidebook.getId());
         }
 
@@ -164,8 +170,8 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
 
         String SQL = "update guidebook set name = ?, year_publication=?, publisher=?, language=?, summary=?," +
                 "firstname_author=?, surname_author=? where id = ?";
-        jdbcTemplate.update(SQL, g.getName(),g.getYearPublication(), g.getPublisher(), g.getLanguage(), g.getSummary(),
-                                    g.getFirstnameAuthor(), g.getSurnameAuthor(), g.getId());
+        jdbcTemplate.update(SQL, g.getName(), g.getYearPublication(), g.getPublisher(), g.getLanguage(), g.getSummary(),
+                g.getFirstnameAuthor(), g.getSurnameAuthor(), g.getId());
 
     }
 
@@ -183,7 +189,7 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         String sqlRequest = "delete from association_spot_guidebook where spot_id = ? and guidebook_id = ? ";
-        jdbcTemplate.update(sqlRequest, spotId,guidebookId) ;
+        jdbcTemplate.update(sqlRequest, spotId, guidebookId);
 
     }
 

@@ -31,11 +31,11 @@ public class MemberDaoImpl extends AbstractDaoImpl implements MemberDao {
     @Override
     public Member findMemberByEmail(String email) {
 
-        try{
+        try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
             return jdbcTemplate.queryForObject("select * from member where email ilike '" + email + "'",
                     new BeanPropertyRowMapper<>(Member.class));
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
@@ -49,17 +49,16 @@ public class MemberDaoImpl extends AbstractDaoImpl implements MemberDao {
         String sqlQuery = "insert into member(first_name, surname, nickname, password, email, phone, date_membership) " +
                 "values (:first_name, :surname, :nickname, :password, :email, :phone, :date_membership)";
 
-        SqlParameterSource sqlParameterSource= new MapSqlParameterSource();
-        ((MapSqlParameterSource) sqlParameterSource).addValue("first_name", m.getFirstName());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("surname", m.getSurname());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("nickname", m.getNickname());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("password", m.getPassword());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("phone", m.getPhone());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("email", m.getEmail());
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("first_name", m.getFirstName());
+        sqlParameterSource.addValue("surname", m.getSurname());
+        sqlParameterSource.addValue("nickname", m.getNickname());
+        sqlParameterSource.addValue("password", m.getPassword());
+        sqlParameterSource.addValue("phone", m.getPhone());
+        sqlParameterSource.addValue("email", m.getEmail());
+        sqlParameterSource.addValue("date_membership", new Date());
 
-        ((MapSqlParameterSource) sqlParameterSource).addValue("date_membership", new Date());
-
-        jdbcTemplate.update(sqlQuery,sqlParameterSource, holder, new String[]{"id"});
+        jdbcTemplate.update(sqlQuery, sqlParameterSource, holder, new String[]{"id"});
 
         int id = holder.getKey().intValue();
         m.setId(id);
@@ -69,22 +68,22 @@ public class MemberDaoImpl extends AbstractDaoImpl implements MemberDao {
 
     @Override
     public Member findMemberbyNickname(String nickname) {
-        try{
+        try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
             return jdbcTemplate.queryForObject("select * from member where nickname ilike  '" + nickname + "'",
                     new BeanPropertyRowMapper<>(Member.class));
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }
 
     @Override
     public Member findMemberById(int id) {
-        try{
+        try {
             JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-            return jdbcTemplate.queryForObject("select * from member where id = ?",new Object[]{id},
+            return jdbcTemplate.queryForObject("select * from member where id = ?", new Object[]{id},
                     new BeanPropertyRowMapper<>(Member.class));
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             return null;
         }
     }

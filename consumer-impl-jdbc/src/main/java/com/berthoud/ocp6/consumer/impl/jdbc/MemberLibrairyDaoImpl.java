@@ -29,7 +29,12 @@ public class MemberLibrairyDaoImpl extends AbstractDaoImpl implements MemberLibr
     @Autowired
     MemberDaoImpl memberDao;
 
-
+    /**
+     * This method
+     *
+     * @param guidebookId
+     * @return
+     */
     @Override
     public List<MemberLibrairy> findMemberLibrairyByGuidebookId(int guidebookId) {
 

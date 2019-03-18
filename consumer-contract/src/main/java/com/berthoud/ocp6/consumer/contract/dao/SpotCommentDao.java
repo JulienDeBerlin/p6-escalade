@@ -7,7 +7,8 @@ import java.util.List;
 public interface SpotCommentDao {
 
     List<SpotComment> findCommentSpotBySpotId(int spotId);
-   SpotComment insertSpotComment(SpotComment spotComment);
+
+    SpotComment insertSpotComment(SpotComment spotComment);
 
     void deleteComment(int CommentId);
 

@@ -37,7 +37,7 @@ public class ControllerAddGuidebook {
      * @param model ///
      * @return login- or newGuidebook-page
      */
-    @RequestMapping(value = "addcontent/guidebook", method = RequestMethod.GET)
+    @RequestMapping(value = "/addcontent/guidebook", method = RequestMethod.GET)
     public String goToAddGuidebook (ModelMap model) {
         if (model.containsAttribute("user")) {
             return "newGuidebook";
@@ -59,7 +59,7 @@ public class ControllerAddGuidebook {
      * @param model ///
      * @return newGuidebook-page (at step 2 or 3)
      */
-    @RequestMapping(value = "addcontent/guidebook/isbn")
+    @RequestMapping(value = "/addcontent/guidebook/isbn")
     public String testIsbn (@RequestParam(value = "isbn13") String isbn13,
                             ModelMap model) {
 
@@ -87,7 +87,7 @@ public class ControllerAddGuidebook {
      * which is then inserted in the DB.
      * @return back to the newGuidebook-page
      */
-    @RequestMapping(value = "addcontent/guidebook", method = RequestMethod.POST)
+    @RequestMapping(value = "/addcontent/guidebook", method = RequestMethod.POST)
     public String saveDetailsGuidebook (@RequestParam (value = "name") String name,
                                         @RequestParam (value = "firstnameAuthor") String firstnameAuthor,
                                         @RequestParam (value = "surnameAuthor") String surnameAuthor,
