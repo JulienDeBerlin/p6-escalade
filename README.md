@@ -4,7 +4,7 @@
 ### **Presentation**
 
 This application is the 6th project of the [Openclassrooms JAVA learning path](https://openclassrooms.com/en/paths/88-developpeur-dapplication-java).
-It has been concieved as a collaborative plateform where rock-climbers can share information such as spots and guidebook. 
+It has been concieved as a collaborative plateform where rock-climbers can share information such as spots and guidebooks. 
 
 ### **Features**
 
