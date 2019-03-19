@@ -131,11 +131,11 @@ public class Spot implements Comparable<Spot> {
         int comp = this.getNameSpot().compareTo(o.getNameSpot());
 
         if (o.getNameArea() == null) {
-            o.setNameArea("1");
+            o.setNameArea("");
         }
 
         if (this.getNameArea() == null) {
-            this.setNameArea("1");
+            this.setNameArea("");
         }
 
         int comp2 = this.getNameArea().compareTo(o.getNameArea());
