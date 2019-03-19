@@ -141,16 +141,6 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
     @Override
     public List<String> getLocationProposals(String query) {
 
-        class CityLocationMapper implements RowMapper<String> {
-            @Override
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                String s = rs.getString("city_name") + " (ville du département: " +
-                        rs.getString("departement_name") + ")";
-                return s;
-            }
-        }
-
-
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         List<String> matches = new ArrayList<>();
@@ -200,15 +190,6 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
      */
     @Override
     public List<String> getCityProposalsForUpdateSpots(String query) {
-
-        class CityLocationMapper implements RowMapper<String> {
-            @Override
-            public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-                String s = rs.getString("city_name") + " (ville du département: " +
-                        rs.getString("departement_name") + ")";
-                return s;
-            }
-        }
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
@@ -279,16 +260,16 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
     }
 
 
-//    /**
-//     * Mapper for Location table
-//     */
-//    class CityLocationMapper implements RowMapper<String> {
-//        @Override
-//        public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-//            String s = rs.getString("city_name") + " (ville du département: " +
-//                    rs.getString("departement_name") + ")";
-//            return s;
-//        }
-//    }
+    /**
+     * Mapper for Location table
+     */
+    class CityLocationMapper implements RowMapper<String> {
+        @Override
+        public String mapRow(ResultSet rs, int rowNum) throws SQLException {
+            String s = rs.getString("city_name") + " (ville du département: " +
+                    rs.getString("departement_name") + ")";
+            return s;
+        }
+    }
 
 }
