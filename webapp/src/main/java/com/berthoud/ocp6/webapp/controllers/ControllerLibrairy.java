@@ -323,11 +323,12 @@ public class ControllerLibrairy {
 
 
     /**
-     * @param date_from
-     * @param date_until
-     * @param selectedGuidebook
-     * @param model
-     * @return
+     * This controller-method takes as input a guidebook and the requested dates of booking and it retrieves the matching private guidebooks.
+     *
+     * @param date_from         begin of the requested loan period
+     * @param date_until        end  of the requested loan period
+     * @param selectedGuidebook guidebook requested for loan
+     * @param model             //
      */
     @RequestMapping(value = "/memberArea/librairy/loan/checkDates", method = RequestMethod.POST)
     public String displayBookingForm(@RequestParam(value = "date_from") String date_from,
