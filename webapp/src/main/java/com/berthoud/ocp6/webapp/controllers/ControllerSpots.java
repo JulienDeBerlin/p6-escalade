@@ -155,6 +155,9 @@ public class ControllerSpots {
 
         selectedGuidebook.setSpots(spotsForGuidebooks);
 
+        serviceSpot.sortSpots(spotsForGuidebooks);
+
+
         model.put("selectedGuidebook", selectedGuidebook);
         model.put("idSpotToBeCommented", idSpotToBeCommented);
 
