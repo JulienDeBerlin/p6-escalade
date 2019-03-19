@@ -43,7 +43,7 @@
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/#lesSpots">Les spots</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-item nav-link active" >Les topos</a>
+                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/#lesTopos">Les topos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/#Contribuez">Contribuez</a>

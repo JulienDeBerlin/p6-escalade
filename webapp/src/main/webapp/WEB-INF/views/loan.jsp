@@ -83,6 +83,7 @@
                             déconnecter</a>
                     </li>
                 </c:if>
+
             </ul>
         </div>
     </nav>
@@ -120,18 +121,19 @@
         <h3>Pour la période indiquée, ce topo est disponible auprès des membres suivants</h3>
         <br/>
         <p>Veuillez prendre contact avec l'un d'entre-eux</p>
+
+        <c:forEach items="${ privateGuidebooks }" var="ownerGuidebook">
+            <ul>
+                <li> <span> ${ownerGuidebook.member.firstName} ${ownerGuidebook.member.surname} /
+             ${ownerGuidebook.member.email} / Tel: ${ownerGuidebook.member.phone} </span></li>
+            </ul>
+        </c:forEach>
+
     </c:if>
 
     <c:if test="${empty privateGuidebooks && privateGuidebooks!=null}">
         <p style="color: red"> Le topo n'est malheureusement pas disponible sur la période indiquée. </p>
     </c:if>
-
-    <c:forEach items="${ privateGuidebooks }" var="ownerGuidebook">
-        <ul>
-            <li> <span> ${ownerGuidebook.member.firstName} ${ownerGuidebook.member.surname} /
-             ${ownerGuidebook.member.email} / Tel: ${ownerGuidebook.member.phone} </span></li>
-        </ul>
-    </c:forEach>
 
 
 </div>

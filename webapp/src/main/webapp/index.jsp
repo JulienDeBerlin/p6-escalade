@@ -119,14 +119,17 @@
 
     <div class="row">
         <section id="block1" class="col-lg-6">
-            <p>Damit Ihr indess erkennt, woher dieser ganze Irrthum gekommen ist,
-                und weshalb man die Lust anklagt und den Schmerz lobet, so will ich
-                Euch Alles eröffnen und auseinander setzen, was jener Begründer der Wahrheit
+            <p>High est une plateforme créée en février 2019 qui recense tous les lieux de grimpe en France ainsi qu'un
+                grand nombre de topos. Il s'agit d'un projet collaboratif dont la réussite repose sur la participation
+                de chacun.
+                Prenez donc le temps de répertorier les spots et topos de votre connaissance.</p>
         </section>
 
         <section id="block2" class="col-lg-6">
-            <p>Damit Ihr indess erkennt, woher dieser ganze Irrthum gekommen ist,
-                und weshalb man die Lust anklagt und den Schmerz lobet, so will ich
+            <p> Pour ce faire, il suffit de vous créer un compte membre.
+                C'est rapide et c'est gratuit. En tant que membre, vous pourrez également laisser des commentaires et
+                emprunter des topos auprès d'autres membres.
+                Alors n'hésitez pas et rejoignez la communauté High!
         </section>
 
     </div>

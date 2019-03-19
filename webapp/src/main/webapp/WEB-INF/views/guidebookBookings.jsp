@@ -80,7 +80,8 @@
                         <p>Bienvenue ${user.nickname}</p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link active">Mon compte</a>
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Espace Membre</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se

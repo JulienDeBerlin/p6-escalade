@@ -40,7 +40,7 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a class="nav-item nav-link active">Les spots</a>
+                    <a class="nav-item nav-link" href="${pageContext.request.contextPath}/#lesSpots">Les spots</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-item nav-link"
@@ -119,7 +119,7 @@
                         <img src="${pageContext.request.contextPath}/resources/img/chat.png"></a>
 
                     <span> <strong> <c:out value="site: ${spot.nameSpot}"/>
-                    <c:if test="${ spot.nameArea != null}"><c:out value="/ secteur: ${spot.nameArea}"/>
+                    <c:if test="${ not empty spot.nameArea}"><c:out value="/ secteur: ${spot.nameArea}"/>
                     </c:if></strong> </span>
 
                     <p> ${spot.access}</p>
