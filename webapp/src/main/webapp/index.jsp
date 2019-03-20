@@ -144,6 +144,9 @@
 
     <form method="post" action="${pageContext.request.contextPath}/escalade/spots">
 
+        <!-- Prevent implicit submission of the form -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
+
         <div class="form-group">
             <label for="locationInput">Localisation</label>
             <input type="text" name="locationInput" class="form-control" id="locationInput"
@@ -206,6 +209,9 @@
     </c:if>
 
     <form method="post" action="${pageContext.request.contextPath}/escalade/topos">
+
+        <!-- Prevent implicit submission of the form -->
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
 
         <div class="form-group">
             <label for="locationInputForTopo">Localisation</label>

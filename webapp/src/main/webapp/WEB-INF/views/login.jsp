@@ -80,12 +80,12 @@
 
     <div class="form-group" >
         <label for="email">E-Mail</label>
-        <input type="email" name="email" class="form-control" id="email" placeholder="monadresse@exemple.fr">
+        <input type="email" name="email" class="form-control" id="email" placeholder="monadresse@exemple.fr" required>
     </div>
 
     <div class="form-group">
         <label for="password">Mot de passe</label>
-        <input type="password" name="password" class="form-control" id="password">
+        <input type="password" name="password" class="form-control" id="password" required>
     </div>
 
     <button type="submit" class="btn btn-primary">Se connecter</button>

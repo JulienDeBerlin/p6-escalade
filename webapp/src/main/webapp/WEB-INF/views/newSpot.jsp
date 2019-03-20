@@ -92,6 +92,7 @@
 
 
     <form method="post" action="${pageContext.request.contextPath}/escalade/addcontent/spot/checkCityInput">
+        <button type="submit" disabled style="display: none" aria-hidden="true"></button>
 
         <div class="form-group">
             <label for="cityNameInput">Indiquez la commune dans laquelle se trouve le site à ajouter ou
@@ -109,8 +110,8 @@
 
         <div class="form-group">
             <label for="codePostal">Code postal</label>
-            <input type="text" name="codePostal" class="form-control" id="codePostal" aria-describedby="codePostalHelp"
-                   required>
+            <input type="text" name="codePostal" class="form-control" id="codePostal" pattern="\d{5}"
+                   aria-describedby="codePostalHelp" required>
             <small id="codePostalHelp" class="form-text text-muted">Le code postal s'affiche automatiquement.
                 Dans le cas de communes disposant de plusieurs codes postaux, il peut être nécessaire de le corriger.
             </small>

@@ -68,9 +68,10 @@
 
     <form method="post" action="${pageContext.request.contextPath}/escalade/newMember?afterLogin=${jspAfterLogin}">
 
-    <p>Les données collectées sont simplement destinées à votre identification. <br/>
-        Par défaut seul votre pseudo sera visible par les autres membres. <br/>
-        Si vous proposez des topos au prêt, les emprunteurs auront accès - selon votre choix - à votre email, votre numéro de tel ou bien aux deux.
+        <p>Les données collectées sont simplement destinées à votre identification. Par défaut seul votre pseudo sera
+            visible par les autres membres.<br/>
+            Si vous proposez des topos au prêt, les emprunteurs auront également accès à votre email et votre numéro de
+            tel pour prendre contact avec vous.
     </p>
 
 
