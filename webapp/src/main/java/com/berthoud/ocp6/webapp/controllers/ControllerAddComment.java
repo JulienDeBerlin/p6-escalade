@@ -27,7 +27,7 @@ public class ControllerAddComment {
 
     /**
      * This controller-method is the first step when a user, consulting a list of spots after a standard spots-research,
-     * want to add a new comment to a spot. It checks if a member is logged in the session.
+     * wants to add a new comment to a spot. It checks if a member is logged in the session.
      * If yes, the request is redirected to {@link ControllerSpots}, the controller in charge of displaying the spots.
      * If no, the user is redirected to the login page.
      *
