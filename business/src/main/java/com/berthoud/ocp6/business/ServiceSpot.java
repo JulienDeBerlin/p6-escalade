@@ -3,7 +3,6 @@ package com.berthoud.ocp6.business;
 import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
 import com.berthoud.ocp6.model.bean.Route;
 import com.berthoud.ocp6.model.bean.Spot;
-import com.berthoud.ocp6.model.bean.SpotComment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -44,7 +43,12 @@ public class ServiceSpot {
             for (Iterator<Route> j = routes.iterator(); j.hasNext(); ) {
                 Route route = j.next();
 
-                if ((!route.isBolted() && onlyBoltedRoutes) || serviceRoute.getRatingAsInt(route) < levelMin ||
+                boolean isBolted = false;
+                if (route.getNbAnchor() > 0) {
+                    isBolted = true;
+                }
+
+                if ((!isBolted && onlyBoltedRoutes) || serviceRoute.getRatingAsInt(route) < levelMin ||
                         serviceRoute.getRatingAsInt(route) > levelMax) {
                     j.remove();
                 }

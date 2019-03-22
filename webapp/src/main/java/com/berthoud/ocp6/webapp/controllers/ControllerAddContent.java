@@ -178,8 +178,8 @@ public class ControllerAddContent {
      * @param nbPitch      as entered by the user in the form
      * @param indexPitch   as entered by the user in the form
      * @param rating       as entered by the user in the form
-     * @param isBolted     as entered by the user in the form
      * @param selectedSpot the spot related to the route
+     * @param nbAnchor     the nb of anchors (0 if the route is not bolted)
      * @param model        //
      * @return
      */
@@ -188,15 +188,17 @@ public class ControllerAddContent {
                                        @RequestParam(value = "nbPitch") byte nbPitch,
                                        @RequestParam(value = "indexPitch") byte indexPitch,
                                        @RequestParam(value = "rating") String rating,
-                                       @RequestParam(value = "isBolted", required = false) boolean isBolted,
+//                                       @RequestParam(value = "isBolted", required = false) boolean isBolted,
+                                       @RequestParam(value = "nbAnchor") int nbAnchor,
                                        @SessionAttribute(value = "selectedSpot") Spot selectedSpot,
                                        ModelMap model) {
         Route newRoute = new Route();
         newRoute.setName(nameRoute);
         newRoute.setNbPitch(nbPitch);
         newRoute.setIndexPitch(indexPitch);
-        newRoute.setBolted(isBolted);
+//        newRoute.setBolted(isBolted);
         newRoute.setRating(rating);
+        newRoute.setNbAnchor(nbAnchor);
         newRoute.setSpot(selectedSpot);
 
         serviceRoute.insertRoute(newRoute);

@@ -10,19 +10,18 @@ public class Route implements Comparable<Route>, Serializable {
     private byte nbPitch;
     private byte indexPitch;
     private String rating;
-    private boolean bolted;
     private Spot spot;
+    private int nbAnchor;
 
 
-    public Route(int id, String name, byte nbPitch, byte indexPitch,
-                 String rating, boolean bolted, Spot spot) {
+    public Route(int id, String name, byte nbPitch, byte indexPitch, String rating, Spot spot, int nbAnchor) {
         this.id = id;
         this.name = name;
         this.nbPitch = nbPitch;
         this.indexPitch = indexPitch;
         this.rating = rating;
-        this.bolted = bolted;
         this.spot = spot;
+        this.nbAnchor = nbAnchor;
     }
 
     public Route() {
@@ -68,20 +67,20 @@ public class Route implements Comparable<Route>, Serializable {
         this.rating = rating;
     }
 
-    public boolean isBolted() {
-        return bolted;
-    }
-
-    public void setBolted(boolean bolted) {
-        this.bolted = bolted;
-    }
-
     public Spot getSpot() {
         return spot;
     }
 
     public void setSpot(Spot spot) {
         this.spot = spot;
+    }
+
+    public int getNbAnchor() {
+        return nbAnchor;
+    }
+
+    public void setNbAnchor(int nbAnchor) {
+        this.nbAnchor = nbAnchor;
     }
 
     @Override
@@ -92,10 +91,11 @@ public class Route implements Comparable<Route>, Serializable {
                 ", nbPitch=" + nbPitch +
                 ", indexPitch=" + indexPitch +
                 ", rating='" + rating + '\'' +
-                ", bolted=" + bolted +
                 ", spot=" + spot +
+                ", nbAnchor=" + nbAnchor +
                 '}';
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -105,7 +105,7 @@ public class Route implements Comparable<Route>, Serializable {
         return id == route.id &&
                 nbPitch == route.nbPitch &&
                 indexPitch == route.indexPitch &&
-                bolted == route.bolted &&
+                nbAnchor == route.nbAnchor &&
                 Objects.equals(name, route.name) &&
                 Objects.equals(rating, route.rating) &&
                 Objects.equals(spot, route.spot);
@@ -113,9 +113,8 @@ public class Route implements Comparable<Route>, Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, nbPitch, indexPitch, rating, bolted, spot);
+        return Objects.hash(id, name, nbPitch, indexPitch, rating, spot, nbAnchor);
     }
-
 
     @Override
     public int compareTo(Route o) {

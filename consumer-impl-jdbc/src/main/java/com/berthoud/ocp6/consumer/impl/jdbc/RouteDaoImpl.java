@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
@@ -42,16 +41,16 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
         NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource());
         KeyHolder holder = new GeneratedKeyHolder();
 
-        String sqlQuery = "insert into route(name, nb_pitch, index_pitch, rating, bolted, spot_id) " +
-                "values (:name, :nb_pitch, :index_pitch, :rating, :bolted, :spot_id)";
+        String sqlQuery = "insert into route(name, nb_pitch, index_pitch, rating, nb_anchor, spot_id) " +
+                "values (:name, :nb_pitch, :index_pitch, :rating, :nb_anchor, :spot_id)";
 
-        SqlParameterSource sqlParameterSource= new MapSqlParameterSource();
-        ((MapSqlParameterSource) sqlParameterSource).addValue("name", r.getName());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("nb_pitch", r.getNbPitch());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("index_pitch", r.getIndexPitch());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("rating", r.getRating());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("bolted", r.isBolted());
-        ((MapSqlParameterSource) sqlParameterSource).addValue("spot_id", r.getSpot().getId());
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("name", r.getName());
+        sqlParameterSource.addValue("nb_pitch", r.getNbPitch());
+        sqlParameterSource.addValue("index_pitch", r.getIndexPitch());
+        sqlParameterSource.addValue("rating", r.getRating());
+        sqlParameterSource.addValue("nb_anchor", r.getNbAnchor());
+        sqlParameterSource.addValue("spot_id", r.getSpot().getId());
 
         jdbcTemplate.update(sqlQuery,sqlParameterSource, holder, new String[]{"id"});
 
@@ -66,9 +65,9 @@ public class RouteDaoImpl extends AbstractDaoImpl implements RouteDao {
     public void updateRoute(Route route) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
-        String SQL = "update route set name =?, nb_pitch =?, index_pitch=?, rating=?, bolted=? where id = ?";
+        String SQL = "update route set name =?, nb_pitch =?, index_pitch=?, rating=?, nb_anchor=? where id = ?";
         jdbcTemplate.update(SQL, route.getName(), route.getNbPitch(), route.getIndexPitch(), route.getRating(),
-                route.isBolted(), route.getId());
+                route.getNbAnchor(), route.getId());
     }
 
     @Override

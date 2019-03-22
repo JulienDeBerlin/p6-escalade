@@ -262,7 +262,7 @@ public class ControllerAdmin {
                               @RequestParam(value = "nbPitch") byte nbPitch,
                               @RequestParam(value = "indexPitch") byte indexPitch,
                               @RequestParam(value = "rating") String rating,
-                              @RequestParam(value = "bolted", required = false) boolean isBolted,
+                              @RequestParam(value = "nbAnchor") int nbAnchor,
                               @SessionAttribute(value = "selectedSpot") Spot selectedSpot,
                               ModelMap model) {
 
@@ -272,7 +272,7 @@ public class ControllerAdmin {
         routeUpdated.setNbPitch(nbPitch);
         routeUpdated.setIndexPitch(indexPitch);
         routeUpdated.setRating(rating);
-        routeUpdated.setBolted(isBolted);
+        routeUpdated.setNbAnchor(nbAnchor);
 
         serviceRoute.updateRoute(routeUpdated);
 

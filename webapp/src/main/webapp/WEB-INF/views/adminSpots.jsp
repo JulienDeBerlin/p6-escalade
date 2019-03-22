@@ -220,12 +220,16 @@
 
                     <div class="form-group col-md-2">
 
-                        <input class="form-control" type="checkbox"
-                               <c:if test="${route.bolted==true}">checked</c:if> name="bolted"
-                               aria-describedby="boltedHelp">
-                        <small id="boltedHelp" class="form-text text-muted text-center">Voie équipée</small>
+                        <div class="form-group">
+                            <input type="number" name="nbAnchor" class="form-control" id="nbAnchor"
+                                   value="<c:out value="${route.nbAnchor}"/>"
+                                   aria-describedby="nbAnchorHelp" min="0" , max="1000" required>
+                            <small id="nbAnchorHelp" class="form-text text-muted">Nb points ancrage</small>
+                        </div>
 
                     </div>
+
+
                 </div>
 
 

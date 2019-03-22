@@ -205,7 +205,7 @@
                 <th scope="col">Nom de la voie</th>
                 <th scope="col">Cotation</th>
                 <th scope="col">Longueur</th>
-                <th scope="col">Voie équipée</th>
+                <th scope="col">Nb points d'ancrage</th>
             </tr>
             </thead>
 
@@ -215,9 +215,7 @@
                     <td><c:out value="${route.name}"/></td>
                     <td><c:out value="${route.rating}"/></td>
                     <td><c:out value="${route.indexPitch}"/>/<c:out value="${route.nbPitch}"/></td>
-                    <td><c:if test="${route.bolted==true}">oui</c:if>
-                        <c:if test="${route.bolted==false}">non</c:if>
-                    </td>
+                    <td><c:out value="${route.nbAnchor}"/></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -253,12 +251,11 @@
             </div>
 
             <div class="form-group">
-                <div class="form-check">
-                    <input type="checkbox" name="isBolted" id="isBolted" class="form-check-input">
-                    <label class="form-check-label" for="isBolted">
-                        Voie équipée
-                    </label>
-                </div>
+                <label for="nbAnchor">Nombre de points d'ancrage: </label>
+                <input type="number" name="nbAnchor" class="form-control" id="nbAnchor" aria-describedby="nbAnchorHelp"
+                       min="0" , max="1000" required>
+                <small id="nbAnchorHelp" class="form-text text-muted">0 si la voie n'est pas équipée.
+                </small>
             </div>
 
             <button type="submit" class="btn btn-primary">Ajouter une voie à ce site/secteur</button>

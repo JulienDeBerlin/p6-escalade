@@ -132,7 +132,7 @@
                         <th scope="col">Nom de la voie</th>
                         <th scope="col">Cotation</th>
                         <th scope="col">Longueur</th>
-                        <th scope="col">Voie équipée</th>
+                        <th scope="col">Nb points d'ancrage</th>
                     </tr>
                     </thead>
 
@@ -142,8 +142,7 @@
                             <td><c:out value="${route.name}"/></td>
                             <td><c:out value="${route.rating}"/></td>
                             <td><c:out value="${route.indexPitch}"/>/<c:out value="${route.nbPitch}"/></td>
-                            <td><c:if test="${route.bolted==true}">oui</c:if>
-                                <c:if test="${route.bolted==false}">non</c:if>
+                            <td><c:out value="${route.nbAnchor}"/></td>
                             </td>
                         </tr>
                     </c:forEach>
