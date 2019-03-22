@@ -127,51 +127,52 @@
             <div class="form-group">
                 <label for="isbn"> Numéro ISBN13 du topo</label>
                 <input type="number" name="isbn13" class="form-control" id="isbn"
-                       value="<c:out value=" ${selectedGuidebook.isbn13}"/>"
+                       value="<c:out value="${selectedGuidebook.isbn13}"/>"
                        readonly>
             </div>
 
             <div class="form-group">
                 <label for="name">Titre de l'ouvrage</label>
                 <input type="text" name="name" class="form-control" id="name"
-                       value="<c:out value=" ${selectedGuidebook.name}"/>"
+                       value="<c:out value="${selectedGuidebook.name}"/>"
                        required>
             </div>
 
             <div class="form-group">
                 <label for="firstnameAuthor">Prénom de l'auteur</label>
                 <input type="text" name="firstnameAuthor" class="form-control" id="firstnameAuthor"
-                       value="<c:out value=" ${selectedGuidebook.firstnameAuthor}"/>" required>
+                       value="<c:out value="${selectedGuidebook.firstnameAuthor}"/>" required>
             </div>
 
             <div class="form-group">
                 <label for="surnameAuthor">Nom de l'auteur</label>
                 <input type="text" name="surnameAuthor" class="form-control" id="surnameAuthor"
-                       value="<c:out value=" ${selectedGuidebook.surnameAuthor}"/>" required>
+                       value="<c:out value="${selectedGuidebook.surnameAuthor}"/>" required>
             </div>
 
             <div class="form-group">
                 <label for="yearPublication">Année de publication</label>
                 <input type="number" name="yearPublication" class="form-control" id="yearPublication"
-                       value="<c:out value=" ${selectedGuidebook.yearPublication}"/>" required>
+                       value="<c:out value="${selectedGuidebook.yearPublication}"/>" max="${actualYear}" min="1900"
+                       required>
             </div>
 
             <div class="form-group">
                 <label for="publisher">Éditeur</label>
                 <input type="text" name="publisher" class="form-control" id="publisher"
-                       value="<c:out value=" ${selectedGuidebook.publisher}"/>" required>
+                       value="<c:out value="${selectedGuidebook.publisher}"/>" required>
             </div>
 
             <div class="form-group">
                 <label for="language">Langue</label>
                 <input type="text" name="language" class="form-control" id="language"
-                       value="<c:out value=" ${selectedGuidebook.language}"/>" required>
+                       value="<c:out value="${selectedGuidebook.language}"/>" required>
             </div>
 
             <div>
                 <label for="summary">Présentation de l'ouvrage:</label>
                 <textarea class="form-control" rows="5" id="summary" name="summary" maxlength="1000"
-                          required><c:out value=" ${selectedGuidebook.summary}"/></textarea>
+                          required><c:out value="${selectedGuidebook.summary}"/></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Modifier</button>

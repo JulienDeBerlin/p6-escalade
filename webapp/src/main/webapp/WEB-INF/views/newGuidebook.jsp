@@ -138,7 +138,8 @@
 
                 <div class="form-group">
                     <label for="yearPublication">Année de publication</label>
-                    <input type="number" name="yearPublication" class="form-control" id="yearPublication" required>
+                    <input type="number" name="yearPublication" class="form-control" id="yearPublication"
+                           max="${actualYear}" min="1900" required>
                 </div>
 
                 <div class="form-group">
