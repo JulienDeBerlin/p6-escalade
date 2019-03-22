@@ -72,7 +72,7 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value=" ${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -126,50 +126,52 @@
 
             <div class="form-group">
                 <label for="isbn"> Numéro ISBN13 du topo</label>
-                <input type="number" name="isbn13" class="form-control" id="isbn" value="${selectedGuidebook.isbn13}"
+                <input type="number" name="isbn13" class="form-control" id="isbn"
+                       value="<c:out value=" ${selectedGuidebook.isbn13}"/>"
                        readonly>
             </div>
 
             <div class="form-group">
                 <label for="name">Titre de l'ouvrage</label>
-                <input type="text" name="name" class="form-control" id="name" value="${selectedGuidebook.name}"
+                <input type="text" name="name" class="form-control" id="name"
+                       value="<c:out value=" ${selectedGuidebook.name}"/>"
                        required>
             </div>
 
             <div class="form-group">
                 <label for="firstnameAuthor">Prénom de l'auteur</label>
                 <input type="text" name="firstnameAuthor" class="form-control" id="firstnameAuthor"
-                       value="${selectedGuidebook.firstnameAuthor}" required>
+                       value="<c:out value=" ${selectedGuidebook.firstnameAuthor}"/>" required>
             </div>
 
             <div class="form-group">
                 <label for="surnameAuthor">Nom de l'auteur</label>
                 <input type="text" name="surnameAuthor" class="form-control" id="surnameAuthor"
-                       value="${selectedGuidebook.surnameAuthor}" required>
+                       value="<c:out value=" ${selectedGuidebook.surnameAuthor}"/>" required>
             </div>
 
             <div class="form-group">
                 <label for="yearPublication">Année de publication</label>
                 <input type="number" name="yearPublication" class="form-control" id="yearPublication"
-                       value="${selectedGuidebook.yearPublication}" required>
+                       value="<c:out value=" ${selectedGuidebook.yearPublication}"/>" required>
             </div>
 
             <div class="form-group">
                 <label for="publisher">Éditeur</label>
                 <input type="text" name="publisher" class="form-control" id="publisher"
-                       value="${selectedGuidebook.publisher}" required>
+                       value="<c:out value=" ${selectedGuidebook.publisher}"/>" required>
             </div>
 
             <div class="form-group">
                 <label for="language">Langue</label>
                 <input type="text" name="language" class="form-control" id="language"
-                       value="${selectedGuidebook.language}" required>
+                       value="<c:out value=" ${selectedGuidebook.language}"/>" required>
             </div>
 
             <div>
                 <label for="summary">Présentation de l'ouvrage:</label>
                 <textarea class="form-control" rows="5" id="summary" name="summary" maxlength="1000"
-                          required>${selectedGuidebook.summary}</textarea>
+                          required><c:out value=" ${selectedGuidebook.summary}"/></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Modifier</button>
@@ -183,7 +185,8 @@
 
         <h4>Suppression du topo: </h4>
 
-        <form method="post" action="${pageContext.request.contextPath}/escalade/admin/guidebooks/delete?isbn13=${selectedGuidebook.isbn13}">
+        <form method="post"
+              action="${pageContext.request.contextPath}/escalade/admin/guidebooks/delete?isbn13=${selectedGuidebook.isbn13}">
 
             <div class="form-check">
                 <input type="checkbox" name="deleteGuidebook" id="deleteGuidebook"
@@ -225,12 +228,15 @@
             <tbody>
             <c:forEach items="${ selectedGuidebook.spots}" var="spot">
                 <tr>
-                    <th>${ spot.nameSpot  }</th>
-                    <th>${ spot.nameArea  }</th>
-                    <th>${ spot.location.cityName } </th>
-                    <th>${ spot.location.departementName} (${spot.location.departementId})</th>
-                    <td><a href="${pageContext.request.contextPath}/escalade/admin/guidebooks/deleteLinkGuidebookSpot?isbn13=${selectedGuidebook.isbn13}&spotId=${spot.id}">
-                        <img src="${pageContext.request.contextPath}/resources/img/delete.png" alt="delete"/> </a></td>
+                    <th><c:out value="${spot.nameSpot}"/></th>
+                    <th><c:out value="${spot.nameArea}"/></th>
+                    <th><c:out value="${spot.location.cityName}"/></th>
+                    <th><c:out value="${spot.location.departementName}"/> <c:out
+                            value="(${spot.location.departementId})"/></th>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/escalade/admin/guidebooks/deleteLinkGuidebookSpot?isbn13=${selectedGuidebook.isbn13}&spotId=${spot.id}">
+                            <img src="${pageContext.request.contextPath}/resources/img/delete.png" alt="delete"/> </a>
+                    </td>
                 </tr>
             </c:forEach>
 
@@ -253,11 +259,7 @@
 
 </div>
 
-
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
 <script>
     $(function () {

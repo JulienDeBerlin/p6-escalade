@@ -70,7 +70,7 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value="${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -172,7 +172,7 @@
                     <select name="selectedSpot" class="form-control" id="selectedSpot">
                         <c:forEach items="${selectedLocation.spots}" var="spot">
                             <option value=${spot.id}>
-                                Site: ${spot.nameSpot} / secteur: ${spot.nameArea}
+                                Site: <c:out value="${spot.nameSpot}"/> / secteur: <c:out value="${spot.nameArea}"/>
                             </option>
                         </c:forEach>
                     </select>
@@ -212,9 +212,9 @@
             <tbody>
             <c:forEach items="${selectedSpot.routes}" var="route">
                 <tr>
-                    <td>${route.name}</td>
-                    <td>${route.rating}</td>
-                    <td>${route.indexPitch}/${route.nbPitch} </td>
+                    <td><c:out value="${route.name}"/></td>
+                    <td><c:out value="${route.rating}"/></td>
+                    <td><c:out value="${route.indexPitch}"/>/<c:out value="${route.nbPitch}"/></td>
                     <td><c:if test="${route.bolted==true}">oui</c:if>
                         <c:if test="${route.bolted==false}">non</c:if>
                     </td>
@@ -270,10 +270,8 @@
 
 </div>
 
+<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
 

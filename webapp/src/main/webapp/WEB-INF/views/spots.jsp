@@ -68,7 +68,7 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value="${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -139,9 +139,9 @@
                     <tbody>
                     <c:forEach items="${spot.routes}" var="route">
                         <tr>
-                            <td>${route.name}</td>
-                            <td>${route.rating}</td>
-                            <td>${route.indexPitch}/${route.nbPitch} </td>
+                            <td><c:out value="${route.name}"/></td>
+                            <td><c:out value="${route.rating}"/></td>
+                            <td><c:out value="${route.indexPitch}"/>/<c:out value="${route.nbPitch}"/></td>
                             <td><c:if test="${route.bolted==true}">oui</c:if>
                                 <c:if test="${route.bolted==false}">non</c:if>
                             </td>

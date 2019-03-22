@@ -20,8 +20,13 @@
 <body>
 
 <style type="text/css">
-    body {padding-top: 70px;}
-    h1 {padding-top: 50px;}
+    body {
+        padding-top: 70px;
+    }
+
+    h1 {
+        padding-top: 50px;
+    }
 </style>
 
 
@@ -56,7 +61,7 @@
                     </c:if>
             </ul>
 
-            <ul class="navbar-nav" >
+            <ul class="navbar-nav">
                 <c:if test="${empty user}">
                     <li class="nav-item">
                         <a class="nav-item nav-link">Login</a>
@@ -65,13 +70,14 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value=" ${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="">Espace Membre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se déconnecter</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se
+                            déconnecter</a>
                     </li>
                 </c:if>
             </ul>
@@ -118,7 +124,7 @@
 
 </div>
 
-    <jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
+<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
 
 </body>

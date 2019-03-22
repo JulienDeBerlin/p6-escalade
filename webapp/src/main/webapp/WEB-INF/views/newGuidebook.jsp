@@ -71,10 +71,11 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value="${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Espace Membre</a>
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Espace Membre</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se
@@ -96,9 +97,10 @@
 
         <div class="form-group">
             <label for="isbn13">Saisissez le numéro ISBN13 du topo</label>
-            <input type="text" name="isbn13" class="form-control" id="isbn13" aria-describedby="helpIsbn" pattern="\d{13}" required>
+            <input type="text" name="isbn13" class="form-control" id="isbn13" aria-describedby="helpIsbn"
+                   pattern="\d{13}" required>
             <small id="helpIsbn" class="form-text text-muted">Combinaison de 13 chiffres, sans tirets</small>
-            <small> </small>
+            <small></small>
         </div>
 
         <button type="submit" class="btn btn-primary">Valider</button>
@@ -107,73 +109,75 @@
     <br/>
 
 
-
     <c:if test="${(step == 'step2' || step == 'step3') }">
         <h2>Étape 2: référencement du topo </h2>
 
         <c:if test="${selectedGuidebook.id == '-1' }">
 
-        <form method="post" action="${pageContext.request.contextPath}/escalade/addcontent/guidebook">
+            <form method="post" action="${pageContext.request.contextPath}/escalade/addcontent/guidebook">
 
-            <div class="form-group">
-                <label for="isbn">Saisissez le numéro ISBN13 du topo</label>
-                <input type="number" name="isbn13" class="form-control" id="isbn" value="${isbn13}" readonly>
-            </div>
+                <div class="form-group">
+                    <label for="isbn">Saisissez le numéro ISBN13 du topo</label>
+                    <input type="number" name="isbn13" class="form-control" id="isbn" value="${isbn13}" readonly>
+                </div>
 
-            <div class="form-group">
-                <label for="name">Titre de l'ouvrage</label>
-                <input type="text" name="name" class="form-control" id="name" required>
-            </div>
+                <div class="form-group">
+                    <label for="name">Titre de l'ouvrage</label>
+                    <input type="text" name="name" class="form-control" id="name" required>
+                </div>
 
-            <div class="form-group">
-                <label for="firstnameAuthor">Prénom de l'auteur</label>
-                <input type="text" name="firstnameAuthor" class="form-control" id="firstnameAuthor" required>
-            </div>
+                <div class="form-group">
+                    <label for="firstnameAuthor">Prénom de l'auteur</label>
+                    <input type="text" name="firstnameAuthor" class="form-control" id="firstnameAuthor" required>
+                </div>
 
-            <div class="form-group">
-                <label for="surnameAuthor">Nom de l'auteur</label>
-                <input type="text" name="surnameAuthor" class="form-control" id="surnameAuthor" required>
-            </div>
+                <div class="form-group">
+                    <label for="surnameAuthor">Nom de l'auteur</label>
+                    <input type="text" name="surnameAuthor" class="form-control" id="surnameAuthor" required>
+                </div>
 
-            <div class="form-group">
-                <label for="yearPublication">Année de publication</label>
-                <input type="number" name="yearPublication" class="form-control" id="yearPublication" required>
-            </div>
+                <div class="form-group">
+                    <label for="yearPublication">Année de publication</label>
+                    <input type="number" name="yearPublication" class="form-control" id="yearPublication" required>
+                </div>
 
-            <div class="form-group">
-                <label for="publisher">Éditeur</label>
-                <input type="text" name="publisher" class="form-control" id="publisher" required>
-            </div>
+                <div class="form-group">
+                    <label for="publisher">Éditeur</label>
+                    <input type="text" name="publisher" class="form-control" id="publisher" required>
+                </div>
 
-            <div class="form-group">
-                <label for="language">Langue</label>
-                <input type="text" name="language" class="form-control" id="language" required>
-            </div>
+                <div class="form-group">
+                    <label for="language">Langue</label>
+                    <input type="text" name="language" class="form-control" id="language" required>
+                </div>
 
-            <div>
-                <label for="summary">Présentation de l'ouvrage:</label>
-                <textarea class="form-control" rows="5" id="summary" name="summary" maxlength="1000" required></textarea>
-            </div>
+                <div>
+                    <label for="summary">Présentation de l'ouvrage:</label>
+                    <textarea class="form-control" rows="5" id="summary" name="summary" maxlength="1000"
+                              required></textarea>
+                </div>
 
-            <button type="submit" class="btn btn-primary">Valider</button>
-        </form>
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </form>
         </c:if>
 
         <c:if test="${selectedGuidebook.id != '-1' }">
             <p>
-            <p style="color: green"> Le topo avec le numéro ISBN ${selectedGuidebook.isbn13} est référencé dans la base de donnée </p>
-                <p> <strong>Titre de l'ouvrage:</strong> ${selectedGuidebook.name}
-                <br/><strong>Auteur:</strong> ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor}  </p>
+            <p style="color: green"> Le topo avec le numéro ISBN ${selectedGuidebook.isbn13} est référencé dans la base
+                de donnée </p>
+            <p><strong>Titre de l'ouvrage:</strong> ${selectedGuidebook.name}
+                <br/><strong>Auteur:</strong> ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor}
+            </p>
         </c:if>
     </c:if>
 
-<br/>
+    <br/>
     <c:if test="${step == 'step3'}">
 
         <h2 id="step3">Étape 3: Valider les sites couverts par le topo </h2>
 
         <script>
-            $("html, body").animate({ scrollTop: $('#etape3').offset().top }, 1000);
+            $("html, body").animate({scrollTop: $('#etape3').offset().top}, 1000);
         </script>
 
 
@@ -195,12 +199,12 @@
 
             <tbody>
             <c:forEach items="${ selectedGuidebook.spots}" var="spot">
-                    <tr>
-                        <td>${ spot.nameSpot  }</td>
-                        <td>${ spot.nameArea  }</td>
-                        <td>${ spot.location.cityName } </td>
-                        <td>${ spot.location.departementName} (${spot.location.departementId})</td>
-                    </tr>
+                <tr>
+                    <td><c:out value="${spot.nameSpot}"/></td>
+                    <td><c:out value="${spot.nameArea}"/></td>
+                    <td>${ spot.location.cityName } </td>
+                    <td>${ spot.location.departementName} (${spot.location.departementId})</td>
+                </tr>
             </c:forEach>
 
             </tbody>
@@ -209,9 +213,10 @@
 
         <h4>Compléter la liste</h4>
 
-        <p> Pour cela vous devez d'abord vous assurer que les sites que vous souhaitez associer au topo sont référencés dans la base de
+        <p> Pour cela vous devez d'abord vous assurer que les sites que vous souhaitez associer au topo sont référencés
+            dans la base de
             données et si ce n'est pas le cas, <a
-                    href=${pageContext.request.contextPath}/escalade/addcontent/spot/checkCityInput
+                    href=${pageContext.request.contextPath}/escalade/addcontent/spot
                     target="_blank">les ajouter.</a>
             Ensuite il suffit de saisir une localité et de sélectionner les sites à associer parmi la liste des
             propositions. </p>
@@ -220,7 +225,8 @@
 
             <div class="form-group">
                 <input type="text" name="locationSpotsForGuidebook" class="form-control" id="locationSpotsForGuidebook"
-                       placeholder="Région, département, commune" aria-describedby="inputLocationHelp">
+                       placeholder="Région, département, commune dans lesquels se situent les sites à ajouter"
+                       aria-describedby="inputLocationHelp">
                 <small id="inputLocationHelp" class="form-text text-muted">Les lieux disponibles s'affichent
                     automatiquement lors de la saisie du texte
                 </small>
@@ -267,8 +273,8 @@
                                         <input type="checkbox" name="selectedSpots" value="${spot.id}">
                                     </div>
                                 </td>
-                                <td>${ spot.nameSpot  }</td>
-                                <td>${ spot.nameArea  }</td>
+                                <td><c:out value="${spot.nameSpot}"/></td>
+                                <td><c:out value="${spot.nameArea}"/></td>
                                 <td>${ location.cityName } </td>
                                 <td>${ location.departementName} (${location.departementId})</td>
                             </tr>
@@ -296,10 +302,7 @@
 </div>
 
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
+<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
 <script>
 
@@ -319,7 +322,6 @@
 
 
 </script>
-
 
 
 </body>

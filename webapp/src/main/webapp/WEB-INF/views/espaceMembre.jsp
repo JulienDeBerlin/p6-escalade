@@ -41,9 +41,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
-                <%--<li class="nav-item">--%>
-                <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
-                <%--</li>--%>
+
                 <li class="nav-item">
                     <a class="nav-item nav-link"
                        href="${pageContext.request.contextPath}/#lesSpots">Les spots</a>
@@ -76,7 +74,7 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value=" ${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link active">Espace Membre</a>
@@ -101,10 +99,10 @@
         <h2>Coordonnées</h2>
 
         <p>
-            <span> ${user.firstName} ${user.surname}</span> <br/>
+            <span> <c:out value="${user.firstName}"/> <c:out value="${user.surname}"/></span> <br/>
             <span> Membre depuis le <javatime:format value="${user.dateMembership}" pattern="dd/MM/uuuu"/></span> <br/>
-            <span> Pseudo: ${user.nickname} </span> <br/>
-            <span> Email: ${user.email} / Télephone: ${user.phone}</span>
+            <span> Pseudo: <c:out value="${user.nickname}"/> </span> <br/>
+            <span> Email: <c:out value="${user.email}"/> / Télephone: <c:out value="${user.phone}"/></span>
 
         </p>
 
@@ -172,9 +170,9 @@
             <tbody>
             <c:forEach items="${guidebooksForLoan }" var="guidebook">
                 <tr>
-                    <td>${ guidebook.name} (ISBN ${ guidebook.isbn13})</td>
-                    <td>${ guidebook.firstnameAuthor} ${guidebook.surnameAuthor}</td>
-                    <td>${ guidebook.yearPublication} </td>
+                    <td><c:out value="${guidebook.name}"/> (ISBN <c:out value="${guidebook.isbn13}"/>)</td>
+                    <td><c:out value="${guidebook.firstnameAuthor}"/> <c:out value="${guidebook.surnameAuthor}"/></td>
+                    <td><c:out value="${guidebook.yearPublication}"/></td>
                     <td>
                         <a href="${pageContext.request.contextPath}/escalade/memberArea/librairy/goToBookings?guidebookId=${guidebook.id}">
                             <img src="${pageContext.request.contextPath}/resources/img/logoGestionResa.png"
@@ -195,7 +193,7 @@
         </p>
 
         <p>
-        <h4>Ajouter un topo à la liste</h4>
+        <h4>Ajouter un topo référencé à la liste</h4>
 
         <c:if test="${message == 'guidebookAdded'}">
             <p style="color: green">Le topo a bien été ajouté à la liste.</p>
@@ -254,14 +252,8 @@
 </div>
 
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
-<script>
-    $('.navbar-nav>li>a').on('click', function () {
-        $('.navbar-collapse').collapse('hide');
-    });
-</script>
 
 </body>
 

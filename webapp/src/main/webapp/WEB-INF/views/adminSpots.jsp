@@ -70,7 +70,7 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value=" ${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -119,30 +119,6 @@
 
         <br/>
 
-        <%--<form>--%>
-        <%--<div class="form-row">--%>
-
-        <%--<div class="form-group col-md-5">--%>
-        <%--<input type="text" class="form-control" value="nom du site" readonly disabled>--%>
-        <%--</div>--%>
-        <%--<div class="form-group col-md-4">--%>
-        <%--<input type="text" class="form-control" value="secteur" readonly disabled>--%>
-        <%--</div>--%>
-        <%--<div class="form-group col-md-1">--%>
-        <%--<button type="submit" class="btn btn-primary" disabled>Modifier</button>--%>
-        <%--</div>--%>
-
-        <%--<div class="form-group col-md-1">--%>
-        <%--<button type="submit" class="btn btn-success" formaction="" disabled>Les voies</button>--%>
-        <%--</div>--%>
-
-        <%--<div class="form-group col-md-1">--%>
-        <%--<button type="submit" class="btn btn-danger" formaction="" disabled>Supprimer</button>--%>
-        <%--</div>--%>
-
-        <%--</div>--%>
-
-        <%--</form>--%>
 
         <c:forEach items="${selectedLocations }" var="location">
             <c:forEach items="${location.spots }" var="spot">
@@ -150,14 +126,15 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <input type="text" class="form-control" id="nameSpot" name="nameSpot"
-                                   value="${spot.nameSpot}" aria-describedby="nameSpotHelp" required>
+                                   value="<c:out value="${spot.nameSpot}"/>" aria-describedby="nameSpotHelp" required>
                             <small id="nameSpotHelp" class="form-text text-muted">Nom du site</small>
-                            <input type="hidden" class="form-control" id="spotId" name="spotId" value="${spot.id}">
+                            <input type="hidden" class="form-control" id="spotId" name="spotId"
+                                   value="<c:out value="${spot.id}"/>">
                         </div>
                         <div class="form-group col-md-6">
                             <input type="text" class="form-control" id="nameArea" name="nameArea"
                                    aria-describedby="nameAreaHelp"
-                                   value="${spot.nameArea}">
+                                   value="<c:out value="${spot.nameArea}"/>">
                             <small id="nameAreaHelp" class="form-text text-muted">Nom du secteur (facultatif)
                             </small>
                         </div>
@@ -169,7 +146,7 @@
                                 <%--<input type="text" class="form-control" id="spotAccess" name="spotAccess" aria-describedby="accessHelp"--%>
                                 <%--value="${spot.access}">--%>
                             <textarea class="form-control" name="spotAccess"
-                                      aria-describedby="accessHelp">${spot.access} </textarea>
+                                      aria-describedby="accessHelp"><c:out value="${spot.access}"/> </textarea>
                             <small id="accessHelp" class="form-text text-muted">Accès au site</small>
                         </div>
 
@@ -209,38 +186,6 @@
 
         <br/>
 
-        <%--<form>--%>
-        <%--<div class="form-row">--%>
-
-        <%--<div class="col">--%>
-        <%--<input type="text" class="form-control" value="nom de la voie" readonly disabled>--%>
-        <%--</div>--%>
-        <%--<div class="col">--%>
-        <%--<input type="text" class="form-control" value="nb pitchs" readonly disabled>--%>
-        <%--</div>--%>
-        <%--<div class="col">--%>
-        <%--<input type="text" class="form-control" value="index pitch" readonly disabled>--%>
-        <%--</div>--%>
-        <%--<div class="col">--%>
-        <%--<input type="text" class="form-control" value="cotation" readonly disabled>--%>
-        <%--</div>--%>
-        <%--<div class="col">--%>
-        <%--<input type="text" class="form-control" value="voie équipée?" readonly disabled>--%>
-        <%--</div>--%>
-
-        <%--<div class="col">--%>
-        <%--<button type="submit" class="btn btn-primary" disabled>Modifier</button>--%>
-        <%--</div>--%>
-
-        <%--<div class="col">--%>
-        <%--<button type="submit" class="btn btn-danger" formaction="" disabled>Supprimer</button>--%>
-        <%--</div>--%>
-
-        <%--</div>--%>
-
-        <%--</form>--%>
-
-
         <c:forEach items="${selectedSpot.routes }" var="route">
 
             <form method="post" action="${pageContext.request.contextPath}/escalade/admin/routes/update">
@@ -248,26 +193,27 @@
                 <div class="form-row">
 
                     <div class="form-group col-md-4">
-                        <input type="text" class="form-control" value="${route.name}" name="name"
+                        <input type="text" class="form-control" value="<c:out value="${route.name}"/>" name="name"
                                aria-describedby="nameHelp" required>
                         <small id="nameHelp" class="form-text text-muted">Nom de la voie</small>
-                        <input type="hidden" class="form-control" value="${route.id}" name="id">
+                        <input type="hidden" class="form-control" value="<c:out value="${route.id}"/>" name="id">
                     </div>
 
                     <div class="form-group col-md-2">
-                        <input type="text" class="form-control" value="${route.nbPitch}" name="nbPitch"
+                        <input type="text" class="form-control" value="<c:out value="${route.nbPitch}"/>" name="nbPitch"
                                aria-describedby="nbPitchHelp" required>
                         <small id="nbPitchHelp" class="form-text text-muted">Nb de longueurs</small>
                     </div>
 
                     <div class="form-group col-md-2">
-                        <input type="text" class="form-control" value="${route.indexPitch}" name="indexPitch"
+                        <input type="text" class="form-control" value="<c:out value="${route.indexPitch}"/>"
+                               name="indexPitch"
                                aria-describedby="indexPitch" required>
                         <small id="indexPitch" class="form-text text-muted">Index de cette longueur</small>
                     </div>
 
                     <div class="form-group col-md-2">
-                        <input type="text" class="form-control" value="${route.rating}" name="rating"
+                        <input type="text" class="form-control" value="<c:out value="${route.rating}"/>" name="rating"
                                aria-describedby="rating" required>
                         <small id="rating" class="form-text text-muted">Cotation</small>
                     </div>
@@ -304,9 +250,8 @@
 </div>
 
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
+
 
 <script>
 

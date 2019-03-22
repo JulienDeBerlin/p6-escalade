@@ -6,11 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><html>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>High</title>
     <link href="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/css/bootstrap.min.css"
           rel="stylesheet"/>
@@ -18,8 +19,13 @@
 <body>
 
 <style type="text/css">
-    body {padding-top: 70px;}
-    h1 {padding-top: 50px;}
+    body {
+        padding-top: 70px;
+    }
+
+    h1 {
+        padding-top: 50px;
+    }
 </style>
 
 
@@ -34,7 +40,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
                 <%--<li class="nav-item">--%>
-                    <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
+                <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
                 <%--</li>--%>
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/#lesSpots">Les spots</a>
@@ -74,38 +80,33 @@
     </c:if>
 
 
-<h1>CONNECTEZ-VOUS !</h1>
+    <h1>CONNECTEZ-VOUS !</h1>
 
-<form method="post" action="${pageContext.request.contextPath}/escalade/login?afterLogin=${jspAfterLogin}">
+    <form method="post" action="${pageContext.request.contextPath}/escalade/login?afterLogin=${jspAfterLogin}">
 
-    <div class="form-group" >
-        <label for="email">E-Mail</label>
-        <input type="email" name="email" class="form-control" id="email" placeholder="monadresse@exemple.fr" required>
-    </div>
+        <div class="form-group">
+            <label for="email">E-Mail</label>
+            <input type="email" name="email" class="form-control" id="email" placeholder="monadresse@exemple.fr"
+                   required>
+        </div>
 
-    <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input type="password" name="password" class="form-control" id="password" required>
-    </div>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" class="form-control" id="password" required>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Se connecter</button>
-</form>
+        <button type="submit" class="btn btn-primary">Se connecter</button>
+    </form>
 
-<br/>
-<p>Pas encore inscrit? <a href="${pageContext.request.contextPath}/escalade/newMember?afterLogin=${jspAfterLogin}">Créez votre compte en quelques clics</a></p>
+    <br/>
+    <p>Pas encore inscrit? <a href="${pageContext.request.contextPath}/escalade/newMember?afterLogin=${jspAfterLogin}">Créez
+        votre compte en quelques clics</a></p>
 
 
 </div>
 
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
-
-<script>
-    $('.navbar-nav>li>a').on('click', function(){
-        $('.navbar-collapse').collapse('hide');
-    });
-</script>
+<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
 
 </body>

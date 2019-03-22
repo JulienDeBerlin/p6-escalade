@@ -6,11 +6,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %><html>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<html>
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>High</title>
     <link href="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/css/bootstrap.min.css"
           rel="stylesheet"/>
@@ -18,8 +19,13 @@
 <body>
 
 <style type="text/css">
-    body {padding-top: 70px;}
-    h1 {padding-top: 50px;}
+    body {
+        padding-top: 70px;
+    }
+
+    h1 {
+        padding-top: 50px;
+    }
 </style>
 
 
@@ -72,7 +78,7 @@
             visible par les autres membres.<br/>
             Si vous proposez des topos au prêt, les emprunteurs auront également accès à votre email et votre numéro de
             tel pour prendre contact avec vous.
-    </p>
+        </p>
 
 
         <c:if test="${nickname==''}">
@@ -84,35 +90,39 @@
         </c:if>
 
 
-        <div class="form-group" >
+        <div class="form-group">
             <label for="firstName">Prénom</label>
-            <input type="text" name="firstName" class="form-control" id="firstName" value="${firstName}" required>
+            <input type="text" name="firstName" class="form-control" id="firstName"
+                   value="<c:out value="${firstname}"/>" required>
         </div>
 
         <div class="form-group">
             <label for="surname">Nom</label>
-            <input type="text" name="surname" class="form-control" id="surname"  value="${surname}"  required>
+            <input type="text" name="surname" class="form-control" id="surname" value="<c:out value="${surname}"/>"
+                   required>
         </div>
 
 
         <div class="form-group">
             <label for="nickname">Pseudo</label>
-            <input type="text" name="nickname" class="form-control" id="nickname" value="${nickname}" required>
+            <input type="text" name="nickname" class="form-control" id="nickname" value="<c:out value="${nickname}"/>"
+                   required>
         </div>
 
         <div class="form-group">
             <label for="password">Mot de passe</label>
-            <input type="password" name="password" class="form-control" id="password" value="${password}" required>
+            <input type="password" name="password" class="form-control" id="password"
+                   value="<c:out value="${password}"/>" required>
         </div>
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" id="email" value="${email}" required>
+            <input type="email" name="email" class="form-control" id="email" value="<c:out value="${email}"/>" required>
         </div>
 
         <div class="form-group">
             <label for="phone">Téléphone</label>
-            <input type="tel" name="phone" class="form-control" id="phone" value="${phone}" required>
+            <input type="tel" name="phone" class="form-control" id="phone" value="<c:out value="${phone}"/>" required>
         </div>
 
         <button type="submit" class="btn btn-primary">Valider</button>
@@ -121,11 +131,10 @@
 </div>
 
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"> </script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"> </script>
+<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
 <script>
-    $('.navbar-nav>li>a').on('click', function(){
+    $('.navbar-nav>li>a').on('click', function () {
         $('.navbar-collapse').collapse('hide');
     });
 </script>

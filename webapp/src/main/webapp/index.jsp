@@ -78,7 +78,7 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value=" ${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -111,7 +111,6 @@
         <p style="color: red"> Attention, la localisation doit être choisie parmi la liste des propositions
         </p>
     </c:if>
-
 
 
     <h1 id="leProjet">LE PROJET</h1>
@@ -268,17 +267,8 @@
 
 </div>
 
+<jsp:include page="resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
-<script>
-    $('.navbar-nav>li>a').on('click', function () {
-        $('.navbar-collapse').collapse('hide');
-    });
-</script>
 
 <script>
     $(function () {

@@ -5,13 +5,13 @@
   Time: 16:39
   To change this template use File | Settings | File Templates.
 --%>
-<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 
 <html>
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>High</title>
     <link href="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/css/bootstrap.min.css"
           rel="stylesheet"/>
@@ -19,8 +19,13 @@
 <body>
 
 <style type="text/css">
-    body {padding-top: 70px;}
-    h1 {padding-top: 50px;}
+    body {
+        padding-top: 70px;
+    }
+
+    h1 {
+        padding-top: 50px;
+    }
 </style>
 
 <div class="container">
@@ -44,15 +49,15 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/#Contribuez">Contribuez</a>
                 </li>
-                    <c:if test="${user.email=='superadmin@admin.fr'}">
-                        <li class="nav-item">
-                            <a class="nav-item nav-link"
-                               href="${pageContext.request.contextPath}/#Moderation">Moderation</a>
-                        </li>
-                    </c:if>
+                <c:if test="${user.email=='superadmin@admin.fr'}">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/#Moderation">Moderation</a>
+                    </li>
+                </c:if>
             </ul>
 
-            <ul class="navbar-nav" >
+            <ul class="navbar-nav">
                 <c:if test="${empty user}">
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -62,13 +67,14 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value=" ${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="">Espace Membre</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se déconnecter</a>
+                        <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se
+                            déconnecter</a>
                     </li>
                 </c:if>
             </ul>
@@ -79,7 +85,8 @@
 
 
     <p><strong> LISTE DES SITES CORRESPONDANT AU TOPO <br/>
-        <span class="font-italic">${selectedGuidebook.name}</span> ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor}
+        <span class="font-italic"><c:out value=" ${selectedGuidebook.name}"/></span> <c:out
+                value=" ${selectedGuidebook.firstnameAuthor}"/> <c:out value=" ${selectedGuidebook.surnameAuthor}"/>
     </strong></p>
 
 
@@ -123,14 +130,14 @@
             <tbody>
             <c:forEach items="${spot.routes}" var="route">
                 <tr>
-                    <td>${route.name}</td>
-                    <td>${route.rating}</td>
-                    <td>${route.indexPitch}/${route.nbPitch} </td>
+                    <td><c:out value=" ${route.name}"/></td>
+                    <td><c:out value=" ${route.rating}"/></td>
+                    <td><c:out value=" ${route.indexPitch}"/>/<c:out value=" ${route.nbPitch}"/></td>
                     <td><c:if test="${route.bolted==true}">oui</c:if>
                         <c:if test="${route.bolted==false}">non</c:if>
                     </td>
                 </tr>
-                </c:forEach>
+            </c:forEach>
             </tbody>
         </table>
 
@@ -165,7 +172,7 @@
                         <javatime:format value="${comment.date}" pattern="dd/MM/uuuu"/></small>
 
                     <p class="font-italic">
-                            <c:out value="\"${comment.comment}\""/>
+                        <c:out value="\"${comment.comment}\""/>
                     </p>
 
                 </div>

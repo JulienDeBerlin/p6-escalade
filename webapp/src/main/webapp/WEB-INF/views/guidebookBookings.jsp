@@ -42,9 +42,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
-                <%--<li class="nav-item">--%>
-                <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
-                <%--</li>--%>
+
                 <li class="nav-item">
                     <a class="nav-item nav-link"
                        href="${pageContext.request.contextPath}/#lesSpots">Les spots</a>
@@ -58,12 +56,12 @@
                        href="${pageContext.request.contextPath}/#Contribuez">Contribuez</a>
                 </li>
 
-                    <c:if test="${user.email=='superadmin@admin.fr'}">
-                        <li class="nav-item">
-                            <a class="nav-item nav-link"
-                               href="${pageContext.request.contextPath}/#Moderation">Moderation</a>
-                        </li>
-                    </c:if>
+                <c:if test="${user.email=='superadmin@admin.fr'}">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/#Moderation">Moderation</a>
+                    </li>
+                </c:if>
 
             </ul>
 
@@ -77,7 +75,7 @@
 
                 <c:if test="${not empty user}">
                     <li class="nav-item">
-                        <p>Bienvenue ${user.nickname}</p>
+                        <p>Bienvenue <c:out value="${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link"
@@ -94,8 +92,9 @@
 
     <h1>Gestion des réservations</h1>
     <p>
-        <span class="font-italic"> <strong> ${selectedGuidebook.name} </strong>  <br/> </span>
-        <span> <strong> ${selectedGuidebook.firstnameAuthor} ${selectedGuidebook.surnameAuthor} </strong>  </span>
+        <span class="font-italic"> <strong> <c:out value=" ${selectedGuidebook.name}"/> </strong>  <br/> </span>
+        <span> <strong> <c:out value=" ${selectedGuidebook.firstnameAuthor}"/> <c:out
+                value=" ${selectedGuidebook.surnameAuthor}"/> </strong>  </span>
     </p>
 
 
@@ -123,11 +122,11 @@
         <tbody>
         <c:forEach items="${privateGuidebook.bookings }" var="booking">
             <tr>
-                <td>${ booking.bookedBy}</td>
+                <td><c:out value=" ${booking.bookedBy}"/></td>
                 <td><javatime:format value="${booking.dateFrom}" pattern="dd/MM/uuuu"/></td>
                 <td><javatime:format value="${booking.dateUntil}" pattern="dd/MM/uuuu"/></td>
-                <td>${ booking.email} </td>
-                <td>${ booking.phone} </td>
+                <td><c:out value=" ${booking.email}"/></td>
+                <td><c:out value=" ${booking.phone}"/></td>
 
 
                 <td>
@@ -194,25 +193,27 @@
             <div class="form-group">
                 <label for="booked_by2">Emprunteur</label>
                 <input type="text" name="booked_by" class="form-control" id="booked_by2"
-                       value="${selectedBooking.bookedBy}" required>
+                       value="<c:out value=" ${selectedBooking.bookedBy}"/>" required>
             </div>
             <div class="form-group">
                 <label for="date_from2">Date début</label>
                 <input type="date" name="date_from" class="form-control" id="date_from2"
-                       value="${selectedBooking.dateFrom}" required>
+                       value="<c:out value=" ${selectedBooking.dateFrom}"/>" required>
             </div>
             <div class="form-group">
                 <label for="date_until2">Date fin</label>
                 <input type="date" name="date_until" class="form-control" id="date_until2"
-                       value="${selectedBooking.dateUntil}" required>
+                       value="<c:out value=" ${selectedBooking.dateUntil}"/>" required>
             </div>
             <div class="form-group">
                 <label for="email2">Email</label>
-                <input type="email" name="email" class="form-control" id="email2" value="${selectedBooking.email}">
+                <input type="email" name="email" class="form-control" id="email2"
+                       value="<c:out value=" ${selectedBooking.email}"/>">
             </div>
             <div class="form-group">
                 <label for="phone2">Phone</label>
-                <input type="tel" name="phone" class="form-control" id="phone2" value="${selectedBooking.phone}">
+                <input type="tel" name="phone" class="form-control" id="phone2"
+                       value="<c:out value=" ${selectedBooking.phone}"/>">
             </div>
 
             <button type="submit" class="btn btn-primary">Valider</button>
@@ -223,14 +224,8 @@
 
 </div>
 
-<script src="${pageContext.request.contextPath}/webjars/jquery/3.0.0/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/webjars/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<jsp:include page="../../resources/JspFragments/scriptsJS.jsp"></jsp:include>
 
-<script>
-    $('.navbar-nav>li>a').on('click', function () {
-        $('.navbar-collapse').collapse('hide');
-    });
-</script>
 
 </body>
 
