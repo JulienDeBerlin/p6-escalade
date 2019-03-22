@@ -1,8 +1,9 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Route implements Comparable<Route> {
+public class Route implements Comparable<Route>, Serializable {
 
     private int id;
     private String name;

@@ -1,9 +1,10 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class Spot implements Comparable<Spot> {
+public class Spot implements Comparable<Spot>, Serializable {
 
     private int id;
     private String nameSpot;

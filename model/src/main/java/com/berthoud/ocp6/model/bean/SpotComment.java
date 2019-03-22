@@ -1,9 +1,10 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.time.LocalDate;
 
-public class SpotComment implements Comparable<SpotComment> {
+public class SpotComment implements Comparable<SpotComment>, Serializable {
 
     private int id;
     private String comment;

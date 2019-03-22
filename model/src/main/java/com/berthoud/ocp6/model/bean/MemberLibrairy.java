@@ -1,9 +1,10 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class MemberLibrairy {
+public class MemberLibrairy implements Serializable {
 
     private int id;
     private Member member;

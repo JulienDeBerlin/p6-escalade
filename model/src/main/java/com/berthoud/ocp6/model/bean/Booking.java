@@ -1,8 +1,10 @@
 package com.berthoud.ocp6.model.bean;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Booking implements Comparable<Booking> {
+public class Booking implements Comparable<Booking>, Serializable {
 
     private int id;
     private String bookedBy;

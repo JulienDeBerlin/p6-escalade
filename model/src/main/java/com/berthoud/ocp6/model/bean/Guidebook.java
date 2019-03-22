@@ -1,9 +1,10 @@
 package com.berthoud.ocp6.model.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-public class Guidebook implements Comparable<Guidebook> {
+public class Guidebook implements Comparable<Guidebook>, Serializable {
     private int id;
     private String isbn13;
     private String name;
