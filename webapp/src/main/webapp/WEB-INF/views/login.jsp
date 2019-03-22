@@ -39,9 +39,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
-                <%--<li class="nav-item">--%>
-                <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
-                <%--</li>--%>
+
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/#lesSpots">Les spots</a>
                 </li>

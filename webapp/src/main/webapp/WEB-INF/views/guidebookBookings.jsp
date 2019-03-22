@@ -69,7 +69,7 @@
                 <c:if test="${empty user}">
                     <li class="nav-item">
                         <a class="nav-item nav-link"
-                           href="${pageContext.request.contextPath}/escalade/login?afterLogin=index">Login</a>
+                           href="${pageContext.request.contextPath}/escalade/login?afterLogin=redirect:/index.jsp">Login</a>
                     </li>
                 </c:if>
 
@@ -198,12 +198,12 @@
             <div class="form-group">
                 <label for="date_from2">Date début</label>
                 <input type="date" name="date_from" class="form-control" id="date_from2"
-                       value="<c:out value=" ${selectedBooking.dateFrom}"/>" required>
+                       value="${selectedBooking.dateFrom}" required>
             </div>
             <div class="form-group">
                 <label for="date_until2">Date fin</label>
                 <input type="date" name="date_until" class="form-control" id="date_until2"
-                       value="<c:out value=" ${selectedBooking.dateUntil}"/>" required>
+                       value="${selectedBooking.dateUntil}" required>
             </div>
             <div class="form-group">
                 <label for="email2">Email</label>

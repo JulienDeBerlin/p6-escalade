@@ -61,7 +61,7 @@
                 <c:if test="${empty user}">
                     <li class="nav-item">
                         <a class="nav-item nav-link"
-                           href="${pageContext.request.contextPath}/escalade/login?afterLogin=index">Login</a>
+                           href="${pageContext.request.contextPath}/escalade/login?afterLogin=redirect:/index.jsp">Login</a>
                     </li>
                 </c:if>
 
@@ -70,7 +70,8 @@
                         <p>Bienvenue <c:out value=" ${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="">Espace Membre</a>
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Espace Membre</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se

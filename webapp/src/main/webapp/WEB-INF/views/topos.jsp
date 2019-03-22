@@ -41,9 +41,7 @@
 
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
-                <%--<li class="nav-item active">--%>
-                <%--<a class="nav-item nav-link active" href="#leProjet">Home <span class="sr-only">(current)</span></a>--%>
-                <%--</li>--%>
+
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/#lesSpots">Les spots</a>
                 </li>
@@ -64,7 +62,8 @@
             <ul class="navbar-nav">
                 <c:if test="${empty user}">
                     <li class="nav-item">
-                        <a class="nav-item nav-link">Login</a>
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/login?afterLogin=redirect:/index.jsp">Login</a>
                     </li>
                 </c:if>
 
@@ -73,7 +72,8 @@
                         <p>Bienvenue <c:out value=" ${user.nickname}"/></p>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link" href="">Espace Membre</a>
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/escalade/login/espaceMembre">Espace Membre</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="${pageContext.request.contextPath}/escalade/logout">Se

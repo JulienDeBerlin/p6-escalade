@@ -65,7 +65,7 @@
                 <c:if test="${empty user}">
                     <li class="nav-item">
                         <a class="nav-item nav-link"
-                           href="${pageContext.request.contextPath}/escalade/login?afterLogin=index">Login</a>
+                           href="${pageContext.request.contextPath}/escalade/login?afterLogin=redirect:/index.jsp">Login</a>
                     </li>
                 </c:if>
 
