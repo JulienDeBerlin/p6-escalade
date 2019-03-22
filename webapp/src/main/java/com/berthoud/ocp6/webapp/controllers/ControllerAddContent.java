@@ -37,8 +37,7 @@ public class ControllerAddContent {
         if (model.containsAttribute("user")) {
             return "newSpot";
         } else {
-            String message = "onlyMembers";
-            model.put("message", message);
+            model.put("message", "onlyMembers");
 
             model.put("jspAfterLogin", "newSpot");
 
