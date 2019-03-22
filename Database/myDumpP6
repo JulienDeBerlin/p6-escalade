@@ -251,8 +251,8 @@ CREATE TABLE public.route (
     nb_pitch smallint NOT NULL,
     index_pitch smallint NOT NULL,
     rating character varying(4) NOT NULL,
-    bolted boolean NOT NULL,
-    spot_id integer NOT NULL
+    spot_id integer NOT NULL,
+    nb_anchor integer NOT NULL
 );
 
 
@@ -369,6 +369,12 @@ COPY public.association_spot_guidebook (spot_id, guidebook_id) FROM stdin;
 4	75
 5	64
 4	64
+3	77
+191	77
+191	4
+193	78
+5	78
+4	78
 1	6
 37	6
 \.
@@ -382,6 +388,7 @@ COPY public.booking (id, booked_by, date_from, date_until, email, phone, member_
 126	Zaza	2019-06-03	2019-06-23	w@i.com	434287287382	172
 5	pierre	2019-03-13	2019-03-20			110
 127	Yvon	2019-03-06	2019-03-20			170
+128	 Charles (voisin)	2019-05-01	2019-05-31	charli@yahoo.fr	 0385303955	194
 9	Laurent	2019-03-01	2019-03-29			110
 10	Lucie	2019-04-11	2019-04-26			110
 21	Lucie	2019-03-26	2019-03-28			116
@@ -404,7 +411,7 @@ COPY public.booking (id, booked_by, date_from, date_until, email, phone, member_
 -- Name: booking_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.booking_id_seq', 127, true);
+SELECT pg_catalog.setval('public.booking_id_seq', 128, true);
 
 
 --
@@ -416,26 +423,23 @@ COPY public.comment_spot (id, comment, member_id, spot_id, date) FROM stdin;
 2	Attention, la voie "soleil levant" de niveau 4 est clairement de niveau 5 voire 6. Je ne sais pas qui a fait la cotation mais cette voie est vraiment plus difficile qu'il n'y parait!	2	1	2019-01-27
 32	Un site fabuleux pour les enfants et les grands!!!LOL	17	124	2019-03-09
 34	Comme le signale justement Caropic, attention avec la voie soleil levant. Quand j'y étais la semaine dernière un accident venait de se produire. Donc méfiance!	17	1	2019-03-12
-39	pas mal. 	17	124	2019-03-12
-46	Mieux que la Ravière? Je ne connais pas. 	8	1	2019-03-12
 49	Un groupe de passionnés est en train d'ouvrir ce site. A suivre.	8	175	2019-03-13
-50	J'y suis retourné aujourd'hui, c'est vraiment super!	8	175	2019-03-13
-52	Magnifique!	8	5	2019-03-14
-53	Extraordinaire!	8	5	2019-03-14
 54	Pas génial...	8	72	2019-03-14
 55	pourri	8	72	2019-03-14
 56	Pas mal. 	8	37	2019-03-14
 57	Bof.	8	37	2019-03-14
 58	Pourquoi pas...	8	37	2019-03-14
 59	Personnellement très déçu.	8	4	2019-03-14
-60	Super schön!	8	5	2019-03-15
 62	Le Mont-Blanc envahi de grimpeurs en tongs. A fuir.	8	4	2019-03-17
 63	Extraordinaire. 	8	181	2019-03-17
 65	Un site familial. Peu de voies, mais des voies de grandes qualités. A réserver à un public expérimenté. 	8	184	2019-03-17
 66	Très bon site. Facilement accessible depuis Lyon. 	8	124	2019-03-18
-67	Unglaublig!	8	5	2019-03-18
 68	Un niveau 4 intéressant pour les débutants	8	75	2019-03-18
 69	Sympa	23	5	2019-03-20
+70	Intéressant pour les enfants. 	23	124	2019-03-22
+71	Très décevant. 	23	72	2019-03-22
+72	Un de mes sites préférés à la Réunion!	8	191	2019-03-22
+73	Un site extraordinaire	8	193	2019-03-22
 \.
 
 
@@ -443,7 +447,7 @@ COPY public.comment_spot (id, comment, member_id, spot_id, date) FROM stdin;
 -- Name: comment_spot_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.comment_spot_id_seq', 69, true);
+SELECT pg_catalog.setval('public.comment_spot_id_seq', 74, true);
 
 
 --
@@ -451,6 +455,7 @@ SELECT pg_catalog.setval('public.comment_spot_id_seq', 69, true);
 --
 
 COPY public.guidebook (id, isbn13, name, year_publication, publisher, language, summary, firstname_author, surname_author) FROM stdin;
+4	9791034800582	Sous les brumes de Mafate	2018	Evidence Editions	Français	Un très bel ouvrage.	Patrice	Noël-Richard
 6	9782344005347	Haute Tarentaise: Aime, La Plagne, Peisey, Les Arcs, Bourg-Saint-Maurice, La Rosière, Sainte-Foy, Val d'Isère, Tignes	2015	Glénat Livres	Français	De Moûtiers à Tignes et Val d'Isère, entre Vanoise et Beaufortain s'étire la Haute Tarentaise. Mondialement connue pour ses stations de ski, cette vallée est à découvrir également en été, en douceur, au gré des 44 balades et petites randonnées proposées dans ce guide.\nAlpages, villages, lacs, la montagne est ici généreuse en destinations tout aussi belles et agréables les unes que les autres.	Jean	Gotteland
 65	6754352435243	La vie éternelle	1982	Glénat	Français	Un ouvrage de référence!	Pierre	Saint-Patrick
 66	6355535243748	Le vercors en hiver	1999	Glénat	Français	Un ouvrage de référence pour les amoureux du Vercors	Jean	Petit
@@ -458,7 +463,8 @@ COPY public.guidebook (id, isbn13, name, year_publication, publisher, language, 
 75	4545555555454	La montagne	1930	Louc	français	Un ouvrage de référence.	Jean	Dubois
 76	5555555445455	Test en montagne	1913	Le Peuplier	Français	Un classique	Pierre	Legrand
 64	3333333333333	Grimpette en Bretagne	1996	MonBec	Breton	Un ouvrage de référence.	Pierre	Alliche
-4	9791034800582	Sous les brumes de Mafate	2017	Evidence Editions	Français	Un très bel ouvrage.	Patricia	Noël-Richard
+77	8765435241536	Mafate, quel cirque	2018	Petit futé	français	Un topo actuel pour grimper dans le cirque de Mafate	Jean	Gagalou
+78	8765656565628	Belle montagne	2013	Glénat	français	Le classique de la montagne	Roger	Laplanche
 \.
 
 
@@ -466,14 +472,14 @@ COPY public.guidebook (id, isbn13, name, year_publication, publisher, language, 
 -- Name: guidebook_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.guidebook_id_seq', 76, true);
+SELECT pg_catalog.setval('public.guidebook_id_seq', 79, true);
 
 
 --
 -- Name: id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.id_seq', 188, true);
+SELECT pg_catalog.setval('public.id_seq', 196, true);
 
 
 --
@@ -490,13 +496,15 @@ COPY public.location (id, region, departement_name, departement_id, city_name, z
 10	Auvergne-Rhône-Alpes	Ain	01 	Pont-de-Vaux	01190
 74	Auvergne-Rhône-Alpes	Isère	38 	Miribel-Lanchâtre	38450
 87	Auvergne-Rhône-Alpes	Rhône	69 	Dracé	69220
-89	Nouvelle-Aquitaine	Pyrénées-Atlantiques	64 	Saint-Jammes	64160
 120	Hauts-de-France	Pas-de-Calais	62 	Berck	62600
 127	Bourgogne-Franche-Comté	Doubs	25 	Fleurey	25190
 174	Auvergne-Rhône-Alpes	Ain	01 	Reyssouze	01190
 71	Grand Est	Ardennes	08 	Saint-Juvin	08250
 180	Auvergne-Rhône-Alpes	Cantal	15 	Dienne	15300
 182	Auvergne-Rhône-Alpes	Cantal	15 	Murat	15300
+190	La Réunion	La Réunion	974	Sainte-Suzanne	97441
+192	Île-de-France	Seine-et-Marne	77 	Guérard	77580
+195	Auvergne-Rhône-Alpes	Puy-de-Dôme	63 	Chas	63160
 \.
 
 
@@ -510,7 +518,6 @@ COPY public.member (id, first_name, surname, nickname, password, email, phone, d
 17	Super	Admin	superadmin	superadmin	superadmin@admin.fr	015781870467	2019-03-07 10:26:32.06
 23	Erdzhan	Ruzhdi	erico	soleil	erdzhan_ruzhdi@yahoo.bg	015781870467	2019-03-18 15:34:16.629
 8	Julien	Berthoud	Juju	soleil	julien_berthoud@yahoo.fr	015781870467	2019-03-01 12:27:02.833
-25	Serge	Hallib	shallib	soleil	shallib@google.com	0385202988	2019-03-19 10:00:13.669
 4	Roger	Black	Roger	yuyu89!	rogerroger@yahoo.fr		2019-01-22 00:00:00
 \.
 
@@ -539,11 +546,12 @@ COPY public.member_librairy (member_id, guidebook_id, id) FROM stdin;
 4	66	169
 8	1	170
 8	65	171
-8	64	172
 8	66	185
 23	6	186
 23	65	187
 23	66	188
+8	4	189
+8	78	194
 2	1	153
 \.
 
@@ -552,40 +560,42 @@ COPY public.member_librairy (member_id, guidebook_id, id) FROM stdin;
 -- Data for Name: route; Type: TABLE DATA; Schema: public; Owner: admin
 --
 
-COPY public.route (id, name, nb_pitch, index_pitch, rating, bolted, spot_id) FROM stdin;
-1	A tout pic	1	1	5b	t	3
-2	Soleil matinal	2	1	7	t	3
-3	Coup de sang	2	2	9	f	3
-4	Salamandre dorée	1	1	3a	t	3
-5	Voie royale	1	1	4	t	1
-6	Soleil levant	1	1	4	t	1
-7	Pierre qui roule	1	1	5	t	1
-8	Terminator	1	1	8	t	1
-9	Les cerveaux lents	1	1	4	t	2
-10	2001 les doigts de l'espace	2	1	6	t	2
-11	2001 les doigts de l'espace	2	2	7	t	2
-17	Batman	1	1	7	f	6
-18	Speed runner	1	1	6	f	6
-19	Paravent royal	1	1	8	t	7
-13	Ma voie de l'espoir atomique	1	1	5	t	4
-24	Michu, t'es foutu	1	1	7	t	72
-25	Michu, on est peut plus!	1	1	4	t	72
-26	Nous revoila	1	1	4	f	73
-28	Coucou nous voilà	1	1	4	f	75
-29	Voie du renard	1	1	6	t	88
-31	La belle rouge	1	1	6	t	121
-33	Les loupiots	2	1	4	f	128
-34	Les loupiots	2	2	7	f	128
-14	Bêves blancs	1	1	8	t	4
-38	2020 l'aventure	1	1	5	t	183
-39	2030 La défi	1	1	6a	t	183
-40	2020 l'aventure	1	1	5	t	183
-21	La voie du colonnel	1	1	1	f	5
-32	Doigts de fer	1	1	6	t	124
-30	La belle bleue	1	1	5	t	121
-35	Les aventuriers	1	1	4	t	175
-36	Les bressans	2	1	4	t	175
-37	Les bressans	2	2	9	f	175
+COPY public.route (id, name, nb_pitch, index_pitch, rating, spot_id, nb_anchor) FROM stdin;
+10	2001 les doigts de l'espace	2	1	6	2	12
+9	Les cerveaux lents	1	1	4	2	10
+8	Terminator	1	1	8	1	12
+7	Pierre qui roule	1	1	5	1	14
+6	Soleil levant	1	1	4	1	16
+5	Voie royale	1	1	4	1	26
+4	Salamandre dorée	1	1	3a	3	15
+40	2020 l'aventure	1	1	5	183	20
+2	Soleil matinal	2	1	7	3	20
+39	2030 La défi	1	1	6a	183	19
+38	2020 l'aventure	1	1	5	183	16
+14	Bêves blancs	1	1	8	4	26
+35	Les aventuriers	1	1	4	175	20
+30	La belle bleue	1	1	5	121	16
+31	La belle rouge	1	1	6	121	14
+29	Voie du renard	1	1	6	88	12
+32	Doigts de fer	1	1	6	124	10
+1	A tout pic	1	1	5b	3	23
+25	Michu, on est peut plus!	1	1	4	72	23
+24	Michu, t'es foutu	1	1	7	72	12
+13	Ma voie de l'espoir atomique	1	1	5	4	10
+19	Paravent royal	1	1	8	7	8
+36	Les bressans	2	1	4	175	14
+41	L'imaginaire au pouvoir	2	1	3	193	12
+11	2001 les doigts de l'espace	2	2	7	2	10
+21	La voie du colonnel	1	1	1	5	0
+42	L'imaginaire au pouvoir	2	2	8	193	0
+34	Les loupiots	2	2	7	128	0
+33	Les loupiots	2	1	4	128	0
+28	Coucou nous voilà	1	1	4	75	0
+26	Nous revoila	1	1	4	73	0
+18	Speed runner	1	1	6	6	0
+17	Batman	1	1	7	6	0
+3	Coup de sang	2	2	9	3	0
+37	Les bressans	2	2	9	175	0
 \.
 
 
@@ -593,7 +603,7 @@ COPY public.route (id, name, nb_pitch, index_pitch, rating, bolted, spot_id) FRO
 -- Name: route_id_seq; Type: SEQUENCE SET; Schema: public; Owner: admin
 --
 
-SELECT pg_catalog.setval('public.route_id_seq', 40, true);
+SELECT pg_catalog.setval('public.route_id_seq', 44, true);
 
 
 --
@@ -601,7 +611,9 @@ SELECT pg_catalog.setval('public.route_id_seq', 40, true);
 --
 
 COPY public.spot (id, name_spot, name_area, location_id, access) FROM stdin;
-5	Mont-Blanc	Ouestine Célestinette	7	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
+5	Mont-Blanc	Ouestine Célestinette	7	Le site se situe à la sortie du village, sur la D322. Tourner à gauche après la station service Total et continuer tout droit en direction du col du Grand Vélibier.   
+4	Mont-Blanc	Sud-Ouest	7	Le site se situe à la sortie du village, sur la D329. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier.  
+191	Cirque de Mafate		190	À la sortie de Sainte-Suzanne, prendre la route communale en direction du volcan. L'emplacement du parking est bien indiqué. 
 181	Le Puy Mary		180	Le site se trouve à l'entrée de Dienne, sur la D34.
 183	Bellevue		182	Par la D23 en direction de Dienne
 184	Bellevue		182	Par la D23 en direction de Dienne
@@ -611,16 +623,15 @@ COPY public.spot (id, name_spot, name_area, location_id, access) FROM stdin;
 6	Beau soleil		6	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 3	Falaise de Basse Vallée		9	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 2	Site de la Grande Roche		4	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
+193	Falaises blanches	Nord	192	Sur la D323, à 4 km de Moulin 
 175	Les cabanis		174	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 128	Les Loups-Garous		127	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 124	La grimpette	nord	10	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
-90	La bellete noire		89	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 88	Site des verts	Sud	87	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 75	Les morilles	Sud	74	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 73	La poste michue	Est	71	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 72	Le poste michue	Ouest	71	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 37	Les chamelles rouges	Sud	5	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
-4	Mont-Blanc	Sud-Ouest	7	Le site se situe à la sortie du village, sur la D325. Tourner à droite après la station service Total et continuer tout droit en direction du col du Grand Vélibier. 
 \.
 
 
