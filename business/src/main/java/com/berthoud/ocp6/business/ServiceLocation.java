@@ -54,7 +54,7 @@ public class ServiceLocation {
 
 
     /**
-     * This method takes a list of Locations as parameter and for each spot of each location remove the routes that don't
+     * This method takes a list of Locations as parameter and for each spot of each location remove the locations that don't
      * fulfil the research criteria (level too low or route not bolted).
      *
      * @param locations        the list of locations to be filtered
@@ -69,9 +69,9 @@ public class ServiceLocation {
             Location location = i.next();
             List<Spot> spots = location.getSpots();
             serviceSpot.filterSpots(spots, onlyBoltedRoutes, levelMin, levelMax);
-//            if (spots.isEmpty()) {
-////                i.remove();
-////            }
+            if (spots.isEmpty()) {
+                i.remove();
+            }
         }
         return locations;
     }

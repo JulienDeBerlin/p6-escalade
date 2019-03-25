@@ -14,15 +14,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-@SessionAttributes(value = {"alertTopo"})
 @Controller
-public class ControllerTopos {
+public class ControllerGuidebooks {
 
     @Autowired
     ServiceLocation serviceLocation;
@@ -37,14 +35,14 @@ public class ControllerTopos {
     private static final Logger logger = LogManager.getLogger();
 
     /**
-     * This controller-method takes as inputs the serach parameters entered by the user, look in the DB for the
-     * matching guidebooks and pass the list of matching guidebooks to the view
+     * This controller-method takes as inputs the search parameters entered by the user, looks in the DB for the
+     * matching guidebooks and passes the list of matching guidebooks to the view
      *
      * @param locationInputForTopo the location search-parameter entered by the user
      * @param loanRequired         search-parameter entered by the user. If loanRequired is true, only guidebooks available for loan
      *                             are retrieved.
      * @param model                //
-     * @return topos.jsp, the page where the the guidebooks are presented
+     * @return guidebooks.jsp, the page where the the guidebooks are presented
      */
     @RequestMapping(value = "/topos", method = RequestMethod.POST)
     public String getResultTopos(@RequestParam(value = "locationInputForTopo") String locationInputForTopo,
@@ -57,13 +55,12 @@ public class ControllerTopos {
 
         model.put("locationInputForTopo", locationInputForTopo);
         model.put("guidebookListWithoutDuplicates", guidebookListWithoutDuplicates);
-        model.put("alertTopo", "ok");
-        return "topos";
+        return "guidebooks";
     }
 
 
     /**
-     * This controller-method retrieved a list of guidebooks matching with a spot
+     * This controller-method retrieves a list of guidebooks matching with a spot
      *
      * @param spotId the id of the spot
      * @param model  //
@@ -80,7 +77,7 @@ public class ControllerTopos {
         model.put("locationInputForTopo", locationInputForTopo);
         model.put("guidebookListWithoutDuplicates", guidebooks);
 
-        return "topos";
+        return "guidebooks";
     }
 
 

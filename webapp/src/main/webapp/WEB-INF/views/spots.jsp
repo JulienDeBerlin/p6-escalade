@@ -88,6 +88,9 @@
     <p><strong> LISTE DES SITES CORRESPONDANT À LA RECHERCHE <br/>
         ${locationInput}</strong></p>
 
+    <c:if test="${  empty resultLocations}">
+        <p style="color: red">La recherche n'a donné aucun résultat. Essayer d'élargir vos critères de recherches.</p>
+    </c:if>
 
     <c:forEach items="${ resultLocations }" var="location">
 
@@ -106,7 +109,6 @@
                     <br/>
                 </c:if>
 
-
                 <div style=" margin-top: 2em ">
                     <c:if test="${ not empty spot.guidebooks}">
                         <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">
@@ -124,6 +126,16 @@
 
                     <p> ${spot.access}</p>
                 </div>
+
+                <c:if test="${ empty spot.routes}">
+                    <p class="font-italic">Aucune voie n'a encore été référencée pour ce site! La recherche
+                        multi-critères n'est donc pas possible.<br/>
+                        <a href="${pageContext.request.contextPath}/escalade/addcontent/spot">
+                            Aidez-nous à améliorer le référencement de ce site en ajoutant les voies de votre
+                            connaissance.</a></p>
+                </c:if>
+
+
 
 
                 <table class="table">

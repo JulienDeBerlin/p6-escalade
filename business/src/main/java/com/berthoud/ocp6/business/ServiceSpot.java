@@ -25,7 +25,7 @@ public class ServiceSpot {
 
 
     /**
-     * This method takes a list of spots as parameter and for each spot removes the routes that don't
+     * This method takes a list of spots as parameter and for each spot removes the routes and the spots that don't
      * fulfil the research criteria (level too low or route not bolted)
      *
      * @param spots            the list of spots to be filtered
@@ -53,9 +53,9 @@ public class ServiceSpot {
                     j.remove();
                 }
             }
-//            if (routes.isEmpty()) {
-//                i.remove();
-//            }
+            if (routes.isEmpty()) {
+                i.remove();
+            }
         }
         return spots;
     }

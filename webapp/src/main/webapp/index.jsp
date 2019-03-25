@@ -136,11 +136,6 @@
     <h1 id="lesSpots">RECHERCHER DES SITES</h1>
 
 
-    <c:if test="${alert=='notFound'}">
-        <p style="color: red"> Attention, la localisation doit être choisie parmi la liste des propositions
-        </p>
-    </c:if>
-
     <form method="post" action="${pageContext.request.contextPath}/escalade/spots">
 
         <!-- Prevent implicit submission of the form -->
@@ -202,10 +197,6 @@
 
     <h1 id="lesTopos">RECHERCHER DES TOPOS</h1>
 
-    <c:if test="${alertTopo=='notFound'}">
-        <p style="color: red"> Attention, la localisation doit être choisie parmi la liste des propositions
-        </p>
-    </c:if>
 
     <form method="post" action="${pageContext.request.contextPath}/escalade/topos">
 

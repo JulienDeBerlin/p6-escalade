@@ -89,6 +89,10 @@
 
     <p><strong>LISTE DES TOPOS CORRESPONDANT À LA LOCALISATION "${locationInputForTopo}" </strong></p>
 
+    <c:if test="${ empty guidebookListWithoutDuplicates}">
+        <p style="color: red">La recherche n'a donné aucun résultat. Essayer d'élargir vos critères de recherches.</p>
+    </c:if>
+
 
     <c:forEach items="${guidebookListWithoutDuplicates }" var="guidebook">
         <p style="margin-top: 2em">

@@ -118,6 +118,11 @@
         </div>
 
 
+        <c:if test="${ empty spot.routes}">
+            <p class="font-italic">Aucune voie n'a encore été référencée pour ce site! Vous connaissez des voies?
+                <a href="${pageContext.request.contextPath}/escalade/addcontent/spot">Ajouter-les!</a></p>
+        </c:if>
+
         <table class="table">
             <thead>
             <tr>

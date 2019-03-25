@@ -71,7 +71,7 @@ public class ControllerSpots {
      * @param onlySpotsWithBoltedRoutes filter. Value is retrieved from the session.
      * @param ratingMin                 filter. Value is retrieved from the session.
      * @param ratingMax                 filter. Value is retrieved from the session.
-     * @param idSpotToBeCommented       This parameter is only used in case the user want to comment a site.
+     * @param idSpotToBeCommented       This parameter is only used in case the user wants to comment a site.
      *                                  It determines for which spots the form "add-a-comment" has to be displayed in the view.
      *                                  In case a comment should be add, the "add-a-comment-request" is first sent to {@link ControllerAddComment},
      *                                  the {@param idSpotToBeCommented} is put in the model then and redirect to this controller.
