@@ -188,7 +188,6 @@ public class ControllerAddContent {
                                        @RequestParam(value = "nbPitch") byte nbPitch,
                                        @RequestParam(value = "indexPitch") byte indexPitch,
                                        @RequestParam(value = "rating") String rating,
-//                                       @RequestParam(value = "isBolted", required = false) boolean isBolted,
                                        @RequestParam(value = "nbAnchor") int nbAnchor,
                                        @SessionAttribute(value = "selectedSpot") Spot selectedSpot,
                                        ModelMap model) {
@@ -196,7 +195,6 @@ public class ControllerAddContent {
         newRoute.setName(nameRoute);
         newRoute.setNbPitch(nbPitch);
         newRoute.setIndexPitch(indexPitch);
-//        newRoute.setBolted(isBolted);
         newRoute.setRating(rating);
         newRoute.setNbAnchor(nbAnchor);
         newRoute.setSpot(selectedSpot);
