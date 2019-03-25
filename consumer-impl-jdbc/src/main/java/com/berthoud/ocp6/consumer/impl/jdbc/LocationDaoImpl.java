@@ -35,13 +35,13 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
     /**
      * Finds Location object based on Id (Primary key of table "Location")
      *
-     * @param locationInput the id (= colomn "id" in SQL table)
+     * @param locationId the id (= colomn "id" in SQL table)
      * @return
      */
     @Override
-    public Location findLocationById(int locationInput) {
+    public Location findLocationById(int locationId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
-        Location myResult = jdbcTemplate.queryForObject(sqlQueryBuilder("id"), new Object[]{locationInput}, new BeanPropertyRowMapper<>(Location.class));
+        Location myResult = jdbcTemplate.queryForObject(sqlQueryBuilder("id"), new Object[]{locationId}, new BeanPropertyRowMapper<>(Location.class));
         myResult.setSpots(spotDao.findSpotsByLocationId(myResult.getId()));
         return myResult;
     }
@@ -272,4 +272,12 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
         }
     }
 
+
+    @Override
+    public void deleteLocation(int locationId) {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
+
+        String sqlRequest = "delete from location where id = ?";
+        jdbcTemplate.update(sqlRequest, locationId);
+    }
 }

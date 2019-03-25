@@ -228,9 +228,11 @@ public class ControllerAdmin {
 
 
     @RequestMapping(value = "/admin/spots/delete", method = RequestMethod.POST)
-    public String deleteSpot(@RequestParam(value = "spotId") int spotId) {
+    public String deleteSpot(@RequestParam(value = "spotId") int spotId,
+                             ModelMap model) {
 
         serviceSpot.deleteSpot(spotId);
+        model.put("step", "step1");
 
         return "redirect:locationInput/displaySpot";
     }

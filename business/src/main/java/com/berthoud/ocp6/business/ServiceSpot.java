@@ -1,6 +1,8 @@
 package com.berthoud.ocp6.business;
 
+import com.berthoud.ocp6.consumer.contract.dao.LocationDao;
 import com.berthoud.ocp6.consumer.contract.dao.SpotDao;
+import com.berthoud.ocp6.model.bean.Location;
 import com.berthoud.ocp6.model.bean.Route;
 import com.berthoud.ocp6.model.bean.Spot;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ServiceSpot {
 
     @Autowired
     SpotDao spotDao;
+
+    @Autowired
+    LocationDao locationDao;
 
     @Autowired
     ServiceSpotComment serviceSpotComment;
@@ -83,8 +88,20 @@ public class ServiceSpot {
     }
 
 
+    /**
+     * This methods deletes a spot. If the spot to be deleted is the only spot referenced for the location, the location is also deleted.
+     *
+     * @param spotId the id of the spot to be deleted.
+     */
     @Transactional
     public void deleteSpot(int spotId) {
+
+        Location locationWithoutSpot = findSpotBasedOnId(spotId).getLocation();
+        Location locationWithSpot = locationDao.findLocationById(locationWithoutSpot.getId());
+
+        if (locationWithSpot.getSpots().size() == 1) {
+            locationDao.deleteLocation(locationWithSpot.getId());
+        }
         spotDao.deleteSpot(spotId);
     }
 

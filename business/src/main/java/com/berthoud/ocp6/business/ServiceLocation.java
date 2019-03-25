@@ -152,11 +152,18 @@ public class ServiceLocation {
         return locationDao.getCityProposalsForUpdateSpots(query);
     }
 
-
+    /**
+     * This method find a location based on its name and the name of its departement
+     *
+     * @param cityName        the name of the location
+     * @param departementName the name of the departement
+     * @return the location or null if the search has no result
+     */
     public Location findLocationByNameAndDepartement(String cityName, String departementName) {
         try {
             return locationDao.findLocationByNameAndDepartement(cityName, departementName);
         } catch (Exception e) {
+            logger.info("La recherche ne donne aucun résultat ", e);
             return null;
         }
     }

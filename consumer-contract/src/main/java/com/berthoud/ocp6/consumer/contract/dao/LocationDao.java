@@ -18,7 +18,11 @@ public interface LocationDao {
 
     Location insertLocation(Location location);
 
-    Location findLocationBasedOnSpotId (int SpotId);
+    Location findLocationBasedOnSpotId(int spotId);
+
+    void deleteLocation(int locationId);
+
+
 
 
 }
