@@ -138,12 +138,12 @@
         <form method="post" action="${pageContext.request.contextPath}/escalade/addcontent/addNewSpot">
             <div class="form-group">
                 <label for="nameSpot">Nom du site</label>
-                <input type="text" name="nameSpot" class="form-control" id="nameSpot" required>
+                <input type="text" name="nameSpot" class="form-control" id="nameSpot" required maxlength="50">
             </div>
 
             <div class="form-group">
                 <label for="nameArea">Nom du secteur (facultatif)</label>
-                <input type="text" name="nameArea" class="form-control" id="nameArea">
+                <input type="text" name="nameArea" class="form-control" id="nameArea" maxlength="50">
             </div>
 
             <div class="form-group">
@@ -232,7 +232,7 @@
 
             <div class="form-group">
                 <label for="newRoute">Nom de la voie:</label>
-                <input type="text" name="name" class="form-control" id="newRoute" required>
+                <input type="text" name="name" class="form-control" id="newRoute" required maxlength="100">
             </div>
 
             <div class="form-group">
@@ -247,7 +247,7 @@
 
             <div class="form-group">
                 <label for="rating">Cotation:</label>
-                <input type="text" name="rating" class="form-control" id="rating" required>
+                <input type="text" name="rating" class="form-control" id="rating" required maxlength="4">
             </div>
 
             <div class="form-group">

@@ -128,12 +128,14 @@
 
                 <div class="form-group">
                     <label for="firstnameAuthor">Prénom de l'auteur</label>
-                    <input type="text" name="firstnameAuthor" class="form-control" id="firstnameAuthor" required>
+                    <input type="text" name="firstnameAuthor" class="form-control" id="firstnameAuthor" required
+                           maxlength="30">
                 </div>
 
                 <div class="form-group">
                     <label for="surnameAuthor">Nom de l'auteur</label>
-                    <input type="text" name="surnameAuthor" class="form-control" id="surnameAuthor" required>
+                    <input type="text" name="surnameAuthor" class="form-control" id="surnameAuthor" required
+                           maxlength="50">
                 </div>
 
                 <div class="form-group">
@@ -144,12 +146,12 @@
 
                 <div class="form-group">
                     <label for="publisher">Éditeur</label>
-                    <input type="text" name="publisher" class="form-control" id="publisher" required>
+                    <input type="text" name="publisher" class="form-control" id="publisher" required maxlength="50">
                 </div>
 
                 <div class="form-group">
                     <label for="language">Langue</label>
-                    <input type="text" name="language" class="form-control" id="language" required>
+                    <input type="text" name="language" class="form-control" id="language" required maxlength="50">
                 </div>
 
                 <div>

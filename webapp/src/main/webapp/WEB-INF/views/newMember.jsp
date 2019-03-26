@@ -92,37 +92,39 @@
 
         <div class="form-group">
             <label for="firstName">Prénom</label>
-            <input type="text" name="firstName" class="form-control" id="firstName"
+            <input type="text" name="firstName" class="form-control" id="firstName" maxlength="30"
                    value="<c:out value="${firstname}"/>" required>
         </div>
 
         <div class="form-group">
             <label for="surname">Nom</label>
             <input type="text" name="surname" class="form-control" id="surname" value="<c:out value="${surname}"/>"
-                   required>
+                   required maxlength="50">
         </div>
 
 
         <div class="form-group">
             <label for="nickname">Pseudo</label>
             <input type="text" name="nickname" class="form-control" id="nickname" value="<c:out value="${nickname}"/>"
-                   required>
+                   required maxlength="20">
         </div>
 
         <div class="form-group">
             <label for="password">Mot de passe</label>
             <input type="password" name="password" class="form-control" id="password"
-                   value="<c:out value="${password}"/>" required>
+                   value="<c:out value="${password}"/>" required minlength="6">
         </div>
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" id="email" value="<c:out value="${email}"/>" required>
+            <input type="email" name="email" class="form-control" id="email" value="<c:out value="${email}"/>" required
+                   maxlength="100">
         </div>
 
         <div class="form-group">
             <label for="phone">Téléphone</label>
-            <input type="tel" name="phone" class="form-control" id="phone" value="<c:out value="${phone}"/>" required>
+            <input type="tel" name="phone" class="form-control" id="phone" value="<c:out value="${phone}"/>" required
+                   maxlength="30">
         </div>
 
         <button type="submit" class="btn btn-primary">Valider</button>

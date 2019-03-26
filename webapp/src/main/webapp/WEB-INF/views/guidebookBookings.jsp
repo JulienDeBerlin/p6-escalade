@@ -158,7 +158,7 @@
 
             <div class="form-group">
                 <label for="booked_by">Emprunteur</label>
-                <input type="text" name="booked_by" class="form-control" id="booked_by" required>
+                <input type="text" name="booked_by" class="form-control" id="booked_by" required maxlength="100">
             </div>
             <div class="form-group">
                 <label for="date_from">Date début</label>
@@ -170,11 +170,11 @@
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" name="email" class="form-control" id="email">
+                <input type="email" name="email" class="form-control" id="email" maxlength="100">
             </div>
             <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="tel" name="phone" class="form-control" id="phone">
+                <input type="tel" name="phone" class="form-control" id="phone" maxlength="30">
             </div>
 
             <button type="submit" class="btn btn-primary">Valider la nouvelle réservation</button>
