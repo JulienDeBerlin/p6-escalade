@@ -10,8 +10,9 @@ public class Route implements Comparable<Route>, Serializable {
     private byte nbPitch;
     private byte indexPitch;
     private String rating;
-    private Spot spot;
     private int nbAnchor;
+
+    private Spot spot;
 
 
     public Route(int id, String name, byte nbPitch, byte indexPitch, String rating, Spot spot, int nbAnchor) {

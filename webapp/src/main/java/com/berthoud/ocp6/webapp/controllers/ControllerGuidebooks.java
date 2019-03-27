@@ -71,7 +71,10 @@ public class ControllerGuidebooks {
 
         Spot selectedSpot = serviceSpot.findSpotBasedOnId(parseInt(spotId));
 
-        String locationInputForTopo = "Site " + selectedSpot.getNameSpot() + ", secteur " + selectedSpot.getNameArea();
+        String locationInputForTopo = selectedSpot.getNameSpot();
+        if (!selectedSpot.getNameArea().equals("")) {
+            locationInputForTopo += ", secteur: " + selectedSpot.getNameArea();
+        }
         List<Guidebook> guidebooks = selectedSpot.getGuidebooks();
 
         model.put("locationInputForTopo", locationInputForTopo);

@@ -7,6 +7,7 @@ import java.util.Objects;
 public class MemberLibrairy implements Serializable {
 
     private int id;
+
     private Member member;
     private Guidebook guidebook;
     private List<Booking> bookings;
