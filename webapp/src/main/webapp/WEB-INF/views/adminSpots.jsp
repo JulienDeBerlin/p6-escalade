@@ -125,10 +125,10 @@
                 <form method="post" action="${pageContext.request.contextPath}/escalade/admin/spots/update">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="nameSpot"></label><input type="text" class="form-control" id="nameSpot"
-                                                                 name="nameSpot"
-                                                                 value="<c:out value="${spot.nameSpot}"/>"
-                                                                 aria-describedby="nameSpotHelp" required>
+                            <input type="text" class="form-control" id="nameSpot"
+                                   name="nameSpot"
+                                   value="<c:out value="${spot.nameSpot}"/>"
+                                   aria-describedby="nameSpotHelp" required>
                             <small id="nameSpotHelp" class="form-text text-muted">Nom du site</small>
                             <input type="hidden" class="form-control" id="spotId" name="spotId"
                                    value="<c:out value="${spot.id}"/>">

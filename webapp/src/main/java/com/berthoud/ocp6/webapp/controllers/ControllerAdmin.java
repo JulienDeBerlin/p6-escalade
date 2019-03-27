@@ -232,7 +232,7 @@ public class ControllerAdmin {
                              ModelMap model) {
 
         serviceSpot.deleteSpot(spotId);
-        model.put("step", "step1");
+        model.put("step", "step2");
 
         return "redirect:locationInput/displaySpot";
     }

@@ -153,7 +153,6 @@
                 <textarea class="form-control" name="spotAccess" id="spotAccess" required></textarea>
             </div>
 
-
             <div class="form-group">
                 <label for="comment">Commentaire:</label>
                 <textarea class="form-control" rows="5" id="comment" name="comment"></textarea>
