@@ -138,12 +138,13 @@ public class ControllerAddContent {
         selectedLocation = serviceLocation.findLocationByNameAndDepartement(selectedLocation.getCityName(), selectedLocation.getDepartementName());
         model.put("selectedLocation", selectedLocation);
 
-        SpotComment newCommentWithoutKey = new SpotComment();
-        newCommentWithoutKey.setComment(comment);
-        newCommentWithoutKey.setMember(user);
-        newCommentWithoutKey.setSpot(newSpotWithKey);
-
-        serviceSpotComment.insertSpotComment(newCommentWithoutKey);
+        if (!comment.equals("")) {
+            SpotComment newCommentWithoutKey = new SpotComment();
+            newCommentWithoutKey.setComment(comment);
+            newCommentWithoutKey.setMember(user);
+            newCommentWithoutKey.setSpot(newSpotWithKey);
+            serviceSpotComment.insertSpotComment(newCommentWithoutKey);
+        }
 
         model.put("step", "step2");
 
