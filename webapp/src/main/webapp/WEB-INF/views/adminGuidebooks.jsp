@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -253,8 +254,6 @@
         <a href="${pageContext.request.contextPath}/escalade/addcontent/guidebook/isbn?isbn13=${selectedGuidebook.isbn13}#step3">
             quitter la page de modération et rejoindre la partie publique du site</a>
 
-        </p>
-
     </c:if>
 
 
@@ -266,7 +265,7 @@
     $(function () {
         $("#locationSpotsForGuidebook").autocomplete({
             minLength: 2,
-            source: '${pageContext.request.contextPath}/escalade/get_location_list',
+            source: '${pageContext.request.contextPath}/escalade/get_location_list'
         });
     });
 

@@ -29,9 +29,7 @@ public class ServiceMember {
      * @return true if the email is not used yet, false otherwise
      */
     public boolean isEmailAvailable(String email) {
-        if (memberDao.findMemberByEmail(email) == null) {
-            return true;
-        } else return false;
+        return memberDao.findMemberByEmail(email) == null;
     }
 
     /**
@@ -41,9 +39,7 @@ public class ServiceMember {
      * @return true if the nickname is not used yet, false otherwise
      */
     public boolean isNicknameAvailable(String nickname) {
-        if (memberDao.findMemberbyNickname(nickname) == null) {
-            return true;
-        } else return false;
+        return memberDao.findMemberbyNickname(nickname) == null;
     }
 
 

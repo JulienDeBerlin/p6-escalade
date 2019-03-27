@@ -2,7 +2,6 @@ package com.berthoud.ocp6.model.bean;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 public class Member implements Serializable {

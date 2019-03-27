@@ -94,7 +94,7 @@
     <c:forEach items="${ selectedGuidebook.spots }" var="spot" varStatus="status">
         <div style="background: lightgray;margin-top: 2em;margin-bottom: -2em ">
 
-            <c:out value="${ spot.location.departementName }"/> </br>
+            <c:out value="${ spot.location.departementName }"/> <br/>
             <c:out value="${ spot.location.zipCode }"/> <c:out value="${ spot.location.cityName }"/>
         </div>
 
@@ -103,12 +103,12 @@
             <c:if test="${ not empty spot.guidebooks}">
                 <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">
                     <img src="${pageContext.request.contextPath}/resources/img/bookshelf.png"
-                         title="Afficher les topos correspondants"></a>
+                         title="Afficher les topos correspondants" alt="logo étagère"></a>
             </c:if>
 
             <a href="${pageContext.request.contextPath}/escalade/toNewCommentForSpotFromGuidebook?idSpotToBeCommented=${spot.id}"
                title="Ajouter un commentaire">
-                <img src="${pageContext.request.contextPath}/resources/img/chat.png"></a>
+                <img src="${pageContext.request.contextPath}/resources/img/chat.png" alt="logo commentaire"></a>
 
             <span> <strong> <c:out value="site: ${spot.nameSpot}"/>
                     <c:if test="${ not empty spot.nameArea}"><c:out value="/ secteur: ${spot.nameArea}"/>

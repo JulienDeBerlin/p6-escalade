@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -127,7 +128,8 @@
 
         <div>
             <strong>Localisation:</strong><br/>
-            <c:out value="Région: ${ selectedLocation.region}, département: ${ selectedLocation.departementName}"/> </br>
+            <c:out value="Région: ${ selectedLocation.region}, département: ${ selectedLocation.departementName}"/>
+            <br/>
             <c:out value="${ selectedLocation.zipCode }"/> <c:out value="${ selectedLocation.cityName }"/>
         </div>
 
@@ -147,8 +149,8 @@
             </div>
 
             <div class="form-group">
-                <label for="nameArea">Accès au site</label>
-                <textarea class="form-control" name="spotAccess" required></textarea>
+                <label for="spotAccess">Accès au site</label>
+                <textarea class="form-control" name="spotAccess" id="spotAccess" required></textarea>
             </div>
 
 
@@ -193,7 +195,6 @@
 
         <mark><strong>Site: </strong> <c:out value="${ selectedSpot.nameSpot } "/> <strong>secteur:
         </strong><c:out value="${ selectedSpot.nameArea } "/></mark>
-        </p>
 
         <c:if test="${not empty selectedSpot.routes }">
             <p>Voie(s) déjà répertoriée(s):</p>
@@ -236,7 +237,7 @@
             </div>
 
             <div class="form-group">
-                <label for="newRoute">Nombre de longueurs: </label>
+                <label for="nbPitch">Nombre de longueurs: </label>
                 <input type="number" name="nbPitch" class="form-control" id="nbPitch" required>
             </div>
 
@@ -253,7 +254,7 @@
             <div class="form-group">
                 <label for="nbAnchor">Nombre de points d'ancrage: </label>
                 <input type="number" name="nbAnchor" class="form-control" id="nbAnchor" aria-describedby="nbAnchorHelp"
-                       min="0" , max="1000" required>
+                       min="0" max="1000" required>
                 <small id="nbAnchorHelp" class="form-text text-muted">0 si la voie n'est pas équipée.
                 </small>
             </div>
@@ -292,7 +293,7 @@
                                 codesPostal: item.codesPostaux[0]
                             }
                         }));
-                    },
+                    }
                 });
             },
 

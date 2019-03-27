@@ -26,8 +26,7 @@ public class ControllerAutoComplete {
     @RequestMapping(value = "/get_location_list", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getLocationList(@RequestParam("term") String query) {
-        List<String> locationProposals = serviceLocation.getLocationProposals(query);
-        return locationProposals;
+        return serviceLocation.getLocationProposals(query);
     }
 
 
@@ -43,8 +42,7 @@ public class ControllerAutoComplete {
     @RequestMapping(value = "/autocomplete/citiesForUpdateSpots", method = RequestMethod.GET)
     @ResponseBody
     public List<String> getCityProposalsForUpdateSpots(@RequestParam("term") String query) {
-        List<String> locationProposals = serviceLocation.getCityProposalsForUpdateSpots(query);
-        return locationProposals;
+        return serviceLocation.getCityProposalsForUpdateSpots(query);
     }
 
 

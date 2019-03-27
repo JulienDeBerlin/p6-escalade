@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -102,7 +103,7 @@
 
                     <div style="background: lightgray;margin-top: 2em;margin-bottom: -2em ">
 
-                        <c:out value="${ location.departementName }"/> </br>
+                        <c:out value="${ location.departementName }"/> <br/>
                         <c:out value="${ location.zipCode }"/> <c:out value="${ location.cityName }"/>
                     </div>
 
@@ -113,12 +114,12 @@
                     <c:if test="${ not empty spot.guidebooks}">
                         <a href="${pageContext.request.contextPath}/escalade/topos?spotId=${spot.id}">
                             <img src="${pageContext.request.contextPath}/resources/img/bookshelf.png"
-                                 title="Afficher les topos correspondants"></a>
+                                 title="Afficher les topos correspondants" alt="logo étagères"></a>
                     </c:if>
 
                     <a href="${pageContext.request.contextPath}/escalade/toNewComment?idSpotToBeCommented=${spot.id}"
                        title="Ajouter un commentaire">
-                        <img src="${pageContext.request.contextPath}/resources/img/chat.png"></a>
+                        <img src="${pageContext.request.contextPath}/resources/img/chat.png" alt="logo commentaire"></a>
 
                     <span> <strong> <c:out value="site: ${spot.nameSpot}"/>
                     <c:if test="${ not empty spot.nameArea}"><c:out value="/ secteur: ${spot.nameArea}"/>
@@ -134,8 +135,6 @@
                             Aidez-nous à améliorer le référencement de ce site en ajoutant les voies de votre
                             connaissance.</a></p>
                 </c:if>
-
-
 
 
                 <table class="table">
@@ -155,7 +154,6 @@
                             <td><c:out value="${route.rating}"/></td>
                             <td><c:out value="${route.indexPitch}"/>/<c:out value="${route.nbPitch}"/></td>
                             <td><c:out value="${route.nbAnchor}"/></td>
-                            </td>
                         </tr>
                     </c:forEach>
                     </tbody>

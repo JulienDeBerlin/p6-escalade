@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -174,8 +173,7 @@ public class ControllerSpots {
      */
     @ModelAttribute(value = "idSpotToBeCommented")
     public int getIdSpotToBeCommented() {
-        int getIdSpotToBeCommented = 0;
-        return getIdSpotToBeCommented;
+        return 0;
     }
 
 

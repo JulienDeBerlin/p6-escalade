@@ -125,8 +125,10 @@
                 <form method="post" action="${pageContext.request.contextPath}/escalade/admin/spots/update">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <input type="text" class="form-control" id="nameSpot" name="nameSpot"
-                                   value="<c:out value="${spot.nameSpot}"/>" aria-describedby="nameSpotHelp" required>
+                            <label for="nameSpot"></label><input type="text" class="form-control" id="nameSpot"
+                                                                 name="nameSpot"
+                                                                 value="<c:out value="${spot.nameSpot}"/>"
+                                                                 aria-describedby="nameSpotHelp" required>
                             <small id="nameSpotHelp" class="form-text text-muted">Nom du site</small>
                             <input type="hidden" class="form-control" id="spotId" name="spotId"
                                    value="<c:out value="${spot.id}"/>">
@@ -143,8 +145,6 @@
                     <div class="form-row">
 
                         <div class="form-group col-md-12">
-                                <%--<input type="text" class="form-control" id="spotAccess" name="spotAccess" aria-describedby="accessHelp"--%>
-                                <%--value="${spot.access}">--%>
                             <textarea class="form-control" name="spotAccess"
                                       aria-describedby="accessHelp"><c:out value="${spot.access}"/> </textarea>
                             <small id="accessHelp" class="form-text text-muted">Accès au site</small>
@@ -223,7 +223,7 @@
                         <div class="form-group">
                             <input type="number" name="nbAnchor" class="form-control" id="nbAnchor"
                                    value="<c:out value="${route.nbAnchor}"/>"
-                                   aria-describedby="nbAnchorHelp" min="0" , max="1000" required>
+                                   aria-describedby="nbAnchorHelp" min="0" max="1000" required>
                             <small id="nbAnchorHelp" class="form-text text-muted">Nb points ancrage</small>
                         </div>
 

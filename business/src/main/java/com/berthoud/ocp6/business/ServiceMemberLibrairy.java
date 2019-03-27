@@ -47,10 +47,7 @@ public class ServiceMemberLibrairy {
             listIdGuidebooks.add(guidebook.getId());
         }
 
-        if (listIdGuidebooks.contains(selectedGuidebook.getId())) {
-            return true;
-        }
-        return false;
+        return listIdGuidebooks.contains(selectedGuidebook.getId());
     }
 
 

@@ -21,8 +21,7 @@ public class ServiceLogin {
      * @return
      */
     public List<Member> getAllMembers() {
-        List<Member> members = memberDao.findAll();
-        return members;
+        return memberDao.findAll();
     }
 
     /**
@@ -43,10 +42,7 @@ public class ServiceLogin {
      * @return
      */
     public boolean checkPassword(String inputPassword, Member member) {
-        if (member.getPassword().equals(inputPassword)) {
-            return true;
-        }
-        return false;
+        return member.getPassword().equals(inputPassword);
     }
 
     @Transactional

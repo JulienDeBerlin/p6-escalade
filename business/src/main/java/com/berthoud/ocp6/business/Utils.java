@@ -16,8 +16,7 @@ public class Utils {
      * @return the String with the first letter as upper case
      */
     public static String firstLetterUpperCase(String input) {
-        String output = input.substring(0, 1).toUpperCase() + input.substring(1);
-        return output;
+        return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 
 }

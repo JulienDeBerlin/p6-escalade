@@ -3,9 +3,7 @@ package com.berthoud.ocp6.consumer.impl.jdbc;
 import com.berthoud.ocp6.consumer.contract.dao.GuidebookDao;
 import com.berthoud.ocp6.consumer.contract.dao.SpotCommentDao;
 import com.berthoud.ocp6.model.bean.Guidebook;
-import com.berthoud.ocp6.model.bean.Location;
 import com.berthoud.ocp6.model.bean.Member;
-import com.berthoud.ocp6.model.bean.Spot;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +12,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
-import java.sql.Types;
 import java.util.Iterator;
 import java.util.List;
 
@@ -78,10 +74,8 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
 
         String sqlRequest = "select * from guidebook where guidebook.id = ?";
-        Guidebook selectedGuidebook = jdbcTemplate.queryForObject(sqlRequest, new Object[]{guidebookId}, new BeanPropertyRowMapper<>(Guidebook.class));
 
-
-        return selectedGuidebook;
+        return jdbcTemplate.queryForObject(sqlRequest, new Object[]{guidebookId}, new BeanPropertyRowMapper<>(Guidebook.class));
     }
 
     /**
@@ -100,9 +94,8 @@ public class GuidebookDaoImpl extends AbstractDaoImpl implements GuidebookDao {
                 "(select guidebook_id from member_librairy " +
                 "where member_id = ?)";
 
-        List<Guidebook> guidebooksForLoan = jdbcTemplate.query(sqlRequest, new Object[]{member.getId()},
+        return jdbcTemplate.query(sqlRequest, new Object[]{member.getId()},
                 new BeanPropertyRowMapper<>(Guidebook.class));
-        return guidebooksForLoan;
     }
 
 

@@ -16,7 +16,7 @@ public abstract class AbstractDaoImpl {
         this.dataSource = dataSource;
     }
 
-    protected DataSource getDataSource() {
+    public DataSource getDataSource() {
         return dataSource;
     }
 }

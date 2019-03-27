@@ -168,7 +168,6 @@ public class ControllerLibrairy {
         }
 
         if (periodAvailable) {
-
             Booking newBooking = new Booking();
             newBooking.setBookedBy(booked_by);
             newBooking.setDateFrom(dateFrom);

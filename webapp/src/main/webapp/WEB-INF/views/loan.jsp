@@ -146,7 +146,7 @@
     $(function () {
         $("#locationSpotsForGuidebook").autocomplete({
             minLength: 2,
-            source: '${pageContext.request.contextPath}/escalade/get_location_list',
+            source: '${pageContext.request.contextPath}/escalade/get_location_list'
         });
     });
 

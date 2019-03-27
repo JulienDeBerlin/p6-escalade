@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -51,12 +52,12 @@
                 <li class="nav-item">
                     <a class="nav-item nav-link" href="${pageContext.request.contextPath}/#Contribuez">Contribuez</a>
                 </li>
-                    <c:if test="${user.email=='superadmin@admin.fr'}">
-                        <li class="nav-item">
-                            <a class="nav-item nav-link"
-                               href="${pageContext.request.contextPath}/#Moderation">Moderation</a>
-                        </li>
-                    </c:if>
+                <c:if test="${user.email=='superadmin@admin.fr'}">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link"
+                           href="${pageContext.request.contextPath}/#Moderation">Moderation</a>
+                    </li>
+                </c:if>
             </ul>
 
             <ul class="navbar-nav">
@@ -121,7 +122,7 @@
         </p>
 
         <p>
-            <c:out value="${ guidebook.summary }"/><br/></span>
+            <c:out value="${ guidebook.summary }"/><br/>
         </p>
 
     </c:forEach>

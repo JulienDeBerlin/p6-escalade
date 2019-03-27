@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-import static java.time.LocalDate.now;
-
 
 @SessionAttributes(value = {"selectedGuidebook", "isbn13", "user", "actualYear"})
 @Controller

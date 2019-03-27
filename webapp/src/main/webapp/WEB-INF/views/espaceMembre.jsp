@@ -1,3 +1,4 @@
+<%--suppress ALL --%>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -109,7 +110,8 @@
         <p>
         <p>
             <a href="${pageContext.request.contextPath}/escalade/login/resetPassword">
-                <img src="${pageContext.request.contextPath}/resources/img/lock.png" title="Changer le mot de passe">
+                <img src="${pageContext.request.contextPath}/resources/img/lock.png" title="Changer le mot de passe"
+                     alt="logo cadenas">
             </a>
         </p>
         <c:if test="${message=='password2different'}">
@@ -143,8 +145,6 @@
             </form>
 
         </c:if>
-
-        </p>
 
     </div>
 
@@ -190,8 +190,6 @@
             <p style="color: green"> Le topo a bien été supprimé de la liste.</p>
         </c:if>
 
-        </p>
-
         <p>
         <h4>Ajouter un topo référencé à la liste</h4>
 
@@ -221,8 +219,6 @@
 
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
-
-        </p>
 
     </div>
 

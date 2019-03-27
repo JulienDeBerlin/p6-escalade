@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
@@ -169,13 +168,9 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
             matches.add(s + " (département)");
         }
 
-        for (String s : myResults4) {
-            matches.add(s);
-        }
+        matches.addAll(myResults4);
 
-        for (String s : myResults5) {
-            matches.add(s);
-        }
+        matches.addAll(myResults5);
 
         return matches;
 
@@ -201,13 +196,9 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
         List<String> myResults1 = jdbcTemplate.query(sqlQuery1, new CityLocationMapper());
         List<String> myResults2 = jdbcTemplate.query(sqlQuery2, new CityLocationMapper());
 
-        for (String s : myResults1) {
-            matches.add(s);
-        }
+        matches.addAll(myResults1);
 
-        for (String s : myResults2) {
-            matches.add(s);
-        }
+        matches.addAll(myResults2);
 
         return matches;
     }
@@ -255,8 +246,7 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
     public Location findLocationBasedOnSpotId(int SpotId) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(getDataSource());
         String myRequest = "select * from location where id in (select location_id from spot where spot.id = ?)";
-        Location selectedLocation = jdbcTemplate.queryForObject(myRequest, new Object[]{SpotId}, new BeanPropertyRowMapper<>(Location.class));
-        return selectedLocation;
+        return jdbcTemplate.queryForObject(myRequest, new Object[]{SpotId}, new BeanPropertyRowMapper<>(Location.class));
     }
 
 
@@ -266,9 +256,8 @@ public class LocationDaoImpl extends AbstractDaoImpl implements LocationDao {
     class CityLocationMapper implements RowMapper<String> {
         @Override
         public String mapRow(ResultSet rs, int rowNum) throws SQLException {
-            String s = rs.getString("city_name") + " (ville du département: " +
+            return rs.getString("city_name") + " (ville du département: " +
                     rs.getString("departement_name") + ")";
-            return s;
         }
     }
 
